@@ -1,0 +1,1187 @@
+﻿:root {
+  --ink: #101010;
+  --ink-soft: #333333;
+  --muted: #6d6a63;
+  --line: #d8d3c8;
+  --paper: #f5f2eb;
+  --card: #fffdf8;
+  --sand: #ebe4d8;
+  --red: #b42318;
+  --red-dark: #86190f;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.container {
+  width: min(1240px, calc(100% - 36px));
+}
+
+.catalogHeader {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fffdf8;
+  border-bottom: 1px solid var(--line);
+}
+
+.catalogTopBar {
+  background: var(--ink);
+  color: #e8e1d3;
+  font-size: 0.76rem;
+  letter-spacing: 0.03em;
+}
+
+.catalogTopBarInner {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 7px 0;
+}
+
+.catalogHeaderMain {
+  display: grid;
+  grid-template-columns: auto auto minmax(260px, 1fr) auto auto;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 0;
+}
+
+.catalogBrand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.catalogLogo {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  background: var(--red);
+  color: white;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+.catalogBrandName {
+  font-size: 1.22rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+.catalogBrandSub {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.catalogNav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.catalogNavLink,
+.catalogNavDisabled {
+  padding: 9px 11px;
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 800;
+  border-bottom: 3px solid transparent;
+}
+
+.activeCatalogNavLink {
+  color: var(--red);
+  border-bottom-color: var(--red);
+}
+
+.catalogNavDisabled {
+  color: #9b9488;
+}
+
+.catalogNavDisabled small {
+  margin-left: 4px;
+  color: var(--red);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+}
+
+.catalogHeaderSearch {
+  display: flex;
+  border: 1px solid var(--line);
+  background: white;
+  height: 42px;
+}
+
+.catalogHeaderSearch input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  padding: 0 12px;
+  outline: none;
+  background: transparent;
+  color: var(--ink);
+}
+
+.catalogHeaderSearch button {
+  border: 0;
+  background: var(--ink);
+  color: white;
+  padding: 0 15px;
+  font-weight: 850;
+}
+
+.catalogSubmitLink {
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  background: transparent;
+  padding: 10px 13px;
+  text-decoration: none;
+  font-size: 0.84rem;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.mobileMenu {
+  border-radius: 0;
+}
+
+.catalogMobileNav {
+  display: grid;
+  gap: 8px;
+  padding: 12px 18px 18px;
+  border-top: 1px solid var(--line);
+  background: var(--card);
+}
+
+.catalogMobileSearch {
+  display: flex;
+  border: 1px solid var(--line);
+  background: white;
+}
+
+.catalogMobileSearch input {
+  flex: 1;
+  border: 0;
+  padding: 12px;
+  outline: none;
+}
+
+.catalogMobileSearch button {
+  border: 0;
+  background: var(--ink);
+  color: white;
+  padding: 0 14px;
+  font-weight: 800;
+}
+
+.disabledMobileNav {
+  color: #9b9488;
+}
+
+.catalogHome {
+  background: var(--paper);
+}
+
+.catalogHero {
+  background:
+    linear-gradient(135deg, rgba(16,16,16,0.94), rgba(16,16,16,0.74)),
+    linear-gradient(90deg, #231f1d, #5f1d14);
+  color: white;
+  padding: 58px 0;
+}
+
+.catalogHeroGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) 420px;
+  gap: 40px;
+  align-items: stretch;
+}
+
+.catalogEyebrow {
+  color: var(--red);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.74rem;
+  font-weight: 950;
+  margin-bottom: 12px;
+}
+
+.catalogHero .catalogEyebrow {
+  color: #ffb0a8;
+}
+
+.catalogHero h1 {
+  max-width: 900px;
+  font-size: clamp(2.5rem, 5.8vw, 5.1rem);
+  line-height: 0.95;
+  letter-spacing: -0.075em;
+}
+
+.catalogHeroCopy p {
+  max-width: 720px;
+  margin-top: 22px;
+  color: #ddd4c8;
+  line-height: 1.75;
+  font-size: 1.06rem;
+}
+
+.catalogHeroSearch {
+  display: flex;
+  gap: 0;
+  max-width: 790px;
+  margin-top: 30px;
+  border: 1px solid rgba(255,255,255,0.22);
+  background: #fffdf8;
+  padding: 6px;
+}
+
+.catalogHeroSearch input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  padding: 16px;
+  outline: none;
+  background: #fffdf8;
+  color: var(--ink);
+}
+
+.catalogHeroSearch button {
+  border: 0;
+  background: var(--red);
+  color: white;
+  padding: 0 22px;
+  font-weight: 900;
+}
+
+.catalogQuickLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.catalogQuickLinks button {
+  border: 1px solid rgba(255,255,255,0.28);
+  background: rgba(255,255,255,0.08);
+  color: white;
+  padding: 8px 11px;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.catalogHeroPanel {
+  background: var(--card);
+  color: var(--ink);
+  border-top: 4px solid var(--red);
+  padding: 24px;
+  box-shadow: 0 22px 50px rgba(0,0,0,0.25);
+}
+
+.panelLabel {
+  color: var(--red);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.catalogHeroPanel h2 {
+  margin-top: 10px;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.catalogHeroPanel p {
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+.heroSpecGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+  margin-top: 22px;
+}
+
+.heroSpecGrid div {
+  padding: 14px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: #faf6ed;
+}
+
+.heroSpecGrid span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.76rem;
+  margin-bottom: 4px;
+}
+
+.heroSpecGrid b {
+  font-size: 1.15rem;
+}
+
+.catalogPanelButton {
+  display: block;
+  margin-top: 18px;
+  text-align: center;
+  background: var(--ink);
+  color: white;
+  text-decoration: none;
+  padding: 13px;
+  font-weight: 900;
+}
+
+.catalogBrandRail {
+  background: #fffdf8;
+  border-bottom: 1px solid var(--line);
+}
+
+.catalogBrandRailInner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 14px 0;
+}
+
+.catalogBrandRailInner span {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 950;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.catalogBrandRailInner a {
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  text-decoration: none;
+  padding: 8px 13px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.catalogSection {
+  padding: 50px 0;
+}
+
+.catalogSectionHeader {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.catalogSectionHeader h2 {
+  font-size: 2rem;
+  letter-spacing: -0.05em;
+}
+
+.catalogTextLink {
+  color: var(--red);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.catalogCategoryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.catalogCategory {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 4px solid #c7bba9;
+  padding: 22px;
+}
+
+.activeCatalogCategory {
+  border-top-color: var(--red);
+}
+
+.categoryStatus {
+  color: var(--red);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 900;
+}
+
+.catalogCategory h3 {
+  margin-top: 10px;
+  font-size: 1.45rem;
+}
+
+.catalogCategory p {
+  color: var(--muted);
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.catalogSeriesBand {
+  background: #fffdf8;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 50px 0;
+}
+
+.catalogSeriesGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+
+.catalogSeriesCard {
+  display: block;
+  min-height: 230px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: inherit;
+  text-decoration: none;
+  padding: 18px;
+}
+
+.catalogSeriesCard:hover {
+  border-color: var(--red);
+}
+
+.seriesBrand {
+  color: var(--red);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 950;
+}
+
+.catalogSeriesCard h3 {
+  margin-top: 10px;
+  font-size: 1.25rem;
+}
+
+.catalogSeriesCard p {
+  margin-top: 10px;
+  color: var(--muted);
+  line-height: 1.55;
+  font-size: 0.92rem;
+}
+
+.seriesStats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 16px;
+}
+
+.seriesStats span {
+  background: #fffdf8;
+  border: 1px solid var(--line);
+  padding: 6px 8px;
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+  font-weight: 850;
+}
+
+.catalogRodGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.catalogRodCard {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--ink);
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.catalogRodCard:hover {
+  border-top-color: var(--red);
+}
+
+.rodImagePanel {
+  background:
+    linear-gradient(135deg, rgba(16,16,16,0.08), rgba(180,35,24,0.1)),
+    #ede6d9;
+  min-height: 150px;
+  padding: 18px;
+  display: flex;
+  align-items: end;
+}
+
+.rodImagePlaceholder {
+  width: 100%;
+  border: 1px dashed #9c9385;
+  padding: 14px;
+  background: rgba(255,253,248,0.72);
+}
+
+.rodImagePlaceholder span {
+  display: block;
+  color: var(--red);
+  font-size: 0.72rem;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.rodImagePlaceholder strong {
+  display: block;
+  margin-top: 5px;
+  font-size: 1rem;
+}
+
+.catalogRodBody {
+  padding: 18px;
+}
+
+.catalogRodKicker {
+  color: var(--red);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  font-weight: 950;
+}
+
+.catalogRodTitleRow {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.catalogRodTitleRow h3 {
+  font-size: 1.25rem;
+  line-height: 1.15;
+}
+
+.compareCheck {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.catalogRodType {
+  color: var(--muted);
+  margin-top: 6px;
+  font-size: 0.92rem;
+}
+
+.catalogSpecTable {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+  margin-top: 16px;
+}
+
+.catalogSpecTable div {
+  padding: 10px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: #faf6ed;
+}
+
+.catalogSpecTable span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.7rem;
+  margin-bottom: 3px;
+}
+
+.catalogSpecTable b {
+  font-size: 0.86rem;
+}
+
+.catalogRodTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.catalogRodTags .pill,
+.catalogGuideCard .pill {
+  border-radius: 0;
+  background: #fffdf8;
+  border-color: var(--line);
+  color: var(--ink-soft);
+}
+
+.catalogRodMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.catalogRodMeta span {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  padding: 5px 7px;
+  font-size: 0.72rem;
+  font-weight: 850;
+}
+
+.catalogRodFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--line);
+  margin-top: 16px;
+  padding-top: 14px;
+}
+
+.catalogRating {
+  font-weight: 900;
+  color: var(--ink);
+}
+
+.catalogViewButton {
+  background: var(--ink);
+  color: white;
+  text-decoration: none;
+  padding: 9px 12px;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.catalogViewButton:hover {
+  background: var(--red);
+}
+
+.catalogGuideGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.catalogGuideCard {
+  display: block;
+  background: var(--card);
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--red);
+  padding: 20px;
+}
+
+.catalogGuideCard h3 {
+  margin-top: 14px;
+  font-size: 1.18rem;
+}
+
+.catalogGuideCard p {
+  color: var(--muted);
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.catalogGuideCard span:last-child {
+  display: inline-block;
+  margin-top: 18px;
+  color: var(--red);
+  font-weight: 900;
+}
+
+.card,
+.heroPreview {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.pill {
+  border-radius: 0;
+}
+
+.blackButton,
+.outlineButton,
+.submitButton,
+.navButton,
+.searchBox,
+.searchBox input,
+.searchBox button,
+.statCard,
+.specBox,
+.factRow,
+.tableWrap,
+.darkNote,
+.imageSlot,
+.categoryCard,
+.seriesCard {
+  border-radius: 0 !important;
+}
+
+footer {
+  background: #fffdf8;
+  border-top: 1px solid var(--line);
+}
+
+@media (max-width: 1100px) {
+  .catalogHeaderMain {
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .catalogNav,
+  .catalogHeaderSearch,
+  .catalogSubmitLink {
+    display: none;
+  }
+
+  .mobileMenu {
+    display: block;
+  }
+
+  .catalogHeroGrid,
+  .catalogCategoryGrid,
+  .catalogRodGrid,
+  .catalogGuideGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .catalogSeriesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .catalogTopBarInner {
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .catalogHero {
+    padding: 42px 0;
+  }
+
+  .catalogHeroSearch {
+    flex-direction: column;
+  }
+
+  .catalogHeroSearch button {
+    padding: 14px;
+  }
+
+  .catalogSeriesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .catalogSpecTable {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .catalogSectionHeader {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
+
+.rodCategorySection {
+  padding-top: 22px;
+}
+
+.catalogRodCategoryGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.catalogRodCategoryCard {
+  display: block;
+  min-height: 175px;
+  background: #fffdf8;
+  border: 1px solid var(--line);
+  border-left: 4px solid #c7bba9;
+  color: inherit;
+  text-decoration: none;
+  padding: 18px;
+}
+
+.catalogRodCategoryCard:hover {
+  border-left-color: var(--red);
+  background: #faf6ed;
+}
+
+.rodCategoryGroup {
+  color: var(--red);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.7rem;
+  font-weight: 950;
+}
+
+.catalogRodCategoryCard h3 {
+  margin-top: 10px;
+  font-size: 1.22rem;
+}
+
+.catalogRodCategoryCard p {
+  color: var(--muted);
+  margin-top: 9px;
+  line-height: 1.55;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 1100px) {
+  .catalogRodCategoryGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .catalogRodCategoryGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.compactCatalogueHero {
+  padding: 48px 0;
+}
+
+.twStyleSection {
+  padding: 54px 0;
+}
+
+.twSectionTitle {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.twSectionTitle h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.055em;
+}
+
+.twSectionTitle p {
+  color: var(--muted);
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.twBrandGrid {
+  display: grid;
+  gap: 24px;
+}
+
+.twBrandGridFeatured {
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 36px;
+}
+
+.twBrandGridSecondary {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.twBrandCard {
+  color: inherit;
+  text-decoration: none;
+  text-align: center;
+}
+
+.twFeaturedBrandCard .twBrandLogo {
+  min-height: 200px;
+}
+
+.twSmallBrandCard .twBrandLogo {
+  min-height: 102px;
+}
+
+.twBrandLogo {
+  display: grid;
+  place-items: center;
+  background: #fffdf8;
+  border: 1px solid var(--line);
+  padding: 18px;
+  font-weight: 950;
+  letter-spacing: -0.055em;
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+}
+
+.twSmallLogo {
+  font-size: 1.25rem;
+}
+
+.twBrandName {
+  margin-top: 12px;
+  font-weight: 850;
+}
+
+.twBrandCard:hover .twBrandLogo {
+  border-color: var(--red);
+  background: #faf6ed;
+}
+
+.twLogo-daiwa {
+  color: #d71920;
+}
+
+.twLogo-shimano {
+  color: #005baa;
+}
+
+.twLogo-nissin {
+  color: #1f1f1f;
+}
+
+.twLogo-major-craft {
+  color: #27272a;
+  font-style: italic;
+}
+
+.twLogo-gamakatsu,
+.twLogo-tenryu,
+.twLogo-abu-garcia,
+.twLogo-st-croix {
+  color: #24211d;
+}
+
+.twTypeGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.twTypeCard {
+  display: block;
+  min-height: 520px;
+  background: #fffdf8;
+  border: 1px solid var(--line);
+  color: inherit;
+  text-align: center;
+  text-decoration: none;
+  padding: 22px 24px 28px;
+}
+
+.twTypeCard:hover {
+  border-color: var(--red);
+  background: #faf6ed;
+}
+
+.twRodVisual {
+  height: 270px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rodBlank {
+  position: relative;
+  width: 54px;
+  height: 245px;
+  border: 3px solid #2e2a25;
+  border-radius: 999px 999px 28px 28px;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 16px,
+      rgba(16,16,16,0.12) 17px
+    );
+}
+
+.rodBlank::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -42px;
+  width: 8px;
+  height: 62px;
+  transform: translateX(-50%);
+  background: #2e2a25;
+}
+
+.rodBlank::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -78px;
+  width: 22px;
+  height: 42px;
+  transform: translateX(-50%);
+  background: #111;
+  border-radius: 12px;
+}
+
+.rodBlank span {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  transform: translate(-50%, -50%);
+  color: rgba(180,35,24,0.78);
+  font-size: 0.8rem;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.twTypeCard h3 {
+  margin-top: 24px;
+  font-size: 1.28rem;
+}
+
+.twTypeCard p {
+  color: var(--muted);
+  margin: 18px auto 0;
+  max-width: 320px;
+  line-height: 1.65;
+  font-size: 1rem;
+}
+
+.newReleaseBand {
+  background: #fffdf8;
+}
+
+.releaseItem {
+  position: relative;
+}
+
+.releaseLabel {
+  display: inline-block;
+  background: var(--red);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 7px 10px;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 1100px) {
+  .twBrandGridFeatured,
+  .twBrandGridSecondary,
+  .twTypeGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .twTypeCard {
+    min-height: 480px;
+  }
+}
+
+@media (max-width: 700px) {
+  .twBrandGridFeatured,
+  .twBrandGridSecondary,
+  .twTypeGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .twFeaturedBrandCard .twBrandLogo {
+    min-height: 150px;
+  }
+
+  .twTypeCard {
+    min-height: auto;
+  }
+
+  .twRodVisual {
+    height: 230px;
+  }
+
+  .rodBlank {
+    height: 205px;
+  }
+}
+
+/* RodBase brand section layout:
+   3 large primary brands on top, 5 smaller brands below.
+*/
+.twBrandGridFeatured {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 1040px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 34px;
+}
+
+.twBrandGridSecondary {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.twFeaturedBrandCard .twBrandLogo {
+  min-height: 210px;
+}
+
+.twSmallBrandCard .twBrandLogo {
+  min-height: 105px;
+}
+
+@media (max-width: 1100px) {
+  .twBrandGridFeatured {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .twBrandGridSecondary {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .twBrandGridFeatured,
+  .twBrandGridSecondary {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Final RodBase brand browsing layout:
+   4 large primary brands on top, 6 smaller brands below.
+*/
+.twBrandGridFeatured {
+  grid-template-columns: repeat(4, 1fr);
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 34px;
+}
+
+.twBrandGridSecondary {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.twFeaturedBrandCard .twBrandLogo {
+  min-height: 175px;
+}
+
+.twSmallBrandCard .twBrandLogo {
+  min-height: 88px;
+}
+
+.twSmallBrandCard .twBrandLogo {
+  font-size: 1.05rem;
+}
+
+@media (max-width: 1100px) {
+  .twBrandGridFeatured {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .twBrandGridSecondary {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .twBrandGridFeatured,
+  .twBrandGridSecondary {
+    grid-template-columns: 1fr;
+  }
+}

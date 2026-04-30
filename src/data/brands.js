@@ -8,6 +8,8 @@
     confidence: "High",
     description:
       "Japanese tackle brand with a broad rod catalogue covering travel rods, lure rods, shore rods, boat rods, and beginner-friendly options.",
+    logoText: "DAIWA",
+    featured: true,
   },
   {
     id: "shimano",
@@ -18,6 +20,8 @@
     confidence: "High",
     description:
       "Major Japanese tackle brand with extensive rod families across lure fishing, travel rods, bass, shore, boat, and specialist techniques.",
+    logoText: "SHIMANO",
+    featured: true,
   },
   {
     id: "nissin",
@@ -28,6 +32,8 @@
     confidence: "Medium",
     description:
       "Japanese rod-focused brand known for specialist rods, compact rods, and technique-specific product lines.",
+    logoText: "NISSIN",
+    featured: true,
   },
   {
     id: "major-craft",
@@ -38,5 +44,79 @@
     confidence: "Medium",
     description:
       "Japanese rod brand known for accessible lure fishing series, shore rods, light game rods, and broad model variety.",
+    logoText: "Major Craft",
+    featured: true,
+  },
+  {
+    id: "gamakatsu",
+    name: "Gamakatsu",
+    country: "Japan",
+    series: [],
+    rods: 0,
+    confidence: "Unindexed",
+    description:
+      "Prepared brand entry for future specialist rod indexing.",
+    logoText: "Gamakatsu",
+    featured: false,
+  },
+  {
+    id: "tenryu",
+    name: "Tenryu",
+    country: "Japan",
+    series: [],
+    rods: 0,
+    confidence: "Unindexed",
+    description:
+      "Prepared brand entry for future premium rod indexing.",
+    logoText: "TENRYU",
+    featured: false,
+  },
+  {
+    id: "abu-garcia",
+    name: "Abu Garcia",
+    country: "Sweden / Global",
+    series: [],
+    rods: 0,
+    confidence: "Unindexed",
+    description:
+      "Prepared brand entry for future global rod indexing.",
+    logoText: "Abu Garcia",
+    featured: false,
+  },
+  {
+    id: "st-croix",
+    name: "St. Croix",
+    country: "USA",
+    series: [],
+    rods: 0,
+    confidence: "Unindexed",
+    description:
+      "Prepared brand entry for future North American rod indexing.",
+    logoText: "ST. CROIX",
+    featured: false,
+  },
+  {
+    id: "megabass",
+    name: "Megabass",
+    country: "Japan",
+    series: [],
+    rods: 0,
+    confidence: "Unindexed",
+    description:
+      "Prepared brand entry for future premium lure and bass rod indexing.",
+    logoText: "Megabass",
+    featured: false,
+  },
+  {
+    id: "tailwalk",
+    name: "Tailwalk",
+    country: "Japan",
+    series: [],
+    rods: 0,
+    confidence: "Unindexed",
+    description:
+      "Prepared brand entry for future Japanese lure, travel, and light-game rod indexing.",
+    logoText: "tailwalk",
+    featured: false,
   },
 ];

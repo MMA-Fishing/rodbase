@@ -1,13 +1,13 @@
 ﻿import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Pill from "../components/Pill.jsx";
-import StatCard from "../components/StatCard.jsx";
 import RodCard from "../components/RodCard.jsx";
 import { brands } from "../data/brands.js";
 import { rods } from "../data/rods.js";
-import { useCases } from "../data/useCases.js";
-import { categories } from "../data/categories.js";
 import { articleCards } from "../data/articles.js";
+import { series } from "../data/series.js";
+import { rodTypeCards } from "../data/rodTypeCards.js";
+import { newReleases } from "../data/newReleases.js";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -24,155 +24,199 @@ export default function HomePage() {
     navigate("/search");
   }
 
+  const featuredBrands = brands.filter((brand) => brand.featured);
+  const secondaryBrands = brands.filter((brand) => !brand.featured);
+  const topSeries = series.slice(0, 5);
+
+  const releaseRows = newReleases
+    .map((release) => ({
+      ...release,
+      rod: rods.find((rod) => rod.id === release.rodId),
+    }))
+    .filter((release) => release.rod);
+
   return (
-    <main>
-      <section className="hero">
-        <div className="container heroGrid">
-          <div>
-            <div className="badge">Brand-first fishing rod database</div>
-            <h1>Search rods by brand, series, model, or exact specs.</h1>
-            <p className="heroText">
-              A structured rod index designed like an IMDb for fishing rods: brand pages, series pages,
-              model variants, regional aliases, specs, comparisons, reviews, and source confidence.
+    <main className="catalogHome">
+      <section className="catalogHero compactCatalogueHero">
+        <div className="container catalogHeroGrid">
+          <div className="catalogHeroCopy">
+            <div className="catalogEyebrow">RodBase catalogue</div>
+            <h1>Find fishing rods by brand, type, series, and exact specs.</h1>
+            <p>
+              A brand-first fishing rod database for comparing length, closed length, lure rating,
+              PE rating, construction, aliases, and source confidence.
             </p>
 
-            <div className="searchBox">
+            <div className="catalogHeroSearch">
               <input
                 value={homeSearch}
                 onChange={(event) => setHomeSearch(event.target.value)}
                 onKeyDown={(event) => {
                   if (event.key === "Enter") submitHomeSearch();
                 }}
-                placeholder="Search Daiwa Holiday Pack 270, Expride 265ML-2, S86ML..."
+                placeholder="Search Daiwa Mobile Pack, S86ML, Holiday Pack 270..."
               />
-              <button onClick={submitHomeSearch}>Search</button>
+              <button onClick={submitHomeSearch}>Search database</button>
             </div>
 
-            <div className="pillWrap">
-              {useCases.slice(0, 8).map((tag) => (
-                <Pill key={tag}>{tag}</Pill>
-              ))}
+            <div className="catalogQuickLinks">
+              <button onClick={() => navigate("/search?q=daiwa")}>Daiwa</button>
+              <button onClick={() => navigate("/search?q=shimano")}>Shimano</button>
+              <button onClick={() => navigate("/search?q=telescopic")}>Telescopic</button>
+              <button onClick={() => navigate("/search?q=travel")}>Travel rods</button>
             </div>
           </div>
 
-          <div className="heroPreview">
-            <div className="darkPanel">
-              <div className="row topRow">
-                <div>
-                  <div className="mutedLight">Featured rod page</div>
-                  <h2>Daiwa Mobile Pack 866TML</h2>
+          <aside className="catalogHeroPanel">
+            <div className="panelLabel">Featured indexed rod</div>
+            <h2>Daiwa Mobile Pack 866TML</h2>
+            <p>Compact travel rod · Telescopic · Japan / Asia</p>
+
+            <div className="heroSpecGrid">
+              <div><span>Length</span><b>2.59m</b></div>
+              <div><span>Closed</span><b>54cm</b></div>
+              <div><span>Weight</span><b>120g</b></div>
+              <div><span>Lure</span><b>5-25g</b></div>
+            </div>
+
+            <Link className="catalogPanelButton" to="/rods/daiwa-mobile-pack-866tml">
+              Open rod page
+            </Link>
+          </aside>
+        </div>
+      </section>
+
+      <section className="container twStyleSection">
+        <div className="twSectionTitle">
+          <h2>Browse Rods by Brand</h2>
+          <p>Start from the manufacturer, then drill into series and model variants.</p>
+        </div>
+
+        <div className="twBrandGrid twBrandGridFeatured">
+          {featuredBrands.map((brand) => (
+            <Link key={brand.id} className="twBrandCard twFeaturedBrandCard" to={`/brands/${brand.id}`}>
+              <div className={`twBrandLogo twLogo-${brand.id}`}>
+                {brand.logoText}
+              </div>
+              <div className="twBrandName">{brand.name}</div>
+            </Link>
+          ))}
+        </div>
+
+        <div className="twBrandGrid twBrandGridSecondary">
+          {secondaryBrands.map((brand) => (
+            <Link key={brand.id} className="twBrandCard twSmallBrandCard" to={`/brands/${brand.id}`}>
+              <div className={`twBrandLogo twSmallLogo twLogo-${brand.id}`}>
+                {brand.logoText}
+              </div>
+              <div className="twBrandName">{brand.name}</div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="container twStyleSection">
+        <div className="twSectionTitle">
+          <h2>Browse Rods by Type</h2>
+          <p>Choose a fishing style first, then compare specs inside that category.</p>
+        </div>
+
+        <div className="twTypeGrid">
+          {rodTypeCards.map((type) => (
+            <Link
+              key={type.id}
+              className="twTypeCard"
+              to={`/search?q=${encodeURIComponent(type.searchQuery)}`}
+            >
+              <div className="twRodVisual">
+                <div className="rodBlank">
+                  <span>{type.visualLabel}</span>
                 </div>
-                <div className="previewIcon">▧</div>
               </div>
-              <div className="specGrid two">
-                <div className="darkSpec"><span>Series</span><b>Mobile Pack</b></div>
-                <div className="darkSpec"><span>Construction</span><b>Telescopic</b></div>
-                <div className="darkSpec"><span>Length</span><b>2.59m</b></div>
-                <div className="darkSpec"><span>Closed</span><b>54cm</b></div>
-              </div>
-            </div>
-            <div className="miniStats">
-              <StatCard icon="◎" label="Rod records" value="575" />
-              <StatCard icon="◌" label="Markets" value="6" />
-              <StatCard icon="⇄" label="Comparisons" value="1.2k" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="brandStripSection">
-        <div className="container">
-          <div className="brandStrip">
-            <span className="brandStripLabel">Top brands</span>
-            {brands.map((brand) => (
-              <button key={brand.id} onClick={() => navigate(`/brands/${brand.id}`)}>
-                {brand.name}
-              </button>
-            ))}
-            <button onClick={() => navigate("/brands")}>More brands →</button>
-          </div>
-        </div>
-      </section>
-
-      <section className="section container compactSection">
-        <div className="sectionHeader">
-          <div>
-            <h2>Browse by category</h2>
-            <p className="muted">Rods are active first. Reels are planned as the next database category.</p>
-          </div>
-        </div>
-        <div className="categoryGrid">
-          {categories.map((category) => (
-            <div key={category.name} className={category.status === "Active" ? "categoryCard activeCategory" : "categoryCard"}>
-              <div className="row topRow">
-                <h3>{category.name}</h3>
-                <Pill active={category.status === "Active"}>{category.status}</Pill>
-              </div>
-              <p className="muted">{category.description}</p>
-            </div>
+              <h3>{type.title}</h3>
+              <p>{type.description}</p>
+            </Link>
           ))}
         </div>
       </section>
 
-      <section className="section container">
-        <div className="sectionHeader">
-          <div>
-            <h2>Popular brands</h2>
-            <p className="muted">Brand pages lead into series, variants, specs, aliases, and reviews.</p>
-          </div>
-          <Link className="outlineButton" to="/brands">Browse all brands</Link>
-        </div>
-
-        <div className="brandGrid">
-          {brands.map((brand) => (
-            <button key={brand.id} className="card brandCard" onClick={() => navigate(`/brands/${brand.id}`)}>
-              <div className="row topRow">
-                <div className="brandLetter">{brand.name.charAt(0)}</div>
-                <Pill>{brand.country}</Pill>
-              </div>
-              <h3>{brand.name}</h3>
-              <p className="muted">{brand.rods} indexed rods</p>
-              <div className="pillWrap">
-                {brand.series.slice(0, 3).map((seriesName) => (
-                  <Pill key={seriesName}>{seriesName}</Pill>
-                ))}
-              </div>
-            </button>
-          ))}
-        </div>
-      </section>
-
-      <section className="section softBg">
+      <section className="catalogSeriesBand newReleaseBand">
         <div className="container">
-          <div className="sectionHeader">
+          <div className="catalogSectionHeader">
             <div>
-              <h2>Recently indexed rods</h2>
-              <p className="muted">Every model is built for filter search, comparison, and source tracking.</p>
+              <div className="catalogEyebrow">New releases</div>
+              <h2>Newly indexed & release watch</h2>
             </div>
+            <Link className="catalogTextLink" to="/search">View all rods</Link>
           </div>
-          <div className="rodGrid">
-            {rods.map((rod) => (
-              <RodCard key={rod.id} rod={rod} />
+
+          <div className="catalogRodGrid">
+            {releaseRows.map((release) => (
+              <div key={release.rod.id} className="releaseItem">
+                <div className="releaseLabel">{release.label}</div>
+                <RodCard rod={release.rod} />
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section container">
-        <div className="sectionHeader">
+      <section className="container catalogSection">
+        <div className="catalogSectionHeader">
           <div>
-            <h2>Articles & guides</h2>
-            <p className="muted">A place for future article pages, suggestions, and beginner explanations.</p>
+            <div className="catalogEyebrow">Series index</div>
+            <h2>Popular rod series</h2>
           </div>
-          <Link className="outlineButton" to="/articles">View articles</Link>
+          <Link className="catalogTextLink" to="/brands">Browse brands</Link>
         </div>
-        <div className="guideGrid">
+
+        <div className="catalogSeriesGrid">
+          {topSeries.map((item) => (
+            <Link key={item.id} className="catalogSeriesCard" to={`/series/${item.id}`}>
+              <div className="seriesBrand">{item.brand}</div>
+              <h3>{item.name}</h3>
+              <p>{item.description}</p>
+              <div className="seriesStats">
+                <span>{item.variantsCount} variants</span>
+                <span>{item.confidence} confidence</span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="container catalogSection">
+        <div className="catalogSectionHeader">
+          <div>
+            <div className="catalogEyebrow">Rod index</div>
+            <h2>Recently indexed rods</h2>
+          </div>
+          <Link className="catalogTextLink" to="/search">Open advanced search</Link>
+        </div>
+
+        <div className="catalogRodGrid">
+          {rods.map((rod) => (
+            <RodCard key={rod.id} rod={rod} />
+          ))}
+        </div>
+      </section>
+
+      <section className="container catalogSection">
+        <div className="catalogSectionHeader">
+          <div>
+            <div className="catalogEyebrow">Guides</div>
+            <h2>Articles & buying notes</h2>
+          </div>
+          <Link className="catalogTextLink" to="/articles">View articles</Link>
+        </div>
+
+        <div className="catalogGuideGrid">
           {articleCards.map((article) => (
-            <Link key={article.id} className="card guideCard" to={`/articles/${article.id}`}>
+            <Link key={article.id} className="catalogGuideCard" to={`/articles/${article.id}`}>
               <Pill>{article.type}</Pill>
               <h3>{article.title}</h3>
-              <p className="muted">{article.description}</p>
-              <span className="textButton">Read article →</span>
+              <p>{article.description}</p>
+              <span>Read article →</span>
             </Link>
           ))}
         </div>
