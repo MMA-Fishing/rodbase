@@ -71,7 +71,7 @@ export default function Header() {
         </form>
 
         <Link className="catalogSubmitLink" to="/data-corrections">
-          Submit correction
+          Data & Corrections
         </Link>
 
         <button className="mobileMenu" onClick={() => setOpen(!open)}>
@@ -105,7 +105,7 @@ export default function Header() {
 
           <span className="mobileNavButton disabledMobileNav">Reels · Next</span>
           <Link className="mobileNavButton" to="/data-corrections" onClick={() => setOpen(false)}>
-            Submit correction
+            Data & Corrections
           </Link>
         </div>
       )}

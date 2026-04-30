@@ -20,11 +20,10 @@ export default function Footer() {
           </div>
         </div>
         <div>
-          <h3>Community</h3>
+          <h3>Information</h3>
           <div className="footerLinks vertical">
-            <span>Submit Rod</span>
-            <span>Submit Correction</span>
             <Link to="/data-corrections">Data & Corrections</Link>
+            <span>About RodBase</span>
             <span>Contact</span>
           </div>
         </div>

@@ -28,6 +28,8 @@ export default function App() {
         <Route path="/articles/:articleId" element={<ArticlePage />} />
         <Route path="/data-corrections" element={<DataCorrectionsPage />} />
         <Route path="/source-policy" element={<Navigate to="/data-corrections" replace />} />
+        <Route path="/submit" element={<Navigate to="/data-corrections" replace />} />
+        <Route path="/submit-correction" element={<Navigate to="/data-corrections" replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 
