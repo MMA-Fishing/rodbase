@@ -2433,3 +2433,331 @@ footer {
     flex-direction: column;
   }
 }
+
+/* Compare page catalogue redesign */
+.compareCataloguePage {
+  background: var(--paper);
+}
+
+.compareHero {
+  background:
+    linear-gradient(135deg, rgba(16,16,16,0.96), rgba(16,16,16,0.82)),
+    linear-gradient(90deg, #231f1d, #5f1d14);
+  color: white;
+  padding: 48px 0;
+}
+
+.compareHeroGrid {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 34px;
+  align-items: end;
+}
+
+.compareHero h1 {
+  font-size: clamp(2.4rem, 5vw, 4.6rem);
+  letter-spacing: -0.075em;
+}
+
+.compareHero p {
+  max-width: 780px;
+  color: #ddd4c8;
+  line-height: 1.75;
+  margin-top: 14px;
+}
+
+.compareHeroStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid rgba(255,255,255,0.22);
+  border-left: 1px solid rgba(255,255,255,0.22);
+}
+
+.compareHeroStats div {
+  padding: 14px;
+  border-right: 1px solid rgba(255,255,255,0.22);
+  border-bottom: 1px solid rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.06);
+}
+
+.compareHeroStats b {
+  display: block;
+  font-size: 1.5rem;
+}
+
+.compareHeroStats span {
+  display: block;
+  color: #d8d0c4;
+  font-size: 0.78rem;
+  margin-top: 4px;
+}
+
+.compareContent {
+  padding: 38px 0 72px;
+}
+
+.compareToolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.compareToolbar h2 {
+  font-size: 2rem;
+  letter-spacing: -0.05em;
+}
+
+.compareToolbarActions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.compareToolbarActions a,
+.compareToolbarActions button {
+  border: 1px solid var(--line);
+  background: #fffdf8;
+  color: var(--ink);
+  padding: 10px 13px;
+  text-decoration: none;
+  font-weight: 900;
+}
+
+.compareToolbarActions button {
+  background: var(--ink);
+  color: white;
+}
+
+.compareSummaryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.compareSummaryCard {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  background: #fffdf8;
+  border: 1px solid var(--line);
+  color: inherit;
+  text-decoration: none;
+}
+
+.compareSummaryCard:hover {
+  border-color: var(--red);
+  background: #faf6ed;
+}
+
+.compareRodVisual {
+  position: relative;
+  min-height: 150px;
+  background:
+    radial-gradient(circle at 70% 30%, rgba(180,35,24,0.12), transparent 32%),
+    linear-gradient(135deg, rgba(16,16,16,0.08), rgba(180,35,24,0.08)),
+    #ede6d9;
+  border-right: 1px solid var(--line);
+}
+
+.compareRodLine {
+  position: absolute;
+  left: 22px;
+  right: 16px;
+  top: 70px;
+  height: 8px;
+  background: #15130f;
+  border-radius: 999px;
+  transform: rotate(-5deg);
+  transform-origin: left center;
+}
+
+.compareRodLine::after {
+  content: "";
+  position: absolute;
+  right: -10px;
+  top: -4px;
+  width: 18px;
+  height: 16px;
+  border: 2px solid #15130f;
+  border-left: 0;
+  border-radius: 0 999px 999px 0;
+}
+
+.compareRodHandle {
+  position: absolute;
+  left: 30px;
+  top: 62px;
+  width: 34px;
+  height: 20px;
+  background: #111;
+  transform: rotate(-5deg);
+}
+
+.compareSummaryBody {
+  padding: 16px;
+}
+
+.compareSummaryBody h3 {
+  margin-top: 7px;
+  font-size: 1.2rem;
+  line-height: 1.15;
+}
+
+.compareSummaryBody p {
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.compareMiniSpecs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.compareMiniSpecs span {
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink-soft);
+  padding: 5px 7px;
+  font-size: 0.74rem;
+  font-weight: 850;
+}
+
+.compareTableShell {
+  overflow-x: auto;
+  background: #fffdf8;
+  border: 1px solid var(--line);
+}
+
+.compareTable {
+  width: 100%;
+  min-width: 980px;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.compareTable th,
+.compareTable td {
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 14px;
+  text-align: left;
+  vertical-align: top;
+  background: #fffdf8;
+}
+
+.compareTable th {
+  background: #15130f;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.compareTable th a {
+  color: white;
+  text-decoration: none;
+}
+
+.compareTable th span {
+  display: block;
+  color: #d8d0c4;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.compareTable th strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 1rem;
+}
+
+.compareTable .stickyCompareColumn {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+}
+
+.compareTable th.stickyCompareColumn {
+  z-index: 3;
+  background: #15130f;
+}
+
+.compareRowTitle {
+  background: #faf6ed !important;
+  color: var(--ink);
+  font-weight: 950;
+  min-width: 180px;
+}
+
+.compareGroupRow td {
+  background: var(--red) !important;
+  color: white;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.74rem;
+}
+
+.compareNote {
+  display: grid;
+  grid-template-columns: 0.55fr 1fr;
+  gap: 24px;
+  background: #15130f;
+  color: white;
+  margin-top: 24px;
+  padding: 24px;
+}
+
+.compareNote h2 {
+  margin-top: 6px;
+  font-size: 1.6rem;
+}
+
+.compareNote p {
+  color: #d8d0c4;
+  line-height: 1.75;
+}
+
+@media (max-width: 1100px) {
+  .compareHeroGrid,
+  .compareNote {
+    grid-template-columns: 1fr;
+  }
+
+  .compareSummaryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .compareSummaryCard {
+    grid-template-columns: 130px 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .compareHeroStats {
+    grid-template-columns: 1fr;
+  }
+
+  .compareToolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .compareToolbarActions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .compareSummaryCard {
+    grid-template-columns: 1fr;
+  }
+
+  .compareRodVisual {
+    min-height: 120px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+}
