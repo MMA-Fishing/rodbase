@@ -1637,3 +1637,799 @@ footer {
     flex-direction: column;
   }
 }
+
+/* Search page catalogue redesign */
+.catalogSearchPage {
+  background: var(--paper);
+}
+
+.catalogSearchHero {
+  background:
+    linear-gradient(135deg, rgba(16,16,16,0.96), rgba(16,16,16,0.82)),
+    linear-gradient(90deg, #231f1d, #5f1d14);
+  color: white;
+  padding: 46px 0;
+}
+
+.catalogSearchHeroInner {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 34px;
+  align-items: end;
+}
+
+.catalogSearchHero h1 {
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
+  letter-spacing: -0.075em;
+}
+
+.catalogSearchHero p {
+  max-width: 780px;
+  color: #ddd4c8;
+  line-height: 1.75;
+  margin-top: 14px;
+}
+
+.catalogSearchStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid rgba(255,255,255,0.22);
+  border-left: 1px solid rgba(255,255,255,0.22);
+}
+
+.catalogSearchStats div {
+  padding: 14px;
+  border-right: 1px solid rgba(255,255,255,0.22);
+  border-bottom: 1px solid rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.06);
+}
+
+.catalogSearchStats b {
+  display: block;
+  font-size: 1.6rem;
+}
+
+.catalogSearchStats span {
+  display: block;
+  color: #d8d0c4;
+  font-size: 0.78rem;
+  margin-top: 4px;
+}
+
+.catalogSearchControls {
+  background: #fffdf8;
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+}
+
+.catalogSearchBoxLarge {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  border: 1px solid var(--line);
+  background: white;
+}
+
+.catalogSearchBoxLarge input {
+  min-width: 0;
+  border: 0;
+  padding: 15px;
+  outline: none;
+  background: #fffdf8;
+}
+
+.catalogSearchBoxLarge button {
+  border: 0;
+  border-left: 1px solid var(--line);
+  background: var(--red);
+  color: white;
+  padding: 0 18px;
+  font-weight: 900;
+}
+
+.catalogSearchBoxLarge .secondarySearchButton {
+  background: var(--ink);
+}
+
+.quickCategoryRail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.quickCategory {
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  padding: 8px 11px;
+  font-size: 0.82rem;
+  font-weight: 850;
+}
+
+.activeQuickCategory {
+  background: var(--ink);
+  color: white;
+  border-color: var(--ink);
+}
+
+.catalogSearchLayout {
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  gap: 24px;
+  padding: 34px 0 72px;
+}
+
+.catalogFilterSidebar {
+  align-self: start;
+  position: sticky;
+  top: 102px;
+  background: #fffdf8;
+  border: 1px solid var(--line);
+}
+
+.catalogFilterHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px;
+  border-bottom: 1px solid var(--line);
+  background: #faf6ed;
+}
+
+.catalogFilterHeader h2 {
+  font-size: 1.35rem;
+}
+
+.catalogFilterHeader span {
+  background: var(--ink);
+  color: white;
+  padding: 5px 8px;
+  font-size: 0.75rem;
+  font-weight: 900;
+}
+
+.catalogFilterGroup {
+  padding: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.catalogFilterGroup:last-child {
+  border-bottom: 0;
+}
+
+.catalogFilterGroup h3 {
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+.catalogFilterList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.catalogFilterPill {
+  border: 1px solid var(--line);
+  background: #fffdf8;
+  color: var(--ink-soft);
+  padding: 7px 9px;
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.catalogFilterPillActive {
+  background: var(--red);
+  border-color: var(--red);
+  color: white;
+}
+
+.filterLabelRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.filterLabelRow h3 {
+  margin-bottom: 0;
+}
+
+.filterLabelRow b {
+  font-size: 0.82rem;
+  color: var(--red);
+}
+
+.catalogRangeStack {
+  display: grid;
+  gap: 8px;
+}
+
+.catalogResultsArea {
+  min-width: 0;
+}
+
+.catalogResultsToolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 20px;
+  background: #fffdf8;
+  border: 1px solid var(--line);
+  padding: 18px;
+  margin-bottom: 18px;
+}
+
+.catalogResultsToolbar h2 {
+  font-size: 1.8rem;
+  letter-spacing: -0.05em;
+}
+
+.catalogResultsToolbar p {
+  color: var(--muted);
+  margin-top: 5px;
+}
+
+.catalogResultsToolbar select {
+  border: 1px solid var(--line);
+  background: white;
+  border-radius: 0;
+  padding: 11px 13px;
+  font-weight: 800;
+}
+
+.catalogSearchResultsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.catalogNoResults {
+  background: #fffdf8;
+  border: 1px solid var(--line);
+  padding: 26px;
+}
+
+.catalogNoResults h2 {
+  margin-top: 8px;
+  font-size: 1.8rem;
+}
+
+.catalogNoResults p {
+  color: var(--muted);
+  line-height: 1.65;
+  margin-top: 10px;
+}
+
+.catalogNoResults button {
+  margin-top: 18px;
+  border: 0;
+  background: var(--ink);
+  color: white;
+  padding: 12px 16px;
+  font-weight: 900;
+}
+
+@media (max-width: 1100px) {
+  .catalogSearchHeroInner,
+  .catalogSearchLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .catalogFilterSidebar {
+    position: static;
+  }
+
+  .catalogSearchResultsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .catalogSearchStats {
+    grid-template-columns: 1fr;
+  }
+
+  .catalogSearchBoxLarge {
+    grid-template-columns: 1fr;
+  }
+
+  .catalogSearchBoxLarge button {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding: 13px;
+  }
+
+  .catalogResultsToolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
+
+.dualLengthSlider {
+  position: relative;
+  height: 34px;
+  margin-top: 8px;
+}
+
+.dualLengthSliderTrack {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 15px;
+  height: 5px;
+  background:
+    linear-gradient(
+      to right,
+      var(--line) 0%,
+      var(--line) var(--minPercent),
+      var(--red) var(--minPercent),
+      var(--red) var(--maxPercent),
+      var(--line) var(--maxPercent),
+      var(--line) 100%
+    );
+}
+
+.dualLengthRange {
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 100%;
+  height: 24px;
+  background: transparent;
+  pointer-events: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.dualLengthRange::-webkit-slider-thumb {
+  pointer-events: auto;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 17px;
+  height: 17px;
+  background: var(--ink);
+  border: 2px solid #fffdf8;
+  box-shadow: 0 0 0 1px var(--ink);
+  cursor: pointer;
+}
+
+.dualLengthRange::-moz-range-thumb {
+  pointer-events: auto;
+  width: 17px;
+  height: 17px;
+  background: var(--ink);
+  border: 2px solid #fffdf8;
+  box-shadow: 0 0 0 1px var(--ink);
+  cursor: pointer;
+}
+
+.dualLengthRange::-webkit-slider-runnable-track {
+  background: transparent;
+}
+
+.dualLengthRange::-moz-range-track {
+  background: transparent;
+}
+
+.dualLengthRangeMin {
+  z-index: 2;
+}
+
+.dualLengthRangeMax {
+  z-index: 3;
+}
+
+.lengthScale {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  margin-top: 2px;
+}
+
+/* Rod detail page catalogue redesign */
+.rodDetailPage {
+  background: var(--paper);
+}
+
+.rodDetailHero {
+  background:
+    linear-gradient(135deg, rgba(16,16,16,0.95), rgba(16,16,16,0.8)),
+    linear-gradient(90deg, #231f1d, #5f1d14);
+  color: white;
+  padding: 48px 0;
+}
+
+.rodDetailHeroGrid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 34px;
+  align-items: stretch;
+}
+
+.rodDetailVisualPanel {
+  background: #fffdf8;
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.rodDetailImageStage {
+  position: relative;
+  min-height: 390px;
+  background:
+    radial-gradient(circle at 75% 25%, rgba(180,35,24,0.12), transparent 32%),
+    linear-gradient(135deg, rgba(16,16,16,0.08), rgba(180,35,24,0.08)),
+    #ede6d9;
+  overflow: hidden;
+}
+
+.rodDetailRodDrawing {
+  position: absolute;
+  inset: 52px 34px 90px;
+}
+
+.detailRodLine {
+  position: absolute;
+  left: 4%;
+  right: 2%;
+  height: 10px;
+  background: #15130f;
+  border-radius: 999px;
+  transform-origin: left center;
+}
+
+.detailRodLine::after {
+  content: "";
+  position: absolute;
+  right: -12px;
+  top: -5px;
+  width: 22px;
+  height: 20px;
+  border: 2px solid currentColor;
+  border-left: 0;
+  border-radius: 0 999px 999px 0;
+}
+
+.detailRodLineOne {
+  top: 74px;
+  transform: rotate(-7deg);
+  color: #15130f;
+}
+
+.detailRodLineTwo {
+  top: 142px;
+  transform: rotate(3deg);
+  background: var(--red);
+  color: var(--red);
+}
+
+.detailRodHandle {
+  position: absolute;
+  left: 11%;
+  top: 128px;
+  width: 56px;
+  height: 28px;
+  background: #111;
+  border-radius: 4px;
+  transform: rotate(3deg);
+}
+
+.rodDetailImageLabel {
+  position: absolute;
+  left: 22px;
+  bottom: 22px;
+  background: rgba(255,253,248,0.92);
+  border: 1px solid var(--line);
+  padding: 10px 12px;
+}
+
+.rodDetailImageLabel span {
+  display: block;
+  color: var(--red);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.7rem;
+  font-weight: 950;
+}
+
+.rodDetailImageLabel strong {
+  display: block;
+  margin-top: 4px;
+}
+
+.rodDetailVisualMeta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--line);
+}
+
+.rodDetailVisualMeta span {
+  padding: 11px;
+  border-right: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 850;
+  text-align: center;
+}
+
+.rodDetailVisualMeta span:last-child {
+  border-right: 0;
+}
+
+.rodDetailSummary h1 {
+  margin-top: 10px;
+  font-size: clamp(2.6rem, 5.5vw, 5rem);
+  letter-spacing: -0.075em;
+}
+
+.rodDetailSummary p {
+  max-width: 780px;
+  margin-top: 16px;
+  color: #ddd4c8;
+  line-height: 1.75;
+}
+
+.rodDetailPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.rodDetailPills .pill {
+  border-color: rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.08);
+  color: white;
+}
+
+.rodDetailCoreSpecs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid rgba(255,255,255,0.22);
+  border-left: 1px solid rgba(255,255,255,0.22);
+  margin-top: 26px;
+}
+
+.rodDetailCoreSpecs div {
+  padding: 14px;
+  background: rgba(255,255,255,0.06);
+  border-right: 1px solid rgba(255,255,255,0.22);
+  border-bottom: 1px solid rgba(255,255,255,0.22);
+}
+
+.rodDetailCoreSpecs span {
+  display: block;
+  color: #d8d0c4;
+  font-size: 0.74rem;
+  margin-bottom: 4px;
+}
+
+.rodDetailCoreSpecs b {
+  font-size: 1.12rem;
+}
+
+.rodDetailActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.rodDetailActions button,
+.rodDetailActions a {
+  border: 0;
+  background: var(--red);
+  color: white;
+  padding: 13px 16px;
+  text-decoration: none;
+  font-weight: 900;
+}
+
+.rodDetailActions a {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.28);
+}
+
+.rodDetailContentGrid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+  padding: 34px 0 54px;
+}
+
+.rodDetailMainColumn,
+.rodDetailSideColumn {
+  display: grid;
+  gap: 22px;
+  align-content: start;
+}
+
+.rodDetailPanel {
+  background: #fffdf8;
+  border: 1px solid var(--line);
+  padding: 22px;
+}
+
+.rodDetailPanel.compact {
+  padding: 20px;
+}
+
+.rodDetailPanelHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: start;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 16px;
+  margin-bottom: 18px;
+}
+
+.rodDetailPanelHeader h2 {
+  margin-top: 6px;
+  font-size: 1.7rem;
+}
+
+.rodDetailPanelHeader > span {
+  background: var(--ink);
+  color: white;
+  padding: 7px 9px;
+  font-size: 0.76rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.rodDetailSpecTable {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.rodDetailSpecRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px;
+  background: #faf6ed;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.rodDetailSpecRow span {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.rodDetailSpecRow b {
+  text-align: right;
+  font-size: 0.9rem;
+}
+
+.rodAliasGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.rodAliasGrid div {
+  background: #faf6ed;
+  border: 1px solid var(--line);
+  padding: 12px;
+}
+
+.rodAliasGrid span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.76rem;
+  margin-bottom: 5px;
+}
+
+.rodAliasList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 16px;
+}
+
+.rodAliasList span {
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink-soft);
+  padding: 7px 9px;
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.rodEditorNote {
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.sourceRecordList {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.sourceRecord {
+  border: 1px solid var(--line);
+  background: #faf6ed;
+  padding: 12px;
+}
+
+.sourceRecord span {
+  display: block;
+  color: var(--red);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.66rem;
+  font-weight: 950;
+}
+
+.sourceRecord b {
+  display: block;
+  margin-top: 5px;
+  line-height: 1.35;
+}
+
+.sourceRecord em {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-style: normal;
+  font-weight: 850;
+}
+
+.sourceReminder {
+  margin-top: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.rodSideButton {
+  display: block;
+  margin-top: 14px;
+  background: var(--ink);
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  padding: 12px;
+  font-weight: 900;
+}
+
+.rodSimilarSection {
+  padding: 0 0 72px;
+}
+
+@media (max-width: 1100px) {
+  .rodDetailHeroGrid,
+  .rodDetailContentGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .rodDetailSideColumn {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .rodDetailCoreSpecs,
+  .rodDetailSpecTable,
+  .rodAliasGrid,
+  .rodDetailVisualMeta,
+  .rodDetailSideColumn {
+    grid-template-columns: 1fr;
+  }
+
+  .rodDetailActions {
+    flex-direction: column;
+  }
+
+  .rodDetailPanelHeader {
+    flex-direction: column;
+  }
+}
