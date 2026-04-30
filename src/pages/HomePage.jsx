@@ -65,7 +65,9 @@ export default function HomePage() {
           <div className="brandStrip">
             <span className="brandStripLabel">Top brands</span>
             {brands.map((brand) => (
-              <button key={brand.name} onClick={() => navigate("/brands")}>{brand.name}</button>
+              <button key={brand.id} onClick={() => navigate(`/brands/${brand.id}`)}>
+                {brand.name}
+              </button>
             ))}
             <button onClick={() => navigate("/brands")}>More brands →</button>
           </div>
@@ -103,7 +105,7 @@ export default function HomePage() {
 
         <div className="brandGrid">
           {brands.map((brand) => (
-            <button key={brand.name} className="card brandCard" onClick={() => navigate("/brands")}>
+            <button key={brand.id} className="card brandCard" onClick={() => navigate(`/brands/${brand.id}`)}>
               <div className="row topRow">
                 <div className="brandLetter">{brand.name.charAt(0)}</div>
                 <Pill>{brand.country}</Pill>
@@ -111,8 +113,8 @@ export default function HomePage() {
               <h3>{brand.name}</h3>
               <p className="muted">{brand.rods} indexed rods</p>
               <div className="pillWrap">
-                {brand.series.slice(0, 3).map((series) => (
-                  <Pill key={series}>{series}</Pill>
+                {brand.series.slice(0, 3).map((seriesName) => (
+                  <Pill key={seriesName}>{seriesName}</Pill>
                 ))}
               </div>
             </button>

@@ -196,3 +196,12 @@ a {
     grid-template-columns: 1fr;
   }
 }
+
+.sideItem {
+  text-decoration: none;
+}
+
+.seriesCard {
+  color: inherit;
+  text-decoration: none;
+}
