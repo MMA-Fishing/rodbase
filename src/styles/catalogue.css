@@ -3145,3 +3145,312 @@ footer {
     flex-direction: column;
   }
 }
+
+/* Series detail page redesign */
+.seriesDetailPage {
+  background: var(--paper);
+}
+
+.seriesDetailHero {
+  background:
+    linear-gradient(135deg, rgba(16,16,16,0.96), rgba(16,16,16,0.82)),
+    linear-gradient(90deg, #231f1d, #5f1d14);
+  color: white;
+  padding: 50px 0;
+}
+
+.seriesDetailHeroGrid {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 36px;
+  align-items: stretch;
+}
+
+.seriesDetailHero h1 {
+  font-size: clamp(2.6rem, 5.8vw, 5rem);
+  letter-spacing: -0.075em;
+}
+
+.seriesDetailHero p {
+  max-width: 780px;
+  margin-top: 16px;
+  color: #ddd4c8;
+  line-height: 1.75;
+}
+
+.seriesHeroPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.seriesHeroPills .pill {
+  background: rgba(255,255,255,0.08);
+  color: white;
+  border-color: rgba(255,255,255,0.22);
+}
+
+.seriesHeroVisual {
+  position: relative;
+  min-height: 300px;
+  background:
+    radial-gradient(circle at 70% 30%, rgba(180,35,24,0.12), transparent 32%),
+    linear-gradient(135deg, rgba(16,16,16,0.08), rgba(180,35,24,0.08)),
+    #ede6d9;
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.seriesHeroRodRack {
+  position: absolute;
+  inset: 48px 32px 90px;
+}
+
+.seriesHeroRod {
+  position: absolute;
+  left: 4%;
+  right: 2%;
+  height: 10px;
+  background: #15130f;
+  border-radius: 999px;
+  transform-origin: left center;
+}
+
+.seriesHeroRod::after {
+  content: "";
+  position: absolute;
+  right: -12px;
+  top: -5px;
+  width: 22px;
+  height: 20px;
+  border: 2px solid currentColor;
+  border-left: 0;
+  border-radius: 0 999px 999px 0;
+}
+
+.seriesHeroRodOne {
+  top: 50px;
+  transform: rotate(-7deg);
+  color: #15130f;
+}
+
+.seriesHeroRodTwo {
+  top: 112px;
+  transform: rotate(3deg);
+  background: var(--red);
+  color: var(--red);
+}
+
+.seriesHeroRodThree {
+  top: 174px;
+  transform: rotate(-3deg);
+  color: #15130f;
+}
+
+.seriesHeroVisualLabel {
+  position: absolute;
+  left: 22px;
+  bottom: 22px;
+  background: rgba(255,253,248,0.92);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  padding: 10px 12px;
+}
+
+.seriesHeroVisualLabel span {
+  display: block;
+  color: var(--red);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.7rem;
+  font-weight: 950;
+}
+
+.seriesHeroVisualLabel strong {
+  display: block;
+  margin-top: 4px;
+}
+
+.seriesDetailContent {
+  padding: 38px 0 72px;
+}
+
+.seriesToolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.seriesToolbar a {
+  color: var(--red);
+  text-decoration: none;
+  font-weight: 900;
+}
+
+.seriesStatsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+  margin-bottom: 24px;
+  background: #fffdf8;
+}
+
+.seriesStatsGrid div {
+  padding: 18px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.seriesStatsGrid span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.8rem;
+  margin-bottom: 6px;
+}
+
+.seriesStatsGrid b {
+  font-size: 1.8rem;
+  letter-spacing: -0.05em;
+}
+
+.seriesPanel {
+  background: #fffdf8;
+  border: 1px solid var(--line);
+  padding: 24px;
+  margin-top: 24px;
+}
+
+.seriesPanelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 20px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 16px;
+  margin-bottom: 18px;
+}
+
+.seriesPanelHeader h2 {
+  margin-top: 6px;
+  font-size: 1.9rem;
+}
+
+.seriesPanelHeader a {
+  color: var(--red);
+  text-decoration: none;
+  font-weight: 900;
+}
+
+.seriesProfileText {
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 880px;
+}
+
+.seriesUseCaseList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.seriesUseCaseList span {
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink-soft);
+  padding: 7px 9px;
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.seriesVariantTableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+}
+
+.seriesVariantTable {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.seriesVariantTable th,
+.seriesVariantTable td {
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 14px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.seriesVariantTable th {
+  background: #15130f;
+  color: white;
+  font-size: 0.86rem;
+}
+
+.seriesVariantTable td {
+  background: #fffdf8;
+}
+
+.seriesVariantTable td:first-child {
+  background: #faf6ed;
+}
+
+.seriesVariantTable a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.seriesVariantTable a strong {
+  display: block;
+}
+
+.seriesVariantTable a span {
+  display: block;
+  color: var(--muted);
+  margin-top: 4px;
+  font-size: 0.82rem;
+}
+
+.seriesEmptyState {
+  background: #faf6ed;
+  border: 1px solid var(--line);
+  padding: 22px;
+}
+
+.seriesEmptyState p {
+  color: var(--muted);
+  line-height: 1.65;
+  margin-top: 10px;
+}
+
+@media (max-width: 1100px) {
+  .seriesDetailHeroGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .seriesStatsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .seriesToolbar,
+  .seriesPanelHeader {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .seriesStatsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .seriesHeroVisual {
+    min-height: 240px;
+  }
+}
