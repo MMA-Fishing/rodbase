@@ -9,6 +9,7 @@ import RodPage from "./pages/RodPage.jsx";
 import SeriesPage from "./pages/SeriesPage.jsx";
 import ArticlesPage from "./pages/ArticlesPage.jsx";
 import ArticlePage from "./pages/ArticlePage.jsx";
+import DataCorrectionsPage from "./pages/DataCorrectionsPage.jsx";
 
 export default function App() {
   return (
@@ -25,6 +26,8 @@ export default function App() {
         <Route path="/rods/:rodId" element={<RodPage />} />
         <Route path="/articles" element={<ArticlesPage />} />
         <Route path="/articles/:articleId" element={<ArticlePage />} />
+        <Route path="/data-corrections" element={<DataCorrectionsPage />} />
+        <Route path="/source-policy" element={<Navigate to="/data-corrections" replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 

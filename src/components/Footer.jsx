@@ -24,7 +24,7 @@ export default function Footer() {
           <div className="footerLinks vertical">
             <span>Submit Rod</span>
             <span>Submit Correction</span>
-            <span>Source Policy</span>
+            <Link to="/data-corrections">Data & Corrections</Link>
             <span>Contact</span>
           </div>
         </div>
