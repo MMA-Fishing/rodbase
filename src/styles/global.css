@@ -179,3 +179,20 @@ a {
 .footerLinks a:hover {
   color: #09090b;
 }
+
+.seriesSummaryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.seriesDescription {
+  margin-top: 12px;
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .seriesSummaryGrid {
+    grid-template-columns: 1fr;
+  }
+}
