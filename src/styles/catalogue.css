@@ -2761,3 +2761,387 @@ footer {
     border-bottom: 1px solid var(--line);
   }
 }
+
+/* Articles and Data & Corrections catalogue redesign */
+.articlesCataloguePage,
+.articleDetailPage,
+.dataCorrectionsPage {
+  background: var(--paper);
+}
+
+.articlesHero,
+.articleDetailHero,
+.dataHero {
+  background:
+    linear-gradient(135deg, rgba(16,16,16,0.96), rgba(16,16,16,0.82)),
+    linear-gradient(90deg, #231f1d, #5f1d14);
+  color: white;
+  padding: 50px 0;
+}
+
+.articlesHeroInner,
+.articleDetailHeroInner,
+.dataHeroInner {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 36px;
+  align-items: end;
+}
+
+.articlesHero h1,
+.articleDetailHero h1,
+.dataHero h1 {
+  font-size: clamp(2.4rem, 5vw, 4.7rem);
+  letter-spacing: -0.075em;
+}
+
+.articlesHero p,
+.articleDetailHero p,
+.dataHero p {
+  max-width: 780px;
+  color: #ddd4c8;
+  line-height: 1.75;
+  margin-top: 14px;
+}
+
+.articlesHeroPanel,
+.dataHeroPanel {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.22);
+  padding: 22px;
+}
+
+.articlesHeroPanel b,
+.dataHeroPanel b {
+  display: block;
+  font-size: 2rem;
+}
+
+.articlesHeroPanel span,
+.dataHeroPanel span {
+  display: block;
+  color: #d8d0c4;
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+.articlesCatalogueContent,
+.dataCorrectionsContent {
+  padding: 42px 0 72px;
+}
+
+.articlesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.articleCatalogueCard {
+  display: grid;
+  grid-template-columns: 58px 1fr;
+  background: #fffdf8;
+  border: 1px solid var(--line);
+  color: inherit;
+  text-decoration: none;
+}
+
+.articleCatalogueCard:hover {
+  border-color: var(--red);
+  background: #faf6ed;
+}
+
+.articleNumber {
+  display: grid;
+  place-items: center;
+  background: #15130f;
+  color: white;
+  font-weight: 950;
+  font-size: 1rem;
+}
+
+.articleCardBody {
+  padding: 20px;
+}
+
+.articleCardTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 850;
+}
+
+.articleCardTop .pill {
+  border-radius: 0;
+  background: var(--paper);
+  border-color: var(--line);
+}
+
+.articleCardBody h3 {
+  margin-top: 16px;
+  font-size: 1.3rem;
+  line-height: 1.2;
+}
+
+.articleCardBody p {
+  margin-top: 12px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.articleCardFooter {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  margin-top: 18px;
+  padding-top: 14px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 850;
+}
+
+.articleCardFooter strong {
+  color: var(--red);
+}
+
+.articleHeroPills,
+.dataHeroPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.articleHeroPills .pill,
+.dataHeroPills .pill {
+  background: rgba(255,255,255,0.08);
+  color: white;
+  border-color: rgba(255,255,255,0.22);
+}
+
+.articleSideSummary {
+  background: #fffdf8;
+  border: 1px solid var(--line);
+  padding: 20px;
+}
+
+.articleSideSummary a {
+  display: block;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  padding: 12px 0;
+  font-weight: 850;
+}
+
+.articleSideSummary a:last-child {
+  border-bottom: 0;
+}
+
+.articleDetailLayout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 24px;
+  padding: 38px 0 72px;
+}
+
+.articleReadingPanel,
+.articleActionPanel,
+.dataCorrectionPanel,
+.dataDisclaimerPanel {
+  background: #fffdf8;
+  border: 1px solid var(--line);
+  padding: 24px;
+}
+
+.articleReadingSection {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 22px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.articleReadingSection:first-child {
+  padding-top: 0;
+}
+
+.articleSectionNumber {
+  color: var(--red);
+  font-size: 1.6rem;
+  font-weight: 950;
+}
+
+.articleReadingSection h2 {
+  font-size: 1.8rem;
+}
+
+.articleReadingSection p {
+  color: var(--muted);
+  line-height: 1.8;
+  margin-top: 12px;
+}
+
+.articleReferenceBox {
+  margin-top: 24px;
+  background: #faf6ed;
+  border: 1px solid var(--line);
+  padding: 18px;
+}
+
+.articleReferenceBox p,
+.articleActionPanel p {
+  color: var(--muted);
+  line-height: 1.65;
+  margin-top: 10px;
+}
+
+.articleActionPanel {
+  align-self: start;
+  position: sticky;
+  top: 110px;
+}
+
+.articleActionPanel a {
+  display: block;
+  background: var(--ink);
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  padding: 12px;
+  font-weight: 900;
+  margin-top: 12px;
+}
+
+.articleActionPanel a:last-child {
+  background: var(--red);
+}
+
+.dataTypeGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.dataTypeCard {
+  background: #fffdf8;
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--red);
+  padding: 20px;
+}
+
+.dataTypeCard h2 {
+  font-size: 1.25rem;
+}
+
+.dataTypeCard p {
+  color: var(--muted);
+  line-height: 1.65;
+  margin-top: 10px;
+}
+
+.dataCorrectionPanel,
+.dataDisclaimerPanel {
+  margin-top: 24px;
+}
+
+.dataCorrectionPanel h2,
+.dataDisclaimerPanel h2 {
+  margin-top: 6px;
+  font-size: 1.8rem;
+}
+
+.dataCorrectionRows {
+  display: grid;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+  margin-top: 20px;
+}
+
+.dataCorrectionRows div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  background: #faf6ed;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 14px;
+}
+
+.dataCorrectionRows span {
+  color: var(--muted);
+}
+
+.dataCorrectionRows b {
+  text-align: right;
+}
+
+.dataDisclaimerPanel p {
+  color: var(--muted);
+  line-height: 1.75;
+  margin-top: 12px;
+}
+
+.dataActionRow {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.dataActionRow a {
+  background: var(--ink);
+  color: white;
+  text-decoration: none;
+  padding: 12px 16px;
+  font-weight: 900;
+}
+
+.dataActionRow a:last-child {
+  background: var(--red);
+}
+
+@media (max-width: 1100px) {
+  .articlesHeroInner,
+  .articleDetailHeroInner,
+  .dataHeroInner,
+  .articleDetailLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .articlesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .dataTypeGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .articleActionPanel {
+    position: static;
+  }
+}
+
+@media (max-width: 700px) {
+  .articleReadingSection {
+    grid-template-columns: 1fr;
+  }
+
+  .dataTypeGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .dataCorrectionRows div {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .dataCorrectionRows b {
+    text-align: left;
+  }
+
+  .dataActionRow {
+    flex-direction: column;
+  }
+}

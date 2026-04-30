@@ -26,73 +26,72 @@ const dataTypes = [
 
 export default function DataCorrectionsPage() {
   return (
-    <main className="container page">
-      <div className="pageIntro">
-        <div className="eyebrow">Data & Corrections</div>
-        <h1>Help keep RodBase useful and accurate.</h1>
-        <p className="muted wide">
-          RodBase is a reference database for fishing rods. We collect rod information from
-          official catalogues, brand pages, retailer listings, and community corrections. Some
-          information may be incomplete, outdated, region-specific, or still waiting for review.
-        </p>
+    <main className="dataCorrectionsPage">
+      <section className="dataHero">
+        <div className="container dataHeroInner">
+          <div>
+            <div className="catalogEyebrow">Data & Corrections</div>
+            <h1>Help keep RodBase useful and accurate.</h1>
+            <p>
+              RodBase is a reference database for fishing rods. We collect rod information from
+              official catalogues, brand pages, retailer listings, and community corrections.
+            </p>
 
-        <div className="pillWrap">
-          <Pill>Official specs first</Pill>
-          <Pill>Corrections welcome</Pill>
-          <Pill>Reference only</Pill>
-          <Pill>Reviewed data</Pill>
-        </div>
-      </div>
+            <div className="dataHeroPills">
+              <Pill>Official specs first</Pill>
+              <Pill>Corrections welcome</Pill>
+              <Pill>Reference only</Pill>
+              <Pill>Reviewed data</Pill>
+            </div>
+          </div>
 
-      <section className="policyGrid">
-        {dataTypes.map((item) => (
-          <article key={item.title} className="card policyCard">
-            <h2>{item.title}</h2>
-            <p className="note">{item.description}</p>
-          </article>
-        ))}
-      </section>
-
-      <section className="card policyWideCard">
-        <h2>How corrections should work</h2>
-        <div className="factList">
-          <div className="factRow">
-            <span>Wrong specification</span>
-            <b>Submit a correction with a source</b>
-          </div>
-          <div className="factRow">
-            <span>Missing rod model</span>
-            <b>Submit brand, series, model, and source link</b>
-          </div>
-          <div className="factRow">
-            <span>Different regional name</span>
-            <b>Submit alias or market name</b>
-          </div>
-          <div className="factRow">
-            <span>Owner experience</span>
-            <b>Submit as review, not official spec</b>
-          </div>
-          <div className="factRow">
-            <span>Conflicting data</span>
-            <b>Marked for review before publishing</b>
+          <div className="dataHeroPanel">
+            <b>Reference</b>
+            <span>Not a shop. Not a guarantee. Always verify before buying.</span>
           </div>
         </div>
       </section>
 
-      <section className="card policyWideCard">
-        <h2>Reference-only note</h2>
-        <p className="note">
-          All fishing rod information, specifications, ratings, prices, market notes, comparisons,
-          and articles are provided for reference only. RodBase does not guarantee completeness,
-          accuracy, availability, suitability, or purchase outcome. Always check official brand
-          information and seller details before buying.
-        </p>
-      </section>
+      <section className="container dataCorrectionsContent">
+        <div className="dataTypeGrid">
+          {dataTypes.map((item) => (
+            <article key={item.title} className="dataTypeCard">
+              <h2>{item.title}</h2>
+              <p>{item.description}</p>
+            </article>
+          ))}
+        </div>
 
-      <div className="buttonRow articleActions">
-        <Link className="blackButton" to="/search">Search rods</Link>
-        <Link className="outlineButton" to="/articles">Read guides</Link>
-      </div>
+        <section className="dataCorrectionPanel">
+          <div>
+            <div className="catalogEyebrow">Correction workflow</div>
+            <h2>How corrections should work</h2>
+          </div>
+
+          <div className="dataCorrectionRows">
+            <div><span>Wrong specification</span><b>Submit a correction with a source</b></div>
+            <div><span>Missing rod model</span><b>Submit brand, series, model, and source link</b></div>
+            <div><span>Different regional name</span><b>Submit alias or market name</b></div>
+            <div><span>Owner experience</span><b>Submit as review, not official spec</b></div>
+            <div><span>Conflicting data</span><b>Marked for review before publishing</b></div>
+          </div>
+        </section>
+
+        <section className="dataDisclaimerPanel">
+          <h2>Reference-only note</h2>
+          <p>
+            All fishing rod information, specifications, ratings, prices, market notes, comparisons,
+            and articles are provided for reference only. RodBase does not guarantee completeness,
+            accuracy, availability, suitability, or purchase outcome. Always check official brand
+            information and seller details before buying.
+          </p>
+
+          <div className="dataActionRow">
+            <Link to="/search">Search rods</Link>
+            <Link to="/articles">Read guides</Link>
+          </div>
+        </section>
+      </section>
     </main>
   );
 }
