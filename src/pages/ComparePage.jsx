@@ -1,4 +1,4 @@
-import { rods } from "../data/rods.js";
+﻿import { rods } from "../data/rods.js";
 
 function formatLureRange(rod) {
   if (rod.minLureG == null || rod.maxLureG == null) return "Unknown";
@@ -75,4 +75,3 @@ export default function ComparePage() {
     </main>
   );
 }
-'@ | Set-Content .\src\pages\ComparePage.jsx -Encoding utf8

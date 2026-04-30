@@ -1,4 +1,4 @@
-export const rods = [
+﻿export const rods = [
   {
     id: "daiwa-holiday-pack-270",
 
@@ -185,4 +185,3 @@ export const rods = [
     editorNote: "Premium compact rod with a strong portability-to-performance balance.",
   },
 ];
-'@ | Set-Content .\src\data\rods.js -Encoding utf8

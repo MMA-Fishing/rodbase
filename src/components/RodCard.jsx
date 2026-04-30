@@ -1,4 +1,4 @@
-import Pill from "./Pill.jsx";
+﻿import Pill from "./Pill.jsx";
 
 function formatLureRange(rod) {
   if (rod.minLureG == null || rod.maxLureG == null) return "Unknown";
@@ -19,7 +19,7 @@ export default function RodCard({ rod }) {
           <h3>{rod.displayName || rod.model}</h3>
           <p className="muted">{rod.rodType}</p>
         </div>
-        <button className="iconButton">☆</button>
+        <button className="iconButton">â˜†</button>
       </div>
 
       <div className="specGrid three">
@@ -63,10 +63,9 @@ export default function RodCard({ rod }) {
       </div>
 
       <div className="row cardFooter">
-        <div>★ {rod.rating}</div>
-        <button className="textButton">View rod →</button>
+        <div>â˜… {rod.rating}</div>
+        <button className="textButton">View rod â†’</button>
       </div>
     </div>
   );
 }
-'@ | Set-Content .\src\components\RodCard.jsx -Encoding utf8

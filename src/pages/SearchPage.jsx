@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+﻿import { useMemo, useState } from "react";
 import Pill from "../components/Pill.jsx";
 import RodCard from "../components/RodCard.jsx";
 import { brands } from "../data/brands.js";
@@ -142,4 +142,3 @@ export default function SearchPage() {
     </main>
   );
 }
-'@ | Set-Content .\src\pages\SearchPage.jsx -Encoding utf8
