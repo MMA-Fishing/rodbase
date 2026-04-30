@@ -39,13 +39,25 @@ function BrandSelectionGrid() {
   );
 }
 
-function RodFamilyVisual({ label }) {
+function RodFamilyVisual({ seriesName, brandName }) {
   return (
-    <div className="brandSeriesVisual">
-      <div className="seriesRodLine seriesRodLineTop" />
-      <div className="seriesRodLine seriesRodLineMid" />
-      <div className="seriesRodLine seriesRodLineBottom" />
-      <span>{label}</span>
+    <div className="brandFamilyVisual">
+      <div className="rodRack">
+        <div className="rackRod rackRodOne">
+          <span />
+        </div>
+        <div className="rackRod rackRodTwo">
+          <span />
+        </div>
+        <div className="rackRod rackRodThree">
+          <span />
+        </div>
+      </div>
+
+      <div className="brandFamilyVisualLabel">
+        <span>{brandName}</span>
+        <strong>{seriesName}</strong>
+      </div>
     </div>
   );
 }
@@ -85,12 +97,13 @@ export default function BrandsPage() {
 
   return (
     <main className="brandSeriesPage">
-      <section className="brandHero">
+      <section className="brandHero brandHeroCatalogue">
         <div className="container brandHeroInner">
           <div>
             <div className="catalogEyebrow">Brand catalogue</div>
             <h1>{selectedBrandData.name} Rods</h1>
             <p>{selectedBrandData.description}</p>
+
             <div className="brandHeroMeta">
               <span>{selectedBrandData.country}</span>
               <span>{selectedBrandData.rods} planned/indexed records</span>
@@ -113,41 +126,68 @@ export default function BrandsPage() {
           </Link>
         </div>
 
-        <div className="catalogSectionHeader">
+        <div className="catalogSectionHeader brandFamilyHeader">
           <div>
             <div className="catalogEyebrow">Series families</div>
             <h2>{selectedBrandData.name} rod series</h2>
+            <p className="brandFamilyIntro">
+              Browse the brand by model family first, then open a series to compare individual rod variants.
+            </p>
           </div>
           <span className="brandSeriesCount">{selectedBrandSeries.length} series listed</span>
         </div>
 
         {selectedBrandSeries.length > 0 ? (
-          <div className="brandSeriesGrid">
+          <div className="brandFamilyGrid">
             {selectedBrandSeries.map((item) => {
               const matchingRods = rods.filter(
                 (rod) => rod.brand === item.brand && rod.series === item.name
               );
 
               return (
-                <Link key={item.id} className="brandSeriesCard" to={`/series/${item.id}`}>
-                  <RodFamilyVisual label={item.name} />
+                <Link key={item.id} className="brandFamilyCard" to={`/series/${item.id}`}>
+                  <RodFamilyVisual seriesName={item.name} brandName={item.brand} />
 
-                  <div className="brandSeriesInfo">
+                  <div className="brandFamilyInfo">
                     <div className="seriesBrand">{item.brand}</div>
                     <h3>{item.name}</h3>
                     <p>{item.description}</p>
 
-                    <div className="seriesStats">
-                      <span>{item.variantsCount} variants</span>
-                      <span>{item.currentCount} current</span>
-                      <span>{item.confidence} confidence</span>
+                    <div className="brandFamilyStats">
+                      <div>
+                        <span>Variants</span>
+                        <b>{item.variantsCount}</b>
+                      </div>
+                      <div>
+                        <span>Current</span>
+                        <b>{item.currentCount}</b>
+                      </div>
+                      <div>
+                        <span>Archived</span>
+                        <b>{item.archivedCount}</b>
+                      </div>
                     </div>
 
-                    {matchingRods.length > 0 && (
+                    <div className="brandFamilyTags">
+                      {item.useCases.slice(0, 4).map((tag) => (
+                        <span key={tag}>{tag}</span>
+                      ))}
+                    </div>
+
+                    {matchingRods.length > 0 ? (
                       <div className="seriesDemoRod">
                         Demo indexed rod: <b>{matchingRods[0].displayName}</b>
                       </div>
+                    ) : (
+                      <div className="seriesDemoRod">
+                        Individual rod variants not indexed yet.
+                      </div>
                     )}
+
+                    <div className="brandFamilyFooter">
+                      <span>{item.confidence} confidence</span>
+                      <strong>View series →</strong>
+                    </div>
                   </div>
                 </Link>
               );
