@@ -46,15 +46,12 @@
 
     useCases: ["Travel", "Pier", "Beginner", "Bait fishing"],
     rating: 4.1,
-
-    sourceConfidence: "High",
     sourceRecords: [
       {
         sourceType: "Official / catalogue",
         label: "Official brand or catalogue source needed",
         url: "",
         lastChecked: "",
-        confidence: "High",
       },
     ],
 
@@ -108,15 +105,12 @@
 
     useCases: ["Travel", "Lure fishing", "Light game", "Shore"],
     rating: 4.4,
-
-    sourceConfidence: "High",
     sourceRecords: [
       {
         sourceType: "Official / catalogue",
         label: "Official brand or catalogue source needed",
         url: "",
         lastChecked: "",
-        confidence: "High",
       },
     ],
 
@@ -170,18 +164,16 @@
 
     useCases: ["Travel", "Lure fishing", "Premium compact", "Shore"],
     rating: 4.6,
-
-    sourceConfidence: "Medium",
     sourceRecords: [
       {
         sourceType: "Official / catalogue",
         label: "Official brand or catalogue source needed",
         url: "",
         lastChecked: "",
-        confidence: "Medium",
       },
     ],
 
     editorNote: "Premium compact rod with a strong portability-to-performance balance.",
   },
 ];
+

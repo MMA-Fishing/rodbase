@@ -64,7 +64,6 @@ export default function SeriesPage() {
             <div className="seriesHeroPills">
               <Pill>{currentSeries.catalogueStatus}</Pill>
               <Pill>{currentSeries.marketRegions.join(" / ")}</Pill>
-              <Pill>{currentSeries.confidence} confidence</Pill>
             </div>
           </div>
 
@@ -201,3 +200,4 @@ export default function SeriesPage() {
     </main>
   );
 }
+

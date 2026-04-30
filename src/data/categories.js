@@ -1,8 +1,8 @@
-export const categories = [
+﻿export const categories = [
   {
     name: "Rods",
     status: "Active",
-    description: "Brand, series, model, specs, comparison, reviews, and source confidence.",
+    description: "Brand, series, model, specs, comparison, reviews, and source records.",
   },
   {
     name: "Reels",
@@ -10,3 +10,4 @@ export const categories = [
     description: "Prepared as the next database category after the rod structure is stable.",
   },
 ];
+

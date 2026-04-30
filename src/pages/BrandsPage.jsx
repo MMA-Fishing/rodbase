@@ -108,7 +108,6 @@ export default function BrandsPage() {
               <span>{selectedBrandData.country}</span>
               <span>{selectedBrandData.rods} planned/indexed records</span>
               <span>{brandRodCount} live demo rods</span>
-              <span>{selectedBrandData.confidence} confidence</span>
             </div>
           </div>
 
@@ -185,7 +184,6 @@ export default function BrandsPage() {
                     )}
 
                     <div className="brandFamilyFooter">
-                      <span>{item.confidence} confidence</span>
                       <strong>View series →</strong>
                     </div>
                   </div>
@@ -205,3 +203,4 @@ export default function BrandsPage() {
     </main>
   );
 }
+

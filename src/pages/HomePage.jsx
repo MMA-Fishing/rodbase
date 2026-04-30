@@ -44,7 +44,7 @@ export default function HomePage() {
             <h1>Find fishing rods by brand, type, series, and exact specs.</h1>
             <p>
               A brand-first fishing rod database for comparing length, closed length, lure rating,
-              PE rating, construction, aliases, and source confidence.
+              PE rating, construction, aliases, and source records.
             </p>
 
             <div className="catalogHeroSearch">
@@ -178,7 +178,6 @@ export default function HomePage() {
               <p>{item.description}</p>
               <div className="seriesStats">
                 <span>{item.variantsCount} variants</span>
-                <span>{item.confidence} confidence</span>
               </div>
             </Link>
           ))}
@@ -208,3 +207,4 @@ export default function HomePage() {
     </main>
   );
 }
+

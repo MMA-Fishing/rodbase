@@ -191,7 +191,7 @@ export default function SearchPage() {
             <h1>Search fishing rods by specs.</h1>
             <p>
               Filter indexed rods by brand, series, model code, length, closed length,
-              construction, use case, source confidence, and catalogue data.
+              construction, use case, source records, and catalogue data.
             </p>
           </div>
 

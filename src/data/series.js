@@ -9,7 +9,6 @@
     variantsCount: 12,
     currentCount: 8,
     archivedCount: 4,
-    confidence: "High",
     description:
       "Compact telescopic rod series focused on portability, casual use, and simple travel fishing.",
     useCases: ["Travel", "Beginner", "Pier", "Bait fishing"],
@@ -25,7 +24,6 @@
     variantsCount: 18,
     currentCount: 16,
     archivedCount: 2,
-    confidence: "Medium",
     description:
       "Premium compact travel rod series with stronger portability-to-performance balance than basic telescopic rods.",
     useCases: ["Travel", "Lure fishing", "Shore", "Premium compact"],
@@ -41,7 +39,6 @@
     variantsCount: 26,
     currentCount: 19,
     archivedCount: 7,
-    confidence: "Medium",
     description:
       "Versatile series covering multiple lure and general fishing applications across different lengths and powers.",
     useCases: ["Lure fishing", "Shore", "Travel", "Light game"],
@@ -57,7 +54,6 @@
     variantsCount: 14,
     currentCount: 9,
     archivedCount: 5,
-    confidence: "Medium",
     description:
       "General-purpose Daiwa series often found in beginner and casual fishing categories.",
     useCases: ["Beginner", "Bait fishing", "Shore", "General use"],
@@ -73,10 +69,10 @@
     variantsCount: 10,
     currentCount: 10,
     archivedCount: 0,
-    confidence: "High",
     description:
       "Portable multi-piece lure rod series aimed at travel-friendly lure fishing.",
     useCases: ["Travel", "Lure fishing", "Light game", "Shore"],
     featuredRodIds: ["shimano-lurematic-mobile-s86ml"],
   },
 ];
+

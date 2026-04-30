@@ -72,7 +72,6 @@ export default function RodCard({ rod }) {
         <div className="catalogRodMeta">
           <span>{rod.catalogueStatus}</span>
           <span>{rod.marketRegions.join(" / ")}</span>
-          <span>{rod.sourceConfidence} confidence</span>
         </div>
 
         <div className="catalogRodFooter">
@@ -85,3 +84,4 @@ export default function RodCard({ rod }) {
     </article>
   );
 }
+

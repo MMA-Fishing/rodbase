@@ -91,7 +91,6 @@ export default function RodPage() {
 
             <div className="rodDetailPills">
               <Pill>{rod.catalogueStatus}</Pill>
-              <Pill>{rod.sourceConfidence} confidence</Pill>
               <Pill>{rod.marketRegions.join(" / ")}</Pill>
             </div>
 
@@ -229,7 +228,6 @@ export default function RodPage() {
                 <div className="sourceRecord" key={index}>
                   <span>{source.sourceType}</span>
                   <b>{source.label}</b>
-                  <em>{source.confidence} confidence</em>
                 </div>
               ))}
             </div>
@@ -272,4 +270,5 @@ export default function RodPage() {
     </main>
   );
 }
+
 

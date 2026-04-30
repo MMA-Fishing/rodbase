@@ -5,7 +5,6 @@
     country: "Japan",
     series: ["Holiday Pack", "Mobile Pack", "Crossbeat", "Liberty Club"],
     rods: 186,
-    confidence: "High",
     description:
       "Japanese tackle brand with a broad rod catalogue covering travel rods, lure rods, shore rods, boat rods, and beginner-friendly options.",
     logoText: "DAIWA",
@@ -17,7 +16,6 @@
     country: "Japan",
     series: ["Lurematic", "Freegame", "Expride", "Bass One XT"],
     rods: 214,
-    confidence: "High",
     description:
       "Major Japanese tackle brand with extensive rod families across lure fishing, travel rods, bass, shore, boat, and specialist techniques.",
     logoText: "SHIMANO",
@@ -29,7 +27,6 @@
     country: "Japan",
     series: ["Mobile Four", "Fine Mode", "Pro Spec"],
     rods: 72,
-    confidence: "Medium",
     description:
       "Japanese rod-focused brand known for specialist rods, compact rods, and technique-specific product lines.",
     logoText: "NISSIN",
@@ -41,7 +38,6 @@
     country: "Japan",
     series: ["Solpara", "Crostage", "Firstcast"],
     rods: 103,
-    confidence: "Medium",
     description:
       "Japanese rod brand known for accessible lure fishing series, shore rods, light game rods, and broad model variety.",
     logoText: "Major Craft",
@@ -53,7 +49,6 @@
     country: "Japan",
     series: [],
     rods: 0,
-    confidence: "Unindexed",
     description:
       "Prepared brand entry for future specialist rod indexing.",
     logoText: "Gamakatsu",
@@ -65,7 +60,6 @@
     country: "Japan",
     series: [],
     rods: 0,
-    confidence: "Unindexed",
     description:
       "Prepared brand entry for future premium rod indexing.",
     logoText: "TENRYU",
@@ -77,7 +71,6 @@
     country: "Sweden / Global",
     series: [],
     rods: 0,
-    confidence: "Unindexed",
     description:
       "Prepared brand entry for future global rod indexing.",
     logoText: "Abu Garcia",
@@ -89,7 +82,6 @@
     country: "USA",
     series: [],
     rods: 0,
-    confidence: "Unindexed",
     description:
       "Prepared brand entry for future North American rod indexing.",
     logoText: "ST. CROIX",
@@ -101,7 +93,6 @@
     country: "Japan",
     series: [],
     rods: 0,
-    confidence: "Unindexed",
     description:
       "Prepared brand entry for future premium lure and bass rod indexing.",
     logoText: "Megabass",
@@ -113,10 +104,10 @@
     country: "Japan",
     series: [],
     rods: 0,
-    confidence: "Unindexed",
     description:
       "Prepared brand entry for future Japanese lure, travel, and light-game rod indexing.",
     logoText: "tailwalk",
     featured: false,
   },
 ];
+

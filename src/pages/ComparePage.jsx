@@ -64,7 +64,6 @@ export default function ComparePage() {
         ["Use cases", ...comparedRods.map((rod) => rod.useCases.join(" / "))],
         ["Typical price", ...comparedRods.map((rod) => formatPrice(rod))],
         ["Rating", ...comparedRods.map((rod) => `${rod.rating}/5`)],
-        ["Source confidence", ...comparedRods.map((rod) => rod.sourceConfidence)],
       ],
     },
   ];
@@ -78,7 +77,7 @@ export default function ComparePage() {
             <h1>Side-by-side fishing rod comparison.</h1>
             <p>
               Compare identity, dimensions, lure rating, PE rating, portability, price,
-              and source confidence across selected rod models.
+              and source records across selected rod models.
             </p>
           </div>
 
@@ -186,10 +185,11 @@ export default function ComparePage() {
           <p>
             Total length affects casting reach and line control. Closed length affects portability.
             Weight affects comfort. Lure and PE ratings help match the rod to the fishing method.
-            Source confidence shows how reliable the current database record is.
+            source records shows how reliable the current database record is.
           </p>
         </div>
       </section>
     </main>
   );
 }
+

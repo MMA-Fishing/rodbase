@@ -1,4 +1,4 @@
-export const useCases = [
+﻿export const useCases = [
   "Shore fishing",
   "Pier fishing",
   "Travel rods",
@@ -12,3 +12,4 @@ export const useCases = [
   "Shore jigging",
   "Light game",
 ];
+
