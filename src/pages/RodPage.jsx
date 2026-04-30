@@ -138,7 +138,6 @@ export default function RodPage() {
                 <div className="catalogEyebrow">Specification table</div>
                 <h2>Official specs</h2>
               </div>
-              <span>{rod.sourceConfidence} confidence</span>
             </div>
 
             <div className="rodDetailSpecTable">
@@ -273,3 +272,4 @@ export default function RodPage() {
     </main>
   );
 }
+
