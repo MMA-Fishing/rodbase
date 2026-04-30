@@ -1185,3 +1185,216 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
+.brandLandingPage {
+  padding-top: 36px;
+}
+
+.brandSeriesPage {
+  background: var(--paper);
+}
+
+.brandHero {
+  background:
+    linear-gradient(135deg, rgba(16,16,16,0.96), rgba(16,16,16,0.82)),
+    linear-gradient(90deg, #231f1d, #5f1d14);
+  color: white;
+  padding: 48px 0;
+}
+
+.brandHeroInner {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 36px;
+  align-items: center;
+}
+
+.brandHero h1 {
+  font-size: clamp(2.7rem, 6vw, 5.1rem);
+  letter-spacing: -0.075em;
+}
+
+.brandHero p {
+  max-width: 760px;
+  margin-top: 16px;
+  color: #ddd4c8;
+  line-height: 1.75;
+}
+
+.brandHeroMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.brandHeroMeta span {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #f4eee5;
+  padding: 7px 10px;
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.brandHeroLogo {
+  min-height: 170px;
+  display: grid;
+  place-items: center;
+  background: #fffdf8;
+  border: 1px solid var(--line);
+  padding: 22px;
+  font-size: 2.4rem;
+  font-weight: 950;
+  letter-spacing: -0.055em;
+}
+
+.brandSeriesContent {
+  padding: 46px 0 72px;
+}
+
+.brandToolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.brandToolbar a {
+  color: var(--red);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.brandSeriesCount {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 850;
+}
+
+.brandSeriesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.brandSeriesCard {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 22px;
+  background: #fffdf8;
+  border: 1px solid var(--line);
+  color: inherit;
+  text-decoration: none;
+  padding: 18px;
+}
+
+.brandSeriesCard:hover {
+  border-color: var(--red);
+  background: #faf6ed;
+}
+
+.brandSeriesVisual {
+  position: relative;
+  min-height: 220px;
+  background:
+    linear-gradient(135deg, rgba(16,16,16,0.06), rgba(180,35,24,0.08)),
+    #ede6d9;
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.seriesRodLine {
+  position: absolute;
+  left: 28px;
+  right: 26px;
+  height: 8px;
+  background: #1d1b18;
+  border-radius: 999px;
+  transform-origin: left center;
+}
+
+.seriesRodLine::after {
+  content: "";
+  position: absolute;
+  right: -10px;
+  top: -4px;
+  width: 18px;
+  height: 16px;
+  border: 2px solid #1d1b18;
+  border-left: 0;
+  border-radius: 0 999px 999px 0;
+}
+
+.seriesRodLineTop {
+  top: 54px;
+  transform: rotate(-7deg);
+}
+
+.seriesRodLineMid {
+  top: 104px;
+  transform: rotate(3deg);
+  background: var(--red);
+}
+
+.seriesRodLineBottom {
+  top: 154px;
+  transform: rotate(-3deg);
+}
+
+.brandSeriesVisual span {
+  position: absolute;
+  left: 16px;
+  bottom: 14px;
+  background: rgba(255,253,248,0.86);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  padding: 7px 9px;
+  font-size: 0.8rem;
+  font-weight: 950;
+}
+
+.brandSeriesInfo h3 {
+  margin-top: 8px;
+  font-size: 1.5rem;
+}
+
+.brandSeriesInfo p {
+  margin-top: 10px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.seriesDemoRod {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.emptyBrandSeries {
+  border-radius: 0;
+}
+
+@media (max-width: 1100px) {
+  .brandHeroInner {
+    grid-template-columns: 1fr;
+  }
+
+  .brandSeriesGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .brandToolbar {
+    flex-direction: column;
+  }
+
+  .brandSeriesCard {
+    grid-template-columns: 1fr;
+  }
+
+  .brandSeriesVisual {
+    min-height: 180px;
+  }
+}

@@ -188,22 +188,6 @@ export default function HomePage() {
       <section className="container catalogSection">
         <div className="catalogSectionHeader">
           <div>
-            <div className="catalogEyebrow">Rod index</div>
-            <h2>Recently indexed rods</h2>
-          </div>
-          <Link className="catalogTextLink" to="/search">Open advanced search</Link>
-        </div>
-
-        <div className="catalogRodGrid">
-          {rods.map((rod) => (
-            <RodCard key={rod.id} rod={rod} />
-          ))}
-        </div>
-      </section>
-
-      <section className="container catalogSection">
-        <div className="catalogSectionHeader">
-          <div>
             <div className="catalogEyebrow">Guides</div>
             <h2>Articles & buying notes</h2>
           </div>
