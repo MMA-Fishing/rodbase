@@ -31,9 +31,9 @@ export default function Footer() {
         <div>
           <h3>Articles</h3>
           <div className="footerLinks vertical">
-            <span>Rod Basics</span>
-            <span>Buying Guides</span>
-            <span>Comparison Articles</span>
+            <Link to="/articles">All Articles</Link>
+            <Link to="/articles/how-to-read-rod-length">Rod Basics</Link>
+            <Link to="/articles/telescopic-vs-multi-piece-rods">Comparisons</Link>
             <span>Fishing Notes</span>
           </div>
         </div>

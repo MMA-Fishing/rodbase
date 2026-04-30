@@ -144,16 +144,16 @@ export default function HomePage() {
             <h2>Articles & guides</h2>
             <p className="muted">A place for future article pages, suggestions, and beginner explanations.</p>
           </div>
-          <button className="outlineButton">View articles</button>
+          <Link className="outlineButton" to="/articles">View articles</Link>
         </div>
         <div className="guideGrid">
           {articleCards.map((article) => (
-            <article key={article.title} className="card guideCard">
+            <Link key={article.id} className="card guideCard" to={`/articles/${article.id}`}>
               <Pill>{article.type}</Pill>
               <h3>{article.title}</h3>
               <p className="muted">{article.description}</p>
-              <button className="textButton">Read later →</button>
-            </article>
+              <span className="textButton">Read article →</span>
+            </Link>
           ))}
         </div>
       </section>

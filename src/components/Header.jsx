@@ -7,6 +7,7 @@ export default function Header() {
     { label: "Brands", path: "/brands" },
     { label: "Search", path: "/search" },
     { label: "Compare", path: "/compare" },
+    { label: "Articles", path: "/articles" },
   ];
 
   const [open, setOpen] = useState(false);
