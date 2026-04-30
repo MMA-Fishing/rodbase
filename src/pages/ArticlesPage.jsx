@@ -6,7 +6,7 @@ export default function ArticlesPage() {
   return (
     <main className="articlesCataloguePage">
       <section className="articlesHero">
-        <div className="container articlesHeroInner">
+        <div className="container articlesHeroInner articlesHeroInnerSimple">
           <div>
             <div className="catalogEyebrow">RodBase guides</div>
             <h1>Rod knowledge, buying notes, and spec explanations.</h1>
@@ -14,11 +14,6 @@ export default function ArticlesPage() {
               Learn how to compare rods by total length, closed length, lure rating,
               PE rating, construction, reel type, and fishing style.
             </p>
-          </div>
-
-          <div className="articlesHeroPanel">
-            <b>{articleCards.length}</b>
-            <span>Draft guide articles</span>
           </div>
         </div>
       </section>
