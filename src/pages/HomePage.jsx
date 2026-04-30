@@ -1,4 +1,5 @@
-﻿import { Link, useNavigate } from "react-router-dom";
+﻿import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Pill from "../components/Pill.jsx";
 import StatCard from "../components/StatCard.jsx";
 import RodCard from "../components/RodCard.jsx";
@@ -10,6 +11,18 @@ import { articleCards } from "../data/articles.js";
 
 export default function HomePage() {
   const navigate = useNavigate();
+  const [homeSearch, setHomeSearch] = useState("");
+
+  function submitHomeSearch() {
+    const trimmed = homeSearch.trim();
+
+    if (trimmed.length > 0) {
+      navigate(`/search?q=${encodeURIComponent(trimmed)}`);
+      return;
+    }
+
+    navigate("/search");
+  }
 
   return (
     <main>
@@ -24,8 +37,15 @@ export default function HomePage() {
             </p>
 
             <div className="searchBox">
-              <input placeholder="Search Daiwa Holiday Pack 270, Expride 265ML-2, S86ML..." />
-              <button onClick={() => navigate("/search")}>Advanced search</button>
+              <input
+                value={homeSearch}
+                onChange={(event) => setHomeSearch(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") submitHomeSearch();
+                }}
+                placeholder="Search Daiwa Holiday Pack 270, Expride 265ML-2, S86ML..."
+              />
+              <button onClick={submitHomeSearch}>Search</button>
             </div>
 
             <div className="pillWrap">

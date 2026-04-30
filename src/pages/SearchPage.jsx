@@ -1,26 +1,82 @@
 ﻿import { useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import Pill from "../components/Pill.jsx";
 import RodCard from "../components/RodCard.jsx";
 import { brands } from "../data/brands.js";
 import { rods } from "../data/rods.js";
 import { useCases } from "../data/useCases.js";
 
+function normalize(value) {
+  return String(value || "").toLowerCase().trim();
+}
+
+function rodMatchesKeyword(rod, keyword) {
+  const q = normalize(keyword);
+
+  if (!q) return true;
+
+  const searchableText = [
+    rod.brand,
+    rod.series,
+    rod.model,
+    rod.variant,
+    rod.displayName,
+    rod.officialName,
+    rod.japaneseName,
+    rod.chineseName,
+    rod.modelCode,
+    rod.janCode,
+    rod.rodType,
+    rod.reelType,
+    rod.construction,
+    rod.power,
+    rod.action,
+    ...(rod.aliases || []),
+    ...(rod.useCases || []),
+    ...(rod.marketRegions || []),
+  ]
+    .map(normalize)
+    .join(" ");
+
+  return searchableText.includes(q);
+}
+
 export default function SearchPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialKeyword = searchParams.get("q") || "";
+
+  const [keyword, setKeyword] = useState(initialKeyword);
   const [minTotalLength, setMinTotalLength] = useState(240);
   const [maxTotalLength, setMaxTotalLength] = useState(300);
   const [maxClosed, setMaxClosed] = useState(70);
   const [maxWeight, setMaxWeight] = useState(180);
 
+  function applyKeywordSearch() {
+    const trimmed = keyword.trim();
+
+    if (trimmed.length > 0) {
+      setSearchParams({ q: trimmed });
+    } else {
+      setSearchParams({});
+    }
+  }
+
+  function clearSearch() {
+    setKeyword("");
+    setSearchParams({});
+  }
+
   const filtered = useMemo(
     () =>
       rods.filter(
         (rod) =>
+          rodMatchesKeyword(rod, keyword) &&
           rod.lengthCm >= minTotalLength &&
           rod.lengthCm <= maxTotalLength &&
           rod.closedLengthCm <= maxClosed &&
           rod.weightG <= maxWeight
       ),
-    [minTotalLength, maxTotalLength, maxClosed, maxWeight]
+    [keyword, minTotalLength, maxTotalLength, maxClosed, maxWeight]
   );
 
   return (
@@ -30,11 +86,24 @@ export default function SearchPage() {
           <div className="eyebrow">Advanced search</div>
           <h1>Filter by real rod parameters.</h1>
           <p className="muted wide">
-            Specs are now stored as structured fields, so users can search by total length, closed length, weight,
-            lure range, PE rating, construction, source confidence, and catalogue status later.
+            Search by brand, series, model code, aliases, use case, total length, closed length, weight,
+            source confidence, and catalogue information.
           </p>
         </div>
         <button className="blackButton">Save search</button>
+      </div>
+
+      <div className="searchPageBox">
+        <input
+          value={keyword}
+          onChange={(event) => setKeyword(event.target.value)}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") applyKeywordSearch();
+          }}
+          placeholder="Search by rod name, brand, series, model code, use case..."
+        />
+        <button className="blackButton" onClick={applyKeywordSearch}>Search</button>
+        <button className="outlineButton" onClick={clearSearch}>Clear</button>
       </div>
 
       <div className="searchGrid">
@@ -124,7 +193,10 @@ export default function SearchPage() {
 
         <section>
           <div className="row topRow resultsBar">
-            <p className="muted">Showing {filtered.length} matching rods</p>
+            <p className="muted">
+              Showing {filtered.length} matching rod{filtered.length === 1 ? "" : "s"}
+              {keyword.trim() ? ` for "${keyword.trim()}"` : ""}
+            </p>
             <select>
               <option>Sort: shortest closed length</option>
               <option>Sort: lightest</option>
@@ -132,11 +204,25 @@ export default function SearchPage() {
             </select>
           </div>
 
-          <div className="rodGrid twoCols">
-            {filtered.map((rod) => (
-              <RodCard key={rod.id} rod={rod} />
-            ))}
-          </div>
+          {filtered.length > 0 ? (
+            <div className="rodGrid twoCols">
+              {filtered.map((rod) => (
+                <RodCard key={rod.id} rod={rod} />
+              ))}
+            </div>
+          ) : (
+            <div className="card">
+              <div className="eyebrow">No results</div>
+              <h2>No matching rods found.</h2>
+              <p className="note">
+                Try a broader keyword, increase the total length range, increase max closed length,
+                or clear the search.
+              </p>
+              <div className="buttonRow">
+                <button className="blackButton" onClick={clearSearch}>Clear search</button>
+              </div>
+            </div>
+          )}
         </section>
       </div>
     </main>
