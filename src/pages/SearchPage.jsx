@@ -9,6 +9,7 @@ export default function SearchPage() {
   const [minTotalLength, setMinTotalLength] = useState(240);
   const [maxTotalLength, setMaxTotalLength] = useState(300);
   const [maxClosed, setMaxClosed] = useState(70);
+  const [maxWeight, setMaxWeight] = useState(180);
 
   const filtered = useMemo(
     () =>
@@ -16,9 +17,10 @@ export default function SearchPage() {
         (rod) =>
           rod.lengthCm >= minTotalLength &&
           rod.lengthCm <= maxTotalLength &&
-          rod.closedCm <= maxClosed
+          rod.closedLengthCm <= maxClosed &&
+          rod.weightG <= maxWeight
       ),
-    [minTotalLength, maxTotalLength, maxClosed]
+    [minTotalLength, maxTotalLength, maxClosed, maxWeight]
   );
 
   return (
@@ -28,8 +30,8 @@ export default function SearchPage() {
           <div className="eyebrow">Advanced search</div>
           <h1>Filter by real rod parameters.</h1>
           <p className="muted wide">
-            Specs are stored as normalized numeric fields, so users can search by length, closed length, weight,
-            lure range, line rating, price, and construction.
+            Specs are now stored as structured fields, so users can search by total length, closed length, weight,
+            lure range, PE rating, construction, source confidence, and catalogue status later.
           </p>
         </div>
         <button className="blackButton">Save search</button>
@@ -38,6 +40,7 @@ export default function SearchPage() {
       <div className="searchGrid">
         <aside className="card filters">
           <h2>Filters</h2>
+
           <div className="filterGroup">
             <label>Brand</label>
             <div className="pillWrap">
@@ -89,9 +92,23 @@ export default function SearchPage() {
             <input
               type="range"
               min="40"
-              max="100"
+              max="120"
               value={maxClosed}
               onChange={(event) => setMaxClosed(Number(event.target.value))}
+            />
+          </div>
+
+          <div className="filterGroup">
+            <div className="row topRow">
+              <label>Max rod weight</label>
+              <b>{maxWeight}g</b>
+            </div>
+            <input
+              type="range"
+              min="80"
+              max="400"
+              value={maxWeight}
+              onChange={(event) => setMaxWeight(Number(event.target.value))}
             />
           </div>
 
@@ -114,6 +131,7 @@ export default function SearchPage() {
               <option>Sort: highest rated</option>
             </select>
           </div>
+
           <div className="rodGrid twoCols">
             {filtered.map((rod) => (
               <RodCard key={rod.id} rod={rod} />
@@ -124,3 +142,4 @@ export default function SearchPage() {
     </main>
   );
 }
+'@ | Set-Content .\src\pages\SearchPage.jsx -Encoding utf8

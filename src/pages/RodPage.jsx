@@ -2,6 +2,16 @@ import Pill from "../components/Pill.jsx";
 import StatCard from "../components/StatCard.jsx";
 import { rods } from "../data/rods.js";
 
+function formatLureRange(rod) {
+  if (rod.minLureG == null || rod.maxLureG == null) return "Unknown";
+  return `${rod.minLureG}-${rod.maxLureG}g`;
+}
+
+function formatPeRange(rod) {
+  if (rod.minPe == null || rod.maxPe == null) return "Unknown";
+  return `PE ${rod.minPe}-${rod.maxPe}`;
+}
+
 export default function RodPage() {
   const rod = rods[2];
 
@@ -12,15 +22,16 @@ export default function RodPage() {
           <div className="pillWrap">
             <Pill>{rod.brand}</Pill>
             <Pill>{rod.series}</Pill>
-            <Pill>{rod.status}</Pill>
-            <Pill>{rod.market}</Pill>
+            <Pill>{rod.catalogueStatus}</Pill>
+            <Pill>{rod.marketRegions.join(" / ")}</Pill>
           </div>
-          <h1>{rod.model}</h1>
-          <p className="heroText">{rod.note}</p>
+
+          <h1>{rod.displayName}</h1>
+          <p className="heroText">{rod.editorNote}</p>
 
           <div className="specGrid three">
             <StatCard icon="↔" label="Total length" value={`${(rod.lengthCm / 100).toFixed(2)}m`} />
-            <StatCard icon="▣" label="Closed length" value={`${rod.closedCm}cm`} />
+            <StatCard icon="▣" label="Closed length" value={`${rod.closedLengthCm}cm`} />
             <StatCard icon="◍" label="Rod weight" value={`${rod.weightG}g`} />
           </div>
         </section>
@@ -48,12 +59,17 @@ export default function RodPage() {
               ["Series", rod.series],
               ["Model / variant", rod.model],
               ["Generation", rod.generation],
-              ["Rod type", rod.type],
+              ["Catalogue status", rod.catalogueStatus],
+              ["Market regions", rod.marketRegions.join(" / ")],
+              ["Rod type", rod.rodType],
+              ["Reel type", rod.reelType],
               ["Construction", rod.construction],
               ["Sections", rod.sections],
-              ["Lure weight", rod.lure],
-              ["Line rating", rod.line],
-              ["Market", rod.market],
+              ["Lure weight", formatLureRange(rod)],
+              ["PE rating", formatPeRange(rod)],
+              ["Power", rod.power || "Unknown"],
+              ["Action", rod.action || "Unknown"],
+              ["Typical price", `~HKD ${rod.priceHkdApprox}`],
             ].map((item) => (
               <div className="factRow" key={item[0]}>
                 <span>{item[0]}</span>
@@ -67,21 +83,24 @@ export default function RodPage() {
           <div className="card">
             <h2>Names and regional aliases</h2>
             <div className="aliasGrid">
-              <div className="specBox"><span>Official name</span><b>Daiwa Mobile Pack 866TML</b></div>
-              <div className="specBox"><span>Japanese name</span><b>Daiwa Mobile Pack 866TML</b></div>
-              <div className="specBox"><span>English alias</span><b>Mobile Pack 866 TML</b></div>
-              <div className="specBox"><span>Model code</span><b>866TML</b></div>
+              <div className="specBox"><span>Official name</span><b>{rod.officialName}</b></div>
+              <div className="specBox"><span>Japanese name</span><b>{rod.japaneseName || "Unknown"}</b></div>
+              <div className="specBox"><span>Chinese name</span><b>{rod.chineseName || "Unknown"}</b></div>
+              <div className="specBox"><span>Model code</span><b>{rod.modelCode || "Unknown"}</b></div>
+            </div>
+
+            <div className="pillWrap">
+              {rod.aliases.map((alias) => (
+                <Pill key={alias}>{alias}</Pill>
+              ))}
             </div>
           </div>
 
           <div className="card">
             <h2>General interpretation</h2>
-            <p className="note">
-              A compact, higher-quality travel rod for users who want portability without dropping too much rod feel.
-              Better suited for light lure and general shore use than heavy boat work.
-            </p>
+            <p className="note">{rod.editorNote}</p>
             <div className="pillWrap">
-              {rod.tags.map((tag) => (
+              {rod.useCases.map((tag) => (
                 <Pill key={tag}>{tag}</Pill>
               ))}
             </div>
@@ -91,13 +110,18 @@ export default function RodPage() {
             <div className="row topRow">
               <div>
                 <h2>Sources</h2>
-                <p className="muted">Every spec can be linked to an official, shop, catalogue, or user-submitted source.</p>
+                <p className="muted">Each spec should eventually link to an official, shop, catalogue, or user-submitted source.</p>
               </div>
-              <Pill active>{rod.confidence} confidence</Pill>
+              <Pill active>{rod.sourceConfidence} confidence</Pill>
             </div>
+
             <div className="factList">
-              <div className="factRow"><span>Official catalogue source</span><b>Needed</b></div>
-              <div className="factRow"><span>Shop listing cross-check</span><b>Needed</b></div>
+              {rod.sourceRecords.map((source, index) => (
+                <div className="factRow" key={index}>
+                  <span>{source.sourceType}</span>
+                  <b>{source.label}</b>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -105,3 +129,4 @@ export default function RodPage() {
     </main>
   );
 }
+'@ | Set-Content .\src\pages\RodPage.jsx -Encoding utf8
