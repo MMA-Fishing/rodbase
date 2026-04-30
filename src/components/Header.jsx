@@ -1,38 +1,44 @@
-import { useState } from "react";
+﻿import { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 
-export default function Header({ activeSection, setActiveSection }) {
-  const nav = ["Home", "Brands", "Search", "Compare", "Rod Page"];
+export default function Header() {
+  const nav = [
+    { label: "Home", path: "/" },
+    { label: "Brands", path: "/brands" },
+    { label: "Search", path: "/search" },
+    { label: "Compare", path: "/compare" },
+  ];
+
   const [open, setOpen] = useState(false);
-
-  function go(section) {
-    setActiveSection(section);
-    setOpen(false);
-  }
 
   return (
     <header className="header">
       <div className="headerInner">
-        <button className="brandButton" onClick={() => go("Home")}>
+        <Link className="brandButton" to="/" onClick={() => setOpen(false)}>
           <div className="logo">R</div>
           <div>
             <div className="brandName">RodBase</div>
             <div className="muted tiny">Fishing Rod IMDb</div>
           </div>
-        </button>
+        </Link>
 
         <nav className="desktopNav">
           {nav.map((item) => (
-            <button
-              key={item}
-              onClick={() => go(item)}
-              className={activeSection === item ? "navButton activeNav" : "navButton"}
+            <NavLink
+              key={item.path}
+              to={item.path}
+              end={item.path === "/"}
+              className={({ isActive }) =>
+                isActive ? "navButton activeNav" : "navButton"
+              }
             >
-              {item}
-            </button>
+              {item.label}
+            </NavLink>
           ))}
         </nav>
 
         <button className="submitButton">Submit rod</button>
+
         <button className="mobileMenu" onClick={() => setOpen(!open)}>
           {open ? "×" : "☰"}
         </button>
@@ -41,9 +47,17 @@ export default function Header({ activeSection, setActiveSection }) {
       {open && (
         <div className="mobileNav">
           {nav.map((item) => (
-            <button key={item} onClick={() => go(item)} className="mobileNavButton">
-              {item}
-            </button>
+            <NavLink
+              key={item.path}
+              to={item.path}
+              end={item.path === "/"}
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                isActive ? "mobileNavButton activeMobileNav" : "mobileNavButton"
+              }
+            >
+              {item.label}
+            </NavLink>
           ))}
         </div>
       )}

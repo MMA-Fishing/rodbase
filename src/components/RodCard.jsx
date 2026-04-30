@@ -1,4 +1,5 @@
-﻿import Pill from "./Pill.jsx";
+﻿import { Link } from "react-router-dom";
+import Pill from "./Pill.jsx";
 
 function formatLureRange(rod) {
   if (rod.minLureG == null || rod.maxLureG == null) return "Unknown";
@@ -19,7 +20,7 @@ export default function RodCard({ rod }) {
           <h3>{rod.displayName || rod.model}</h3>
           <p className="muted">{rod.rodType}</p>
         </div>
-        <button className="iconButton">â˜†</button>
+        <button className="iconButton">☆</button>
       </div>
 
       <div className="specGrid three">
@@ -63,8 +64,10 @@ export default function RodCard({ rod }) {
       </div>
 
       <div className="row cardFooter">
-        <div>â˜… {rod.rating}</div>
-        <button className="textButton">View rod â†’</button>
+        <div>★ {rod.rating}</div>
+        <Link className="textButton" to={`/rods/${rod.id}`}>
+          View rod →
+        </Link>
       </div>
     </div>
   );

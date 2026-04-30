@@ -1,7 +1,9 @@
-import Pill from "../components/Pill.jsx";
+﻿import { useNavigate } from "react-router-dom";
 import { brands } from "../data/brands.js";
 
-export default function BrandsPage({ setActiveSection }) {
+export default function BrandsPage() {
+  const navigate = useNavigate();
+
   return (
     <main className="container page">
       <div className="pageIntro">
@@ -44,7 +46,7 @@ export default function BrandsPage({ setActiveSection }) {
 
           <div className="seriesGrid">
             {["Holiday Pack", "Mobile Pack", "Crossbeat", "Liberty Club"].map((series, index) => (
-              <button key={series} className="seriesCard" onClick={() => setActiveSection("Rod Page")}>
+              <button key={series} className="seriesCard" onClick={() => navigate("/rods/daiwa-mobile-pack-866tml")}>
                 <div className="row topRow">
                   <h3>{series}</h3>
                   <span>→</span>

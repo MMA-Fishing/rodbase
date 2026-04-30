@@ -1,4 +1,5 @@
-﻿import Pill from "../components/Pill.jsx";
+﻿import { Link, useParams } from "react-router-dom";
+import Pill from "../components/Pill.jsx";
 import StatCard from "../components/StatCard.jsx";
 import { rods } from "../data/rods.js";
 
@@ -13,7 +14,26 @@ function formatPeRange(rod) {
 }
 
 export default function RodPage() {
-  const rod = rods[2];
+  const { rodId } = useParams();
+  const rod = rods.find((item) => item.id === rodId);
+
+  if (!rod) {
+    return (
+      <main className="container page">
+        <div className="card">
+          <div className="eyebrow">Rod not found</div>
+          <h1>We could not find this rod.</h1>
+          <p className="note">
+            The rod may have been renamed, removed, or the URL may be incorrect.
+          </p>
+          <div className="buttonRow">
+            <Link className="blackButton" to="/search">Back to search</Link>
+            <Link className="outlineButton" to="/">Home</Link>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="container page">
@@ -30,9 +50,9 @@ export default function RodPage() {
           <p className="heroText">{rod.editorNote}</p>
 
           <div className="specGrid three">
-            <StatCard icon="â†”" label="Total length" value={`${(rod.lengthCm / 100).toFixed(2)}m`} />
-            <StatCard icon="â–£" label="Closed length" value={`${rod.closedLengthCm}cm`} />
-            <StatCard icon="â—" label="Rod weight" value={`${rod.weightG}g`} />
+            <StatCard icon="↔" label="Total length" value={`${(rod.lengthCm / 100).toFixed(2)}m`} />
+            <StatCard icon="▣" label="Closed length" value={`${rod.closedLengthCm}cm`} />
+            <StatCard icon="◍" label="Rod weight" value={`${rod.weightG}g`} />
           </div>
         </section>
 

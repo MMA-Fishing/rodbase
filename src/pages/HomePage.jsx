@@ -1,3 +1,4 @@
+﻿import { Link, useNavigate } from "react-router-dom";
 import Pill from "../components/Pill.jsx";
 import StatCard from "../components/StatCard.jsx";
 import RodCard from "../components/RodCard.jsx";
@@ -7,7 +8,9 @@ import { useCases } from "../data/useCases.js";
 import { categories } from "../data/categories.js";
 import { articleCards } from "../data/articles.js";
 
-export default function HomePage({ setActiveSection }) {
+export default function HomePage() {
+  const navigate = useNavigate();
+
   return (
     <main>
       <section className="hero">
@@ -22,7 +25,7 @@ export default function HomePage({ setActiveSection }) {
 
             <div className="searchBox">
               <input placeholder="Search Daiwa Holiday Pack 270, Expride 265ML-2, S86ML..." />
-              <button onClick={() => setActiveSection("Search")}>Advanced search</button>
+              <button onClick={() => navigate("/search")}>Advanced search</button>
             </div>
 
             <div className="pillWrap">
@@ -62,9 +65,9 @@ export default function HomePage({ setActiveSection }) {
           <div className="brandStrip">
             <span className="brandStripLabel">Top brands</span>
             {brands.map((brand) => (
-              <button key={brand.name} onClick={() => setActiveSection("Brands")}>{brand.name}</button>
+              <button key={brand.name} onClick={() => navigate("/brands")}>{brand.name}</button>
             ))}
-            <button onClick={() => setActiveSection("Brands")}>More brands →</button>
+            <button onClick={() => navigate("/brands")}>More brands →</button>
           </div>
         </div>
       </section>
@@ -95,12 +98,12 @@ export default function HomePage({ setActiveSection }) {
             <h2>Popular brands</h2>
             <p className="muted">Brand pages lead into series, variants, specs, aliases, and reviews.</p>
           </div>
-          <button className="outlineButton" onClick={() => setActiveSection("Brands")}>Browse all brands</button>
+          <Link className="outlineButton" to="/brands">Browse all brands</Link>
         </div>
 
         <div className="brandGrid">
           {brands.map((brand) => (
-            <button key={brand.name} className="card brandCard" onClick={() => setActiveSection("Brands")}>
+            <button key={brand.name} className="card brandCard" onClick={() => navigate("/brands")}>
               <div className="row topRow">
                 <div className="brandLetter">{brand.name.charAt(0)}</div>
                 <Pill>{brand.country}</Pill>

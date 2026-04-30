@@ -1,3 +1,5 @@
+﻿import { Link } from "react-router-dom";
+
 export default function Footer() {
   return (
     <footer>
@@ -11,10 +13,10 @@ export default function Footer() {
         <div>
           <h3>Database</h3>
           <div className="footerLinks vertical">
-            <span>Brands</span>
+            <Link to="/brands">Brands</Link>
             <span>Series</span>
-            <span>Advanced Search</span>
-            <span>Compare Rods</span>
+            <Link to="/search">Advanced Search</Link>
+            <Link to="/compare">Compare Rods</Link>
           </div>
         </div>
         <div>
