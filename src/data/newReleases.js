@@ -9,9 +9,10 @@
   },
   {
     rodId: "daiwa-holiday-pack-270",
-    label: "Recently added",
+    label: "Newly indexed",
   },
 ];
+
 
 
 

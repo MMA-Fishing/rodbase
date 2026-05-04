@@ -3924,3 +3924,42 @@ footer {
 .seriesStatsGridClean b {
   overflow-wrap: anywhere;
 }
+
+/* Homepage data-driven stats */
+.homeDataStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  max-width: 620px;
+  margin-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.22);
+  border-left: 1px solid rgba(255,255,255,0.22);
+}
+
+.homeDataStats div {
+  padding: 13px;
+  background: rgba(255,255,255,0.06);
+  border-right: 1px solid rgba(255,255,255,0.22);
+  border-bottom: 1px solid rgba(255,255,255,0.22);
+}
+
+.homeDataStats b {
+  display: block;
+  color: white;
+  font-size: 1.35rem;
+  letter-spacing: -0.04em;
+}
+
+.homeDataStats span {
+  display: block;
+  color: #d8d0c4;
+  font-size: 0.76rem;
+  margin-top: 4px;
+}
+
+@media (max-width: 700px) {
+  .homeDataStats {
+    grid-template-columns: 1fr;
+    margin-top: 18px;
+  }
+}

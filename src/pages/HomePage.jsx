@@ -8,6 +8,12 @@ import { articleCards } from "../data/articles.js";
 import { series } from "../data/series.js";
 import { rodTypeCards } from "../data/rodTypeCards.js";
 import { newReleases } from "../data/newReleases.js";
+import {
+  formatLengthM,
+  formatLengthCm,
+  formatWeightG,
+  formatLureRange,
+} from "../utils/rodFormatters.js";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -28,6 +34,9 @@ export default function HomePage() {
   const secondaryBrands = brands.filter((brand) => !brand.featured);
   const topSeries = series.slice(0, 5);
 
+  const featuredRod =
+    rods.find((rod) => rod.id === "daiwa-mobile-pack-866tml") || rods[0];
+
   const releaseRows = newReleases
     .map((release) => ({
       ...release,
@@ -43,8 +52,8 @@ export default function HomePage() {
             <div className="catalogEyebrow">RodBase catalogue</div>
             <h1>Find fishing rods by brand, type, series, and exact specs.</h1>
             <p>
-              A brand-first fishing rod database for comparing length, closed length, lure rating,
-              PE rating, construction, aliases, and source records.
+              A brand-first fishing rod database for comparing length, closed length,
+              lure rating, PE rating, construction, aliases, and source records.
             </p>
 
             <div className="catalogHeroSearch">
@@ -65,24 +74,44 @@ export default function HomePage() {
               <button onClick={() => navigate("/search?q=telescopic")}>Telescopic</button>
               <button onClick={() => navigate("/search?q=travel")}>Travel rods</button>
             </div>
+
+            <div className="homeDataStats">
+              <div>
+                <b>{rods.length}</b>
+                <span>Indexed rods</span>
+              </div>
+              <div>
+                <b>{brands.length}</b>
+                <span>Brand entries</span>
+              </div>
+              <div>
+                <b>{series.length}</b>
+                <span>Series pages</span>
+              </div>
+            </div>
           </div>
 
-          <aside className="catalogHeroPanel">
-            <div className="panelLabel">Featured indexed rod</div>
-            <h2>Daiwa Mobile Pack 866TML</h2>
-            <p>Compact travel rod · Telescopic · Japan / Asia</p>
+          {featuredRod && (
+            <aside className="catalogHeroPanel">
+              <div className="panelLabel">Featured indexed rod</div>
+              <h2>{featuredRod.displayName}</h2>
+              <p>
+                {featuredRod.rodType} · {featuredRod.construction} ·{" "}
+                {(featuredRod.marketRegions || []).join(" / ") || "Market to be confirmed"}
+              </p>
 
-            <div className="heroSpecGrid">
-              <div><span>Length</span><b>2.59m</b></div>
-              <div><span>Closed</span><b>54cm</b></div>
-              <div><span>Weight</span><b>120g</b></div>
-              <div><span>Lure</span><b>5-25g</b></div>
-            </div>
+              <div className="heroSpecGrid">
+                <div><span>Length</span><b>{formatLengthM(featuredRod.lengthCm)}</b></div>
+                <div><span>Closed</span><b>{formatLengthCm(featuredRod.closedLengthCm)}</b></div>
+                <div><span>Weight</span><b>{formatWeightG(featuredRod.weightG)}</b></div>
+                <div><span>Lure</span><b>{formatLureRange(featuredRod)}</b></div>
+              </div>
 
-            <Link className="catalogPanelButton" to="/rods/daiwa-mobile-pack-866tml">
-              Open rod page
-            </Link>
-          </aside>
+              <Link className="catalogPanelButton" to={`/rods/${featuredRod.id}`}>
+                Open rod page
+              </Link>
+            </aside>
+          )}
         </div>
       </section>
 
@@ -144,7 +173,7 @@ export default function HomePage() {
         <div className="container">
           <div className="catalogSectionHeader">
             <div>
-              <div className="catalogEyebrow">New releases</div>
+              <div className="catalogEyebrow">Recently added</div>
               <h2>Newly indexed rods</h2>
             </div>
             <Link className="catalogTextLink" to="/search">View all rods</Link>
@@ -177,7 +206,8 @@ export default function HomePage() {
               <h3>{item.name}</h3>
               <p>{item.description}</p>
               <div className="seriesStats">
-                <span>{item.variantsCount} variants</span>
+                <span>{item.catalogueStatus || "In progress"}</span>
+                <span>{(item.marketRegions || []).join(" / ") || "Market to be confirmed"}</span>
               </div>
             </Link>
           ))}
@@ -207,6 +237,3 @@ export default function HomePage() {
     </main>
   );
 }
-
-
-
