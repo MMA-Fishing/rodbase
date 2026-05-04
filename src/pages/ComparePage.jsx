@@ -13,53 +13,54 @@ import {
   valueOrUnknown,
 } from "../utils/rodFormatters.js";
 import { useCompare } from "../context/CompareContext.jsx";
+import { useLocale } from "../context/LocaleContext.jsx";
 
 function rowHasDifference(values) {
   const normalized = values.map((value) => String(value ?? "").trim().toLowerCase());
   return new Set(normalized).size > 1;
 }
 
-function createComparisonGroups(comparedRods) {
+function createComparisonGroups(comparedRods, t) {
   return [
     {
-      title: "Identity",
+      title: t("compare.group.identity"),
       rows: [
-        { label: "Brand", values: comparedRods.map((rod) => rod.brand) },
-        { label: "Series", values: comparedRods.map((rod) => rod.series) },
-        { label: "Model / variant", values: comparedRods.map((rod) => rod.model) },
-        { label: "Generation", values: comparedRods.map((rod) => valueOrUnknown(rod.generation)) },
-        { label: "Catalogue status", values: comparedRods.map((rod) => valueOrUnknown(rod.catalogueStatus)) },
-        { label: "Market regions", values: comparedRods.map((rod) => formatMarketRegions(rod)) },
+        { label: t("compare.row.brand"), values: comparedRods.map((rod) => rod.brand) },
+        { label: t("compare.row.series"), values: comparedRods.map((rod) => rod.series) },
+        { label: t("compare.row.model"), values: comparedRods.map((rod) => rod.model) },
+        { label: t("compare.row.generation"), values: comparedRods.map((rod) => valueOrUnknown(rod.generation)) },
+        { label: t("compare.row.catalogueStatus"), values: comparedRods.map((rod) => valueOrUnknown(rod.catalogueStatus)) },
+        { label: t("compare.row.marketRegions"), values: comparedRods.map((rod) => formatMarketRegions(rod)) },
       ],
     },
     {
-      title: "Dimensions",
+      title: t("compare.group.dimensions"),
       rows: [
-        { label: "Total length", values: comparedRods.map((rod) => formatLengthM(rod.lengthCm)) },
-        { label: "Closed length", values: comparedRods.map((rod) => formatLengthCm(rod.closedLengthCm)) },
-        { label: "Rod weight", values: comparedRods.map((rod) => formatWeightG(rod.weightG)) },
-        { label: "Sections", values: comparedRods.map((rod) => valueOrUnknown(rod.sections)) },
-        { label: "Construction", values: comparedRods.map((rod) => valueOrUnknown(rod.construction)) },
+        { label: t("compare.row.totalLength"), values: comparedRods.map((rod) => formatLengthM(rod.lengthCm)) },
+        { label: t("compare.row.closedLength"), values: comparedRods.map((rod) => formatLengthCm(rod.closedLengthCm)) },
+        { label: t("compare.row.rodWeight"), values: comparedRods.map((rod) => formatWeightG(rod.weightG)) },
+        { label: t("compare.row.sections"), values: comparedRods.map((rod) => valueOrUnknown(rod.sections)) },
+        { label: t("compare.row.construction"), values: comparedRods.map((rod) => valueOrUnknown(rod.construction)) },
       ],
     },
     {
-      title: "Casting, line & action",
+      title: t("compare.group.casting"),
       rows: [
-        { label: "Rod type", values: comparedRods.map((rod) => valueOrUnknown(rod.rodType)) },
-        { label: "Reel type", values: comparedRods.map((rod) => valueOrUnknown(rod.reelType)) },
-        { label: "Lure weight", values: comparedRods.map((rod) => formatLureRange(rod)) },
-        { label: "PE rating", values: comparedRods.map((rod) => formatPeRange(rod)) },
-        { label: "Power", values: comparedRods.map((rod) => valueOrUnknown(rod.power)) },
-        { label: "Action", values: comparedRods.map((rod) => valueOrUnknown(rod.action)) },
-        { label: "Tip type", values: comparedRods.map((rod) => valueOrUnknown(rod.tipType)) },
+        { label: t("compare.row.rodType"), values: comparedRods.map((rod) => valueOrUnknown(rod.rodType)) },
+        { label: t("compare.row.reelType"), values: comparedRods.map((rod) => valueOrUnknown(rod.reelType)) },
+        { label: t("compare.row.lureWeight"), values: comparedRods.map((rod) => formatLureRange(rod)) },
+        { label: t("compare.row.peRating"), values: comparedRods.map((rod) => formatPeRange(rod)) },
+        { label: t("compare.row.power"), values: comparedRods.map((rod) => valueOrUnknown(rod.power)) },
+        { label: t("compare.row.action"), values: comparedRods.map((rod) => valueOrUnknown(rod.action)) },
+        { label: t("compare.row.tipType"), values: comparedRods.map((rod) => valueOrUnknown(rod.tipType)) },
       ],
     },
     {
-      title: "Use, price & notes",
+      title: t("compare.group.usePrice"),
       rows: [
-        { label: "Use cases", values: comparedRods.map((rod) => (rod.useCases || []).join(" / ") || "Unknown") },
-        { label: "Typical price", values: comparedRods.map((rod) => formatPriceHkd(rod)) },
-        { label: "Rating", values: comparedRods.map((rod) => rod.rating ? `${rod.rating}/5` : "Unknown") },
+        { label: t("compare.row.useCases"), values: comparedRods.map((rod) => (rod.useCases || []).join(" / ") || valueOrUnknown("")) },
+        { label: t("compare.row.typicalPrice"), values: comparedRods.map((rod) => formatPriceHkd(rod)) },
+        { label: t("compare.row.rating"), values: comparedRods.map((rod) => rod.rating ? `${rod.rating}/5` : valueOrUnknown("")) },
       ],
     },
   ];
@@ -73,6 +74,7 @@ export default function ComparePage() {
     clearCompareIds,
   } = useCompare();
 
+  const { t } = useLocale();
   const [showDifferencesOnly, setShowDifferencesOnly] = useState(false);
 
   const comparedRods = useMemo(() => {
@@ -81,53 +83,58 @@ export default function ComparePage() {
       .filter(Boolean);
   }, [compareIds]);
 
-  const groups = useMemo(() => {
-    const baseGroups = createComparisonGroups(comparedRods);
+  const allGroups = useMemo(() => {
+    return createComparisonGroups(comparedRods, t);
+  }, [comparedRods, t]);
 
+  const groups = useMemo(() => {
     if (!showDifferencesOnly || comparedRods.length < 2) {
-      return baseGroups;
+      return allGroups;
     }
 
-    return baseGroups
+    return allGroups
       .map((group) => ({
         ...group,
         rows: group.rows.filter((row) => rowHasDifference(row.values)),
       }))
       .filter((group) => group.rows.length > 0);
-  }, [comparedRods, showDifferencesOnly]);
+  }, [allGroups, comparedRods.length, showDifferencesOnly]);
 
   const differenceCount = useMemo(() => {
-    return createComparisonGroups(comparedRods)
+    return allGroups
       .flatMap((group) => group.rows)
       .filter((row) => rowHasDifference(row.values)).length;
-  }, [comparedRods]);
+  }, [allGroups]);
+
+  const differingRowsText =
+    differenceCount === 1
+      ? t("compare.differingRowFound")
+      : t("compare.differingRowsFound");
 
   return (
     <main className="compareCataloguePage">
-      <PageTitle title="Compare Rods" description="Compare selected fishing rods side by side by dimensions, construction, lure rating, PE rating, use case, and source records." />
+      <PageTitle title={t("compare.pageTitle")} description={t("compare.pageDescription")} />
+
       <section className="compareHero">
         <div className="container compareHeroGrid">
           <div>
-            <div className="catalogEyebrow">Compare rods</div>
-            <h1>Side-by-side fishing rod comparison.</h1>
-            <p>
-              Select rods from the catalogue, then compare dimensions, casting range,
-              portability, market status, and usage notes in one structured view.
-            </p>
+            <div className="catalogEyebrow">{t("compare.eyebrow")}</div>
+            <h1>{t("compare.title")}</h1>
+            <p>{t("compare.description")}</p>
           </div>
 
           <div className="compareHeroStats">
             <div>
               <b>{comparedRods.length}</b>
-              <span>Selected rods</span>
+              <span>{t("compare.selectedRods")}</span>
             </div>
             <div>
               <b>{differenceCount}</b>
-              <span>Different specs</span>
+              <span>{t("compare.differentSpecs")}</span>
             </div>
             <div>
               <b>{maxCompareRods}</b>
-              <span>Maximum rods</span>
+              <span>{t("compare.maximumRods")}</span>
             </div>
           </div>
         </div>
@@ -136,14 +143,14 @@ export default function ComparePage() {
       <section className="container compareContent">
         <div className="compareToolbar">
           <div>
-            <div className="catalogEyebrow">Selected rods</div>
-            <h2>Current comparison set</h2>
+            <div className="catalogEyebrow">{t("compare.selectedRods")}</div>
+            <h2>{t("compare.currentSet")}</h2>
           </div>
 
           <div className="compareToolbarActions">
-            <Link to="/search">Add / change rods</Link>
+            <Link to="/search">{t("compare.addChangeRods")}</Link>
             <button type="button" onClick={clearCompareIds}>
-              Clear compare
+              {t("compare.clearCompare")}
             </button>
           </div>
         </div>
@@ -151,16 +158,13 @@ export default function ComparePage() {
         {comparedRods.length === 0 ? (
           <div className="compareEmptyState">
             <div>
-              <div className="catalogEyebrow">No rods selected</div>
-              <h2>Choose rods before comparing.</h2>
-              <p>
-                Go to the rod finder and tick Compare on the rods you want to compare.
-                RodBase will remember your selection while you browse.
-              </p>
+              <div className="catalogEyebrow">{t("compare.noRodsSelected")}</div>
+              <h2>{t("compare.chooseBeforeComparing")}</h2>
+              <p>{t("compare.emptyText")}</p>
             </div>
 
             <div className="compareEmptyActions">
-              <Link to="/search">Open rod finder</Link>
+              <Link to="/search">{t("compare.openRodFinder")}</Link>
             </div>
           </div>
         ) : (
@@ -192,7 +196,7 @@ export default function ComparePage() {
                     type="button"
                     onClick={() => removeCompareId(rod.id)}
                   >
-                    Remove
+                    {t("compare.remove")}
                   </button>
                 </article>
               ))}
@@ -206,23 +210,23 @@ export default function ComparePage() {
                   disabled={comparedRods.length < 2}
                   onChange={(event) => setShowDifferencesOnly(event.target.checked)}
                 />
-                Show differences only
+                {t("compare.showDifferencesOnly")}
               </label>
 
               <span>
-                {differenceCount} differing row{differenceCount === 1 ? "" : "s"} found
+                {differenceCount} {differingRowsText}
               </span>
             </div>
 
             <div className="compareSwipeHint">
-              Swipe sideways to compare all rod specifications.
+              {t("compare.swipeHint")}
             </div>
 
             <div className="compareTableShell">
               <table className="compareTable compareTableEnhanced">
                 <thead>
                   <tr>
-                    <th className="stickyCompareColumn">Parameter</th>
+                    <th className="stickyCompareColumn">{t("compare.parameter")}</th>
                     {comparedRods.map((rod) => (
                       <th key={rod.id}>
                         <div className="compareColumnHeader">
@@ -276,15 +280,10 @@ export default function ComparePage() {
 
             <div className="compareNote">
               <div>
-                <div className="catalogEyebrow">Comparison note</div>
-                <h2>How to read this comparison</h2>
+                <div className="catalogEyebrow">{t("compare.noteEyebrow")}</div>
+                <h2>{t("compare.noteTitle")}</h2>
               </div>
-              <p>
-                Use “Show differences only” when the table becomes long. Total length affects
-                reach and line control, closed length affects portability, and lure / PE ratings
-                help match the rod to the fishing method. Source records should be checked before
-                using any specification as final.
-              </p>
+              <p>{t("compare.noteText")}</p>
             </div>
           </>
         )}
@@ -292,4 +291,3 @@ export default function ComparePage() {
     </main>
   );
 }
-
