@@ -130,7 +130,27 @@ export const brands = [
     "rods": 72,
     "description": "Japanese rod-focused brand known for specialist rods, compact rods, and technique-specific product lines.",
     "logoText": "NISSIN",
-    "featured": true
+    "featured": true,
+    "officialSites": [
+      {
+        "region": "Japan",
+        "label": "Uzaki Nissin Official",
+        "url": "https://www.u-nissin.co.jp/",
+        "note": "Official Uzaki Nissin fishing rod manufacturer website."
+      },
+      {
+        "region": "Japan",
+        "label": "Uzaki Nissin Products",
+        "url": "https://www.u-nissin.co.jp/item",
+        "note": "Official Nissin product category index."
+      },
+      {
+        "region": "Japan",
+        "label": "ARES Official",
+        "url": "https://ares-rod.com/",
+        "note": "Official ARES lure-game rod brand site by Uzaki Nissin."
+      }
+    ]
   },
   {
     "id": "major-craft",
@@ -144,7 +164,33 @@ export const brands = [
     "rods": 103,
     "description": "Japanese rod brand known for accessible lure fishing series, shore rods, light game rods, and broad model variety.",
     "logoText": "Major Craft",
-    "featured": true
+    "featured": true,
+    "officialSites": [
+      {
+        "region": "Japan",
+        "label": "Major Craft Japan",
+        "url": "https://www.majorcraft.co.jp/majorcraft-factory/",
+        "note": "Official Japanese Major Craft website."
+      },
+      {
+        "region": "USA",
+        "label": "Major Craft America",
+        "url": "https://www.majorcraft-america.com/",
+        "note": "Official Major Craft America website."
+      },
+      {
+        "region": "Europe",
+        "label": "Major Craft Europe",
+        "url": "https://www.majorcrafteurope.com/",
+        "note": "Official Major Craft Europe website."
+      },
+      {
+        "region": "Europe",
+        "label": "Major Craft Europe Rods",
+        "url": "https://www.majorcrafteurope.com/product-category/rods/",
+        "note": "Official Europe rod category index."
+      }
+    ]
   },
   {
     "id": "gamakatsu",
