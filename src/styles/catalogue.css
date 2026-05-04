@@ -5876,3 +5876,27 @@ html[lang="zh-Hant"] body {
     display: none;
   }
 }
+
+/* Brand page multilingual polish */
+.brandCardMeta {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 850;
+  margin-top: 8px;
+}
+
+.compactBrandTitle {
+  margin-top: 34px;
+  margin-bottom: 14px;
+}
+
+.brandFamilyLink {
+  display: inline-block;
+  color: var(--red);
+  font-weight: 950;
+  margin-top: 14px;
+}

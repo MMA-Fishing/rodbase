@@ -1,120 +1,142 @@
-﻿import { Link, useParams } from "react-router-dom";
+﻿import { Link, Navigate, useParams } from "react-router-dom";
 import { brands } from "../data/brands.js";
-import { series } from "../data/series.js";
 import { rods } from "../data/rods.js";
+import { series } from "../data/series.js";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
 import PageTitle from "../components/PageTitle.jsx";
 import BrandLogo from "../components/BrandLogo.jsx";
+import { useLocale } from "../context/LocaleContext.jsx";
 
-function BrandSelectionGrid() {
-  const featuredBrands = brands.filter((brand) => brand.featured);
-  const secondaryBrands = brands.filter((brand) => !brand.featured);
-
-  return (
-    <main className="container page brandLandingPage">
-      <PageTitle title="Browse Rod Brands" description="Browse fishing rods by brand, series, model family, and indexed rod variants." />
-      <div className="twSectionTitle">
-        <h1>Browse Rods by Brand</h1>
-        <p>Choose a brand to view its rod series, model families, and indexed variants.</p>
-      </div>
-
-      <div className="twBrandGrid twBrandGridFeatured">
-        {featuredBrands.map((brand) => (
-          <Link key={brand.id} className="twBrandCard twFeaturedBrandCard" to={`/brands/${brand.id}`}>
-            <BrandLogo brand={brand} size="featured" />
-            <div className="twBrandName">{brand.name}</div>
-          </Link>
-        ))}
-      </div>
-
-      <div className="twBrandGrid twBrandGridSecondary">
-        {secondaryBrands.map((brand) => (
-          <Link key={brand.id} className="twBrandCard twSmallBrandCard" to={`/brands/${brand.id}`}>
-            <BrandLogo brand={brand} size="small" />
-            <div className="twBrandName">{brand.name}</div>
-          </Link>
-        ))}
-      </div>
-    </main>
-  );
+function makeSeriesId(brandName, seriesName) {
+  return `${String(brandName || "").toLowerCase().replaceAll(" ", "-")}-${String(seriesName || "")
+    .toLowerCase()
+    .replaceAll(" ", "-")}`;
 }
 
-function RodFamilyVisual({ seriesName, brandName }) {
+function BrandCard({ brand, size = "featured", t }) {
+  const brandRods = rods.filter((rod) => rod.brand === brand.name);
+  const seriesCount = (brand.series || []).length;
+
   return (
-    <div className="brandFamilyVisual">
-      <div className="rodRack">
-        <div className="rackRod rackRodOne">
-          <span />
-        </div>
-        <div className="rackRod rackRodTwo">
-          <span />
-        </div>
-        <div className="rackRod rackRodThree">
-          <span />
-        </div>
+    <Link
+      className={size === "small" ? "twBrandCard twSmallBrandCard" : "twBrandCard twFeaturedBrandCard"}
+      to={`/brands/${brand.id}`}
+    >
+      <BrandLogo brand={brand} size={size === "small" ? "small" : "featured"} />
+      <div className="twBrandName">{brand.name}</div>
+      <div className="brandCardMeta">
+        <span>{brandRods.length} {t("brands.indexedRods")}</span>
+        <span>{seriesCount} {t("brands.series")}</span>
       </div>
-
-      <div className="brandFamilyVisualLabel">
-        <span>{brandName}</span>
-        <strong>{seriesName}</strong>
-      </div>
-    </div>
+    </Link>
   );
-}
-
-function formatMarketRegions(item) {
-  if (!item.marketRegions || item.marketRegions.length === 0) return "Market to be confirmed";
-  return item.marketRegions.join(" / ");
 }
 
 export default function BrandsPage() {
   const { brandId } = useParams();
+  const { t } = useLocale();
 
-  if (!brandId) {
-    return <BrandSelectionGrid />;
+  const selectedBrandData = brandId
+    ? brands.find((brand) => brand.id === brandId)
+    : null;
+
+  if (brandId && !selectedBrandData) {
+    return <Navigate to="/brands" replace />;
   }
 
-  const selectedBrandData = brands.find((brand) => brand.id === brandId);
-
   if (!selectedBrandData) {
+    const featuredBrandsRaw = brands.filter((brand) => brand.featured);
+    const featuredBrands = featuredBrandsRaw.length > 0 ? featuredBrandsRaw : brands.slice(0, 4);
+    const featuredIds = new Set(featuredBrands.map((brand) => brand.id));
+    const secondaryBrands = brands.filter((brand) => !featuredIds.has(brand.id));
+
     return (
-      <main className="container page">
-        <div className="card">
-          <div className="eyebrow">Brand not found</div>
-          <h1>We could not find this brand.</h1>
-          <p className="note">
-            The brand may have been renamed, removed, or the URL may be incorrect.
-          </p>
-          <div className="buttonRow">
-            <Link className="blackButton" to="/brands">Back to brands</Link>
-            <Link className="outlineButton" to="/">Home</Link>
+      <main className="brandLandingPage">
+        <PageTitle title={t("brands.pageTitle")} description={t("brands.pageDescription")} />
+
+        <section className="container twStyleSection">
+          <div className="twSectionTitle">
+            <div className="catalogEyebrow">{t("brands.eyebrow")}</div>
+            <h1>{t("brands.title")}</h1>
+            <p>{t("brands.description")}</p>
           </div>
-        </div>
+
+          <div className="twSectionTitle compactBrandTitle">
+            <h2>{t("brands.featuredTitle")}</h2>
+            <p>{t("brands.featuredDesc")}</p>
+          </div>
+
+          <div className="twBrandGrid twBrandGridFeatured">
+            {featuredBrands.map((brand) => (
+              <BrandCard key={brand.id} brand={brand} t={t} />
+            ))}
+          </div>
+
+          {secondaryBrands.length > 0 && (
+            <>
+              <div className="twSectionTitle compactBrandTitle">
+                <h2>{t("brands.moreTitle")}</h2>
+                <p>{t("brands.moreDesc")}</p>
+              </div>
+
+              <div className="twBrandGrid twBrandGridSecondary">
+                {secondaryBrands.map((brand) => (
+                  <BrandCard key={brand.id} brand={brand} size="small" t={t} />
+                ))}
+              </div>
+            </>
+          )}
+        </section>
       </main>
     );
   }
 
-  const selectedBrandSeries = series.filter(
-    (item) => item.brand === selectedBrandData.name
-  );
+  const brandRods = rods.filter((rod) => rod.brand === selectedBrandData.name);
+  const brandSeriesRecords = series.filter((item) => item.brand === selectedBrandData.name);
+  const seriesFromBrand = selectedBrandData.series || [];
 
-  const brandRodCount = rods.filter((rod) => rod.brand === selectedBrandData.name).length;
+  const displaySeries = seriesFromBrand.map((seriesName) => {
+    const matched = brandSeriesRecords.find((item) => item.name === seriesName);
+    const seriesRods = brandRods.filter((rod) => rod.series === seriesName);
+
+    return {
+      id: matched?.id || makeSeriesId(selectedBrandData.name, seriesName),
+      name: matched?.name || seriesName,
+      displayName: matched?.displayName || `${selectedBrandData.name} ${seriesName}`,
+      description: matched?.description || "",
+      catalogueStatus: matched?.catalogueStatus || "",
+      marketRegions: matched?.marketRegions || [],
+      variantsCount: matched?.variantsCount ?? seriesRods.length,
+      currentCount: matched?.currentCount ?? seriesRods.length,
+      archivedCount: matched?.archivedCount ?? 0,
+      sourceRecords: matched?.sourceRecords || [],
+      isIndexed: Boolean(matched) || seriesRods.length > 0,
+    };
+  });
+
+  const indexedSeries = displaySeries.filter((item) => item.isIndexed);
 
   return (
     <main className="brandSeriesPage">
-      <PageTitle title={`${selectedBrandData.name} Rods`} description={`Browse ${selectedBrandData.name} rod series, model families, official references, and indexed rod variants.`} />
-      <section className="brandHero brandHeroCatalogue">
+      <PageTitle
+        title={`${selectedBrandData.name} ${t("brandDetail.pageSuffix")}`}
+        description={`Browse ${selectedBrandData.name} rod series, model families, official references, and indexed rod variants.`}
+      />
+
+      <section className="brandHero">
         <div className="container brandHeroInner">
           <div>
-            <div className="catalogEyebrow">Brand catalogue</div>
-            <h1>{selectedBrandData.name} Rods</h1>
-            <p>{selectedBrandData.description}</p>
+            <div className="catalogEyebrow">{t("brands.eyebrow")}</div>
+            <h1>{selectedBrandData.name}</h1>
+            <p>
+              {brandRods.length} {t("brands.indexedRods")} · {(selectedBrandData.series || []).length} {t("brands.series")}
+            </p>
 
-            <div className="brandHeroMeta">
-              <span>{selectedBrandData.country}</span>
-              <span>{selectedBrandSeries.length} series listed</span>
-              <span>{brandRodCount} indexed rods</span>
-              <span>Catalogue in progress</span>
+            <div className="brandToolbar">
+              <Link to="/brands">{t("brandDetail.backAllBrands")}</Link>
+              <Link to={`/search?q=${encodeURIComponent(selectedBrandData.name)}`}>
+                {t("brandDetail.searchBrandRods")}
+              </Link>
             </div>
           </div>
 
@@ -123,22 +145,19 @@ export default function BrandsPage() {
       </section>
 
       <section className="container brandSeriesContent">
-        <div className="brandToolbar">
-          <Link to="/brands">← All brands</Link>
-          <Link to={`/search?q=${encodeURIComponent(selectedBrandData.name)}`}>
-            Search {selectedBrandData.name} rods
-          </Link>
-        </div>
+        <Breadcrumbs
+          items={[
+            { label: t("nav.brands"), to: "/brands" },
+            { label: `${selectedBrandData.name} ${t("brandDetail.pageSuffix")}` },
+          ]}
+        />
 
         {(selectedBrandData.officialSites || []).length > 0 && (
           <section className="brandOfficialSites">
             <div>
-              <div className="catalogEyebrow">Official references</div>
-              <h2>{selectedBrandData.name} official websites</h2>
-              <p>
-                Product names, model availability, and specifications may differ by region.
-                Always check the relevant official regional site before treating product data as final.
-              </p>
+              <div className="catalogEyebrow">{t("brandDetail.officialEyebrow")}</div>
+              <h2>{selectedBrandData.name} {t("brandDetail.officialTitleSuffix")}</h2>
+              <p>{t("brandDetail.officialDesc")}</p>
             </div>
 
             <div className="officialSiteGrid">
@@ -153,89 +172,61 @@ export default function BrandsPage() {
           </section>
         )}
 
-        <div className="catalogSectionHeader brandFamilyHeader">
+        <div className="catalogSectionHeader">
           <div>
-            <div className="catalogEyebrow">Series families</div>
-            <h2>{selectedBrandData.name} rod series</h2>
-            <p className="brandFamilyIntro">
-              Browse the brand by model family first, then open a series to compare individual rod variants.
-            </p>
+            <div className="catalogEyebrow">{t("brandDetail.seriesEyebrow")}</div>
+            <h2>{t("brandDetail.seriesTitle")}</h2>
+            <p>{t("brandDetail.seriesDesc")}</p>
           </div>
-          <span className="brandSeriesCount">{selectedBrandSeries.length} series listed</span>
+
+          <Link className="catalogTextLink" to={`/search?q=${encodeURIComponent(selectedBrandData.name)}`}>
+            {t("brandDetail.searchAll")}
+          </Link>
         </div>
 
-        {selectedBrandSeries.length > 0 ? (
+        {indexedSeries.length > 0 ? (
           <div className="brandFamilyGrid">
-            {selectedBrandSeries.map((item) => {
-              const matchingRods = rods.filter(
-                (rod) => rod.brand === item.brand && rod.series === item.name
-              );
+            {indexedSeries.map((item) => (
+              <Link key={item.id} className="brandFamilyCard" to={`/series/${item.id}`}>
+                <div className="seriesBrand">{selectedBrandData.name}</div>
+                <h3>{item.name}</h3>
+                <p>{item.description || `${selectedBrandData.name} ${item.name}`}</p>
 
-              return (
-                <Link key={item.id} className="brandFamilyCard" to={`/series/${item.id}`}>
-                  <RodFamilyVisual seriesName={item.name} brandName={item.brand} />
-
-                  <div className="brandFamilyInfo">
-                    <div className="seriesBrand">{item.brand}</div>
-                    <h3>{item.name}</h3>
-                    <p>{item.description}</p>
-
-                    <div className="brandFamilyStats brandFamilyStatsClean">
-                      <div>
-                        <span>Indexed rods</span>
-                        <b>{matchingRods.length}</b>
-                      </div>
-                      <div>
-                        <span>Status</span>
-                        <b>{item.catalogueStatus || "In progress"}</b>
-                      </div>
-                      <div>
-                        <span>Market</span>
-                        <b>{formatMarketRegions(item)}</b>
-                      </div>
-                    </div>
-
-                    <div className="brandFamilyTags">
-                      {(item.useCases || []).slice(0, 4).map((tag) => (
-                        <span key={tag}>{tag}</span>
-                      ))}
-                    </div>
-
-                    {matchingRods.length > 0 ? (
-                      <div className="seriesIndexedRod">
-                        Indexed rod example: <b>{matchingRods[0].displayName}</b>
-                      </div>
-                    ) : (
-                      <div className="seriesIndexedRod">
-                        Individual rod variants not indexed yet.
-                      </div>
-                    )}
-
-                    <div className="brandFamilyFooter">
-                      <span>{matchingRods.length} indexed rod{matchingRods.length === 1 ? "" : "s"}</span>
-                      <strong>View series →</strong>
-                    </div>
+                <div className="brandFamilyStats">
+                  <div>
+                    <span>{t("brandDetail.variants")}</span>
+                    <b>{item.variantsCount}</b>
                   </div>
-                </Link>
-              );
-            })}
+                  <div>
+                    <span>{t("brandDetail.currentRecent")}</span>
+                    <b>{item.currentCount}</b>
+                  </div>
+                  <div>
+                    <span>{t("brandDetail.indexed")}</span>
+                    <b>{brandRods.filter((rod) => rod.series === item.name).length}</b>
+                  </div>
+                </div>
+
+                <div className="seriesStats">
+                  <span>{item.catalogueStatus || t("common.notListed")}</span>
+                  <span>{(item.marketRegions || []).join(" / ") || t("common.notListed")}</span>
+                </div>
+
+                <span className="brandFamilyLink">{t("brandDetail.viewSeries")}</span>
+              </Link>
+            ))}
           </div>
         ) : (
-          <div className="card emptyBrandSeries">
-            <h2>No series indexed yet</h2>
-            <p className="note">
-              This brand exists in the database, but series records have not been added yet.
-            </p>
+          <div className="emptyBrandSeries">
+            <div className="catalogEyebrow">{t("brandDetail.seriesEyebrow")}</div>
+            <h2>{t("brandDetail.noSeriesTitle")}</h2>
+            <p>{t("brandDetail.noSeriesText")}</p>
+            <Link to={`/search?q=${encodeURIComponent(selectedBrandData.name)}`}>
+              {t("brandDetail.searchAll")}
+            </Link>
           </div>
         )}
       </section>
     </main>
   );
 }
-
-
-
-
-
-
-
