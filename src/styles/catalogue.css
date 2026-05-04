@@ -6496,3 +6496,178 @@ html[lang="zh-Hant"] body {
     flex-direction: column;
   }
 }
+
+/* Premium Indexed Series cards v2: forced inner spacing */
+.brandSeriesPage .brandSeriesContent .brandFamilyGrid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 28px !important;
+  align-items: stretch !important;
+}
+
+.brandSeriesPage .brandSeriesContent .brandFamilyCardPremium {
+  display: block !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  color: inherit !important;
+  text-decoration: none !important;
+  background: #fffdf8 !important;
+  border: 1px solid var(--line) !important;
+  border-left: 4px solid transparent !important;
+  box-shadow: 0 14px 30px rgba(21, 19, 15, 0.055) !important;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease,
+    background 0.18s ease !important;
+}
+
+.brandSeriesPage .brandSeriesContent .brandFamilyCardPremium:hover {
+  transform: translateY(-2px) !important;
+  background: #fffaf0 !important;
+  border-color: rgba(180, 35, 24, 0.28) !important;
+  border-left-color: var(--red) !important;
+  box-shadow: 0 20px 42px rgba(21, 19, 15, 0.09) !important;
+}
+
+.brandSeriesPage .brandSeriesContent .brandFamilyCardBody {
+  display: grid !important;
+  grid-template-rows: auto auto 1fr auto auto !important;
+  gap: 20px !important;
+  min-height: 310px !important;
+  padding: 30px !important;
+}
+
+.brandSeriesPage .brandSeriesContent .brandFamilyCardBody .seriesBrand {
+  margin: 0 !important;
+  color: var(--red) !important;
+  font-size: 0.78rem !important;
+  font-weight: 950 !important;
+  letter-spacing: 0.16em !important;
+  line-height: 1 !important;
+  text-transform: uppercase !important;
+}
+
+.brandSeriesPage .brandSeriesContent .brandFamilyCardBody h3 {
+  margin: -10px 0 0 !important;
+  font-size: clamp(1.55rem, 2.3vw, 2.05rem) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.065em !important;
+}
+
+.brandSeriesPage .brandSeriesContent .brandFamilyCardBody p {
+  margin: 0 !important;
+  color: var(--muted) !important;
+  line-height: 1.72 !important;
+  max-width: 62ch !important;
+}
+
+.brandSeriesPage .brandSeriesContent .brandFamilyCardBody .brandFamilyStats {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  margin: 4px 0 0 !important;
+  overflow: hidden !important;
+  background: #faf6ed !important;
+  border: 1px solid var(--line) !important;
+}
+
+.brandSeriesPage .brandSeriesContent .brandFamilyCardBody .brandFamilyStats > div {
+  display: grid !important;
+  gap: 9px !important;
+  padding: 18px 18px 16px !important;
+  border-right: 1px solid var(--line) !important;
+}
+
+.brandSeriesPage .brandSeriesContent .brandFamilyCardBody .brandFamilyStats > div:last-child {
+  border-right: 0 !important;
+}
+
+.brandSeriesPage .brandSeriesContent .brandFamilyCardBody .brandFamilyStats span {
+  color: var(--muted) !important;
+  font-size: 0.78rem !important;
+  line-height: 1.2 !important;
+}
+
+.brandSeriesPage .brandSeriesContent .brandFamilyCardBody .brandFamilyStats b {
+  color: var(--ink) !important;
+  font-size: 1.45rem !important;
+  line-height: 1 !important;
+  letter-spacing: -0.04em !important;
+}
+
+.brandSeriesPage .brandSeriesContent .brandFamilyCardBody .seriesStats {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  margin: 0 !important;
+}
+
+.brandSeriesPage .brandSeriesContent .brandFamilyCardBody .seriesStats span {
+  display: inline-flex !important;
+  align-items: center !important;
+  min-height: 34px !important;
+  padding: 8px 12px !important;
+  background: white !important;
+  border: 1px solid var(--line) !important;
+  color: var(--ink) !important;
+  font-size: 0.82rem !important;
+  font-weight: 900 !important;
+  line-height: 1.2 !important;
+}
+
+.brandSeriesPage .brandSeriesContent .brandFamilyCardBody .brandFamilyLink {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin: 0 !important;
+  padding-top: 18px !important;
+  border-top: 1px solid var(--line) !important;
+  color: var(--red) !important;
+  font-size: 0.98rem !important;
+  font-weight: 950 !important;
+  letter-spacing: -0.01em !important;
+}
+
+.brandSeriesPage .brandSeriesContent .brandFamilyCardBody .brandFamilyLink::after {
+  content: "" !important;
+  width: 36px !important;
+  height: 2px !important;
+  background: currentColor !important;
+  opacity: 0.35 !important;
+  transition: width 0.18s ease, opacity 0.18s ease !important;
+}
+
+.brandSeriesPage .brandSeriesContent .brandFamilyCardPremium:hover .brandFamilyLink::after {
+  width: 56px !important;
+  opacity: 0.75 !important;
+}
+
+@media (max-width: 900px) {
+  .brandSeriesPage .brandSeriesContent .brandFamilyGrid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .brandSeriesPage .brandSeriesContent .brandFamilyCardBody {
+    min-height: 0 !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .brandSeriesPage .brandSeriesContent .brandFamilyCardBody {
+    padding: 22px !important;
+    gap: 17px !important;
+  }
+
+  .brandSeriesPage .brandSeriesContent .brandFamilyCardBody .brandFamilyStats {
+    grid-template-columns: 1fr !important;
+  }
+
+  .brandSeriesPage .brandSeriesContent .brandFamilyCardBody .brandFamilyStats > div {
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--line) !important;
+  }
+
+  .brandSeriesPage .brandSeriesContent .brandFamilyCardBody .brandFamilyStats > div:last-child {
+    border-bottom: 0 !important;
+  }
+}

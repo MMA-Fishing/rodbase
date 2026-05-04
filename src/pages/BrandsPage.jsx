@@ -187,7 +187,8 @@ export default function BrandsPage() {
         {indexedSeries.length > 0 ? (
           <div className="brandFamilyGrid">
             {indexedSeries.map((item) => (
-              <Link key={item.id} className="brandFamilyCard" to={`/series/${item.id}`}>
+              <Link key={item.id} className="brandFamilyCard brandFamilyCardPremium" to={`/series/${item.id}`}>
+                <div className="brandFamilyCardBody">
                 <div className="seriesBrand">{selectedBrandData.name}</div>
                 <h3>{item.name}</h3>
                 <p>{item.description || `${selectedBrandData.name} ${item.name}`}</p>
@@ -213,6 +214,7 @@ export default function BrandsPage() {
                 </div>
 
                 <span className="brandFamilyLink">{t("brandDetail.viewSeries")}</span>
+                </div>
               </Link>
             ))}
           </div>
@@ -230,3 +232,4 @@ export default function BrandsPage() {
     </main>
   );
 }
+
