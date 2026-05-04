@@ -159,7 +159,8 @@ export const brands = [
     "series": [
       "Solpara",
       "Crostage",
-      "Firstcast"
+      "Firstcast",
+      "Solpara Shore Jigging"
     ],
     "rods": 103,
     "description": "Japanese rod brand known for accessible lure fishing series, shore rods, light game rods, and broad model variety.",

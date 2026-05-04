@@ -151,9 +151,15 @@ rods.forEach((rod) => {
   checkRequiredString(rod, "construction", label);
 
   checkRequiredNumber(rod, "lengthCm", label);
-  checkRequiredNumber(rod, "closedLengthCm", label);
   checkRequiredNumber(rod, "weightG", label);
-  checkRequiredNumber(rod, "sections", label);
+
+  if (rod.closedLengthCm != null && typeof rod.closedLengthCm !== "number") {
+    error(`${label} has invalid closedLengthCm. Use number or null.`);
+  }
+
+  if (rod.sections != null && typeof rod.sections !== "number") {
+    error(`${label} has invalid sections. Use number or null.`);
+  }
 
   checkArray(rod, "marketRegions", label);
   checkArray(rod, "aliases", label);
@@ -186,5 +192,7 @@ console.log(`Warnings: ${warningCount}`);
 if (errorCount > 0) {
   process.exit(1);
 }
+
+
 
 

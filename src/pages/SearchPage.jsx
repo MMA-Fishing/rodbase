@@ -42,6 +42,10 @@ function rodMatchesKeyword(rod, keyword) {
   return searchableText.includes(q);
 }
 
+function sortableNumber(value) {
+  return typeof value === "number" ? value : Number.POSITIVE_INFINITY;
+}
+
 function toggleArrayValue(currentValues, value) {
   if (currentValues.includes(value)) {
     return currentValues.filter((item) => item !== value);
@@ -301,11 +305,20 @@ export default function SearchPage() {
         selectedUseCases.length === 0 ||
         selectedUseCases.some((useCase) => (rod.useCases || []).includes(useCase));
 
-      const matchesSpecs =
+      const matchesLength =
+        typeof rod.lengthCm === "number" &&
         rod.lengthCm >= minTotalLength &&
-        rod.lengthCm <= maxTotalLength &&
-        rod.closedLengthCm <= maxClosed &&
-        rod.weightG <= maxWeight;
+        rod.lengthCm <= maxTotalLength;
+
+      const matchesClosed =
+        maxClosed === 160 ||
+        (typeof rod.closedLengthCm === "number" && rod.closedLengthCm <= maxClosed);
+
+      const matchesWeight =
+        maxWeight === 600 ||
+        (typeof rod.weightG === "number" && rod.weightG <= maxWeight);
+
+      const matchesSpecs = matchesLength && matchesClosed && matchesWeight;
 
       return (
         matchesKeyword &&
@@ -317,11 +330,11 @@ export default function SearchPage() {
     });
 
     return [...results].sort((a, b) => {
-      if (sortMode === "closedLengthAsc") return a.closedLengthCm - b.closedLengthCm;
-      if (sortMode === "weightAsc") return a.weightG - b.weightG;
-      if (sortMode === "ratingDesc") return b.rating - a.rating;
-      if (sortMode === "lengthAsc") return a.lengthCm - b.lengthCm;
-      if (sortMode === "priceAsc") return a.priceHkdApprox - b.priceHkdApprox;
+      if (sortMode === "closedLengthAsc") return sortableNumber(a.closedLengthCm) - sortableNumber(b.closedLengthCm);
+      if (sortMode === "weightAsc") return sortableNumber(a.weightG) - sortableNumber(b.weightG);
+      if (sortMode === "ratingDesc") return sortableNumber(b.rating) - sortableNumber(a.rating);
+      if (sortMode === "lengthAsc") return sortableNumber(a.lengthCm) - sortableNumber(b.lengthCm);
+      if (sortMode === "priceAsc") return sortableNumber(a.priceHkdApprox) - sortableNumber(b.priceHkdApprox);
 
       return 0;
     });
@@ -559,5 +572,6 @@ export default function SearchPage() {
     </main>
   );
 }
+
 
 

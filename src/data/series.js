@@ -155,5 +155,54 @@ export const series = [
         "note": "Official Daiwa regional product page and specification table."
       }
     ]
+  },
+  {
+    "id": "major-craft-solpara-shore-jigging",
+    "brand": "Major Craft",
+    "name": "Solpara Shore Jigging",
+    "displayName": "Major Craft Solpara Shore Jigging",
+    "officialName": "SOLPARA SHORE JIGGING",
+    "catalogueStatus": "Current / Recent",
+    "marketRegions": [
+      "Europe",
+      "Global"
+    ],
+    "description": "Major Craft Solpara shore jigging series covering super light shore jigging, light shore jigging, heavier shore jigging, and telescopic SPXT models.",
+    "useCases": [
+      "Shore",
+      "Shore jigging",
+      "Saltwater",
+      "Travel",
+      "Telescopic",
+      "Distance casting"
+    ],
+    "featuredRodIds": [
+      "major-craft-solpara-shore-jigging-spx-902ssj",
+      "major-craft-solpara-shore-jigging-spx-942ssj",
+      "major-craft-solpara-shore-jigging-spx-902lsj",
+      "major-craft-solpara-shore-jigging-spx-962lsj",
+      "major-craft-solpara-shore-jigging-spx-1002lsj",
+      "major-craft-solpara-shore-jigging-spx-1002mh",
+      "major-craft-solpara-shore-jigging-spx-962mh",
+      "major-craft-solpara-shore-jigging-spx-962h",
+      "major-craft-solpara-shore-jigging-spx-1002h",
+      "major-craft-solpara-shore-jigging-spxt-90m",
+      "major-craft-solpara-shore-jigging-spxt-94ssj",
+      "major-craft-solpara-shore-jigging-spxt-96lsj",
+      "major-craft-solpara-shore-jigging-spxt-100lsj",
+      "major-craft-solpara-shore-jigging-spxt-90mh"
+    ],
+    "variantsCount": 14,
+    "currentCount": 14,
+    "archivedCount": 0,
+    "sourceRecords": [
+      {
+        "sourceType": "Official product page",
+        "label": "Major Craft Europe - Solpara Shore Jigging",
+        "url": "https://www.majorcrafteurope.com/product/solpara-shore-jigging/",
+        "lastChecked": "2026-05-04",
+        "note": "Official Major Craft Europe product page and technical details table."
+      }
+    ]
   }
 ];
