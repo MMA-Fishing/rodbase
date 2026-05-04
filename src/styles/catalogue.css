@@ -3907,3 +3907,20 @@ footer {
   background: var(--red-dark);
   border-color: var(--red-dark);
 }
+
+/* Honest live-count stats: avoids fake planned variant counts */
+.brandFamilyStatsClean b,
+.seriesStatsGridClean b {
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
+.brandFamilyStatsClean div,
+.seriesStatsGridClean div {
+  min-width: 0;
+}
+
+.brandFamilyStatsClean b,
+.seriesStatsGridClean b {
+  overflow-wrap: anywhere;
+}

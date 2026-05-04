@@ -62,6 +62,11 @@ function RodFamilyVisual({ seriesName, brandName }) {
   );
 }
 
+function formatMarketRegions(item) {
+  if (!item.marketRegions || item.marketRegions.length === 0) return "Market to be confirmed";
+  return item.marketRegions.join(" / ");
+}
+
 export default function BrandsPage() {
   const { brandId } = useParams();
 
@@ -153,18 +158,18 @@ export default function BrandsPage() {
                     <h3>{item.name}</h3>
                     <p>{item.description}</p>
 
-                    <div className="brandFamilyStats">
+                    <div className="brandFamilyStats brandFamilyStatsClean">
                       <div>
-                        <span>Variants</span>
-                        <b>{item.variantsCount}</b>
+                        <span>Indexed rods</span>
+                        <b>{matchingRods.length}</b>
                       </div>
                       <div>
-                        <span>Current</span>
-                        <b>{item.currentCount}</b>
+                        <span>Status</span>
+                        <b>{item.catalogueStatus || "In progress"}</b>
                       </div>
                       <div>
-                        <span>Archived</span>
-                        <b>{item.archivedCount}</b>
+                        <span>Market</span>
+                        <b>{formatMarketRegions(item)}</b>
                       </div>
                     </div>
 

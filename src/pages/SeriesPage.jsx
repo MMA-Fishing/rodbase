@@ -13,6 +13,14 @@ import {
   valueOrUnknown,
 } from "../utils/rodFormatters.js";
 
+function formatSeriesMarket(currentSeries) {
+  if (!currentSeries.marketRegions || currentSeries.marketRegions.length === 0) {
+    return "Market to be confirmed";
+  }
+
+  return currentSeries.marketRegions.join(" / ");
+}
+
 export default function SeriesPage() {
   const { seriesId } = useParams();
   const currentSeries = series.find((item) => item.id === seriesId);
@@ -42,10 +50,11 @@ export default function SeriesPage() {
   );
 
   const featuredRods = rods.filter((rod) =>
-    currentSeries.featuredRodIds.includes(rod.id)
+    (currentSeries.featuredRodIds || []).includes(rod.id)
   );
 
   const rodsToShow = matchingRods.length > 0 ? matchingRods : featuredRods;
+  const marketText = formatSeriesMarket(currentSeries);
 
   return (
     <main className="seriesDetailPage">
@@ -58,7 +67,8 @@ export default function SeriesPage() {
 
             <div className="seriesHeroPills">
               <Pill>{valueOrUnknown(currentSeries.catalogueStatus)}</Pill>
-              <Pill>{(currentSeries.marketRegions || []).join(" / ") || "Unknown market"}</Pill>
+              <Pill>{marketText}</Pill>
+              <Pill>{rodsToShow.length} indexed rods</Pill>
             </div>
           </div>
 
@@ -87,22 +97,22 @@ export default function SeriesPage() {
           </Link>
         </div>
 
-        <div className="seriesStatsGrid">
-          <div>
-            <span>Known variants</span>
-            <b>{currentSeries.variantsCount}</b>
-          </div>
-          <div>
-            <span>Current variants</span>
-            <b>{currentSeries.currentCount}</b>
-          </div>
-          <div>
-            <span>Archived variants</span>
-            <b>{currentSeries.archivedCount}</b>
-          </div>
+        <div className="seriesStatsGrid seriesStatsGridClean">
           <div>
             <span>Indexed rods</span>
             <b>{rodsToShow.length}</b>
+          </div>
+          <div>
+            <span>Brand</span>
+            <b>{currentSeries.brand}</b>
+          </div>
+          <div>
+            <span>Status</span>
+            <b>{currentSeries.catalogueStatus || "In progress"}</b>
+          </div>
+          <div>
+            <span>Market</span>
+            <b>{marketText}</b>
           </div>
         </div>
 
@@ -197,4 +207,3 @@ export default function SeriesPage() {
     </main>
   );
 }
-
