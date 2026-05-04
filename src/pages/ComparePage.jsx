@@ -1,25 +1,15 @@
 ﻿import { Link } from "react-router-dom";
 import { rods } from "../data/rods.js";
-
-function formatLureRange(rod) {
-  if (rod.minLureG == null || rod.maxLureG == null) return "Unknown";
-  return `${rod.minLureG}-${rod.maxLureG}g`;
-}
-
-function formatPeRange(rod) {
-  if (rod.minPe == null || rod.maxPe == null) return "Unknown";
-  return `PE ${rod.minPe}-${rod.maxPe}`;
-}
-
-function formatPrice(rod) {
-  if (rod.priceHkdApprox == null) return "Unknown";
-  return `~HKD ${rod.priceHkdApprox}`;
-}
-
-function valueOrUnknown(value) {
-  if (value === null || value === undefined || value === "") return "Unknown";
-  return value;
-}
+import {
+  formatLengthM,
+  formatLengthCm,
+  formatWeightG,
+  formatLureRange,
+  formatPeRange,
+  formatPriceHkd,
+  formatMarketRegions,
+  valueOrUnknown,
+} from "../utils/rodFormatters.js";
 
 export default function ComparePage() {
   const comparedRods = rods;
@@ -31,26 +21,26 @@ export default function ComparePage() {
         ["Brand", ...comparedRods.map((rod) => rod.brand)],
         ["Series", ...comparedRods.map((rod) => rod.series)],
         ["Model / variant", ...comparedRods.map((rod) => rod.model)],
-        ["Generation", ...comparedRods.map((rod) => rod.generation)],
-        ["Catalogue status", ...comparedRods.map((rod) => rod.catalogueStatus)],
-        ["Market regions", ...comparedRods.map((rod) => rod.marketRegions.join(" / "))],
+        ["Generation", ...comparedRods.map((rod) => valueOrUnknown(rod.generation))],
+        ["Catalogue status", ...comparedRods.map((rod) => valueOrUnknown(rod.catalogueStatus))],
+        ["Market regions", ...comparedRods.map((rod) => formatMarketRegions(rod))],
       ],
     },
     {
       title: "Dimensions",
       rows: [
-        ["Total length", ...comparedRods.map((rod) => `${(rod.lengthCm / 100).toFixed(2)}m`)],
-        ["Closed length", ...comparedRods.map((rod) => `${rod.closedLengthCm}cm`)],
-        ["Rod weight", ...comparedRods.map((rod) => `${rod.weightG}g`)],
-        ["Sections", ...comparedRods.map((rod) => rod.sections)],
-        ["Construction", ...comparedRods.map((rod) => rod.construction)],
+        ["Total length", ...comparedRods.map((rod) => formatLengthM(rod.lengthCm))],
+        ["Closed length", ...comparedRods.map((rod) => formatLengthCm(rod.closedLengthCm))],
+        ["Rod weight", ...comparedRods.map((rod) => formatWeightG(rod.weightG))],
+        ["Sections", ...comparedRods.map((rod) => valueOrUnknown(rod.sections))],
+        ["Construction", ...comparedRods.map((rod) => valueOrUnknown(rod.construction))],
       ],
     },
     {
       title: "Casting, line & action",
       rows: [
-        ["Rod type", ...comparedRods.map((rod) => rod.rodType)],
-        ["Reel type", ...comparedRods.map((rod) => rod.reelType)],
+        ["Rod type", ...comparedRods.map((rod) => valueOrUnknown(rod.rodType))],
+        ["Reel type", ...comparedRods.map((rod) => valueOrUnknown(rod.reelType))],
         ["Lure weight", ...comparedRods.map((rod) => formatLureRange(rod))],
         ["PE rating", ...comparedRods.map((rod) => formatPeRange(rod))],
         ["Power", ...comparedRods.map((rod) => valueOrUnknown(rod.power))],
@@ -59,11 +49,11 @@ export default function ComparePage() {
       ],
     },
     {
-      title: "Use, price & confidence",
+      title: "Use, price & notes",
       rows: [
-        ["Use cases", ...comparedRods.map((rod) => rod.useCases.join(" / "))],
-        ["Typical price", ...comparedRods.map((rod) => formatPrice(rod))],
-        ["Rating", ...comparedRods.map((rod) => `${rod.rating}/5`)],
+        ["Use cases", ...comparedRods.map((rod) => (rod.useCases || []).join(" / ") || "Unknown")],
+        ["Typical price", ...comparedRods.map((rod) => formatPriceHkd(rod))],
+        ["Rating", ...comparedRods.map((rod) => rod.rating ? `${rod.rating}/5` : "Unknown")],
       ],
     },
   ];
@@ -77,7 +67,7 @@ export default function ComparePage() {
             <h1>Side-by-side fishing rod comparison.</h1>
             <p>
               Compare identity, dimensions, lure rating, PE rating, portability, price,
-              and source records across selected rod models.
+              and usage notes across selected rod models.
             </p>
           </div>
 
@@ -125,9 +115,9 @@ export default function ComparePage() {
                 <p>{rod.series}</p>
 
                 <div className="compareMiniSpecs">
-                  <span>{(rod.lengthCm / 100).toFixed(2)}m</span>
-                  <span>{rod.closedLengthCm}cm closed</span>
-                  <span>{rod.weightG}g</span>
+                  <span>{formatLengthM(rod.lengthCm)}</span>
+                  <span>{formatLengthCm(rod.closedLengthCm)} closed</span>
+                  <span>{formatWeightG(rod.weightG)}</span>
                 </div>
               </div>
             </Link>
@@ -185,12 +175,10 @@ export default function ComparePage() {
           <p>
             Total length affects casting reach and line control. Closed length affects portability.
             Weight affects comfort. Lure and PE ratings help match the rod to the fishing method.
-            source records shows how reliable the current database record is.
+            Source records should be checked before using any specification as final.
           </p>
         </div>
       </section>
     </main>
   );
 }
-
-

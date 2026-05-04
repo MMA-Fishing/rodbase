@@ -1,15 +1,13 @@
 ﻿import { Link } from "react-router-dom";
 import Pill from "./Pill.jsx";
-
-function formatLureRange(rod) {
-  if (rod.minLureG == null || rod.maxLureG == null) return "Unknown";
-  return `${rod.minLureG}-${rod.maxLureG}g`;
-}
-
-function formatPeRange(rod) {
-  if (rod.minPe == null || rod.maxPe == null) return "Unknown";
-  return `PE ${rod.minPe}-${rod.maxPe}`;
-}
+import {
+  formatLengthM,
+  formatLengthCm,
+  formatWeightG,
+  formatLureRange,
+  formatPeRange,
+  formatMarketRegions,
+} from "../utils/rodFormatters.js";
 
 export default function RodCard({ rod }) {
   return (
@@ -39,15 +37,15 @@ export default function RodCard({ rod }) {
         <div className="catalogSpecTable">
           <div>
             <span>Length</span>
-            <b>{(rod.lengthCm / 100).toFixed(2)}m</b>
+            <b>{formatLengthM(rod.lengthCm)}</b>
           </div>
           <div>
             <span>Closed</span>
-            <b>{rod.closedLengthCm}cm</b>
+            <b>{formatLengthCm(rod.closedLengthCm)}</b>
           </div>
           <div>
             <span>Weight</span>
-            <b>{rod.weightG}g</b>
+            <b>{formatWeightG(rod.weightG)}</b>
           </div>
           <div>
             <span>Lure</span>
@@ -59,23 +57,23 @@ export default function RodCard({ rod }) {
           </div>
           <div>
             <span>Sections</span>
-            <b>{rod.sections}</b>
+            <b>{rod.sections ?? "Unknown"}</b>
           </div>
         </div>
 
         <div className="catalogRodTags">
-          {rod.useCases.slice(0, 4).map((tag) => (
+          {(rod.useCases || []).slice(0, 4).map((tag) => (
             <Pill key={tag}>{tag}</Pill>
           ))}
         </div>
 
         <div className="catalogRodMeta">
           <span>{rod.catalogueStatus}</span>
-          <span>{rod.marketRegions.join(" / ")}</span>
+          <span>{formatMarketRegions(rod)}</span>
         </div>
 
         <div className="catalogRodFooter">
-          <span className="catalogRating">★ {rod.rating}</span>
+          <span className="catalogRating">★ {rod.rating ?? "—"}</span>
           <Link className="catalogViewButton" to={`/rods/${rod.id}`}>
             View details
           </Link>
@@ -84,5 +82,3 @@ export default function RodCard({ rod }) {
     </article>
   );
 }
-
-
