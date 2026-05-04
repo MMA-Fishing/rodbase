@@ -4,6 +4,7 @@ import { series } from "../data/series.js";
 import { rods } from "../data/rods.js";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
 import PageTitle from "../components/PageTitle.jsx";
+import BrandLogo from "../components/BrandLogo.jsx";
 
 function BrandSelectionGrid() {
   const featuredBrands = brands.filter((brand) => brand.featured);
@@ -20,9 +21,7 @@ function BrandSelectionGrid() {
       <div className="twBrandGrid twBrandGridFeatured">
         {featuredBrands.map((brand) => (
           <Link key={brand.id} className="twBrandCard twFeaturedBrandCard" to={`/brands/${brand.id}`}>
-            <div className={`twBrandLogo twLogo-${brand.id}`}>
-              {brand.logoText}
-            </div>
+            <BrandLogo brand={brand} size="featured" />
             <div className="twBrandName">{brand.name}</div>
           </Link>
         ))}
@@ -31,9 +30,7 @@ function BrandSelectionGrid() {
       <div className="twBrandGrid twBrandGridSecondary">
         {secondaryBrands.map((brand) => (
           <Link key={brand.id} className="twBrandCard twSmallBrandCard" to={`/brands/${brand.id}`}>
-            <div className={`twBrandLogo twSmallLogo twLogo-${brand.id}`}>
-              {brand.logoText}
-            </div>
+            <BrandLogo brand={brand} size="small" />
             <div className="twBrandName">{brand.name}</div>
           </Link>
         ))}
@@ -121,9 +118,7 @@ export default function BrandsPage() {
             </div>
           </div>
 
-          <div className={`brandHeroLogo twLogo-${selectedBrandData.id}`}>
-            {selectedBrandData.logoText}
-          </div>
+          <BrandLogo brand={selectedBrandData} size="hero" className="brandHeroLogo" />
         </div>
       </section>
 
@@ -237,6 +232,7 @@ export default function BrandsPage() {
     </main>
   );
 }
+
 
 
 

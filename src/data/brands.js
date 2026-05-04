@@ -62,7 +62,10 @@ export const brands = [
         "url": "https://daiwa.my/",
         "note": "Malaysia regional official website."
       }
-    ]
+    ],
+    "logoUrl": "",
+    "logoUsage": "own-design",
+    "logoNote": "RodBase-designed text brand tile. Not an official brand logo file."
   },
   {
     "id": "shimano",
@@ -116,7 +119,10 @@ export const brands = [
         "url": "https://fish.shimano.com/en-GB",
         "note": "UK / European official fishing product site."
       }
-    ]
+    ],
+    "logoUrl": "",
+    "logoUsage": "own-design",
+    "logoNote": "RodBase-designed text brand tile. Not an official brand logo file."
   },
   {
     "id": "nissin",
@@ -150,7 +156,10 @@ export const brands = [
         "url": "https://ares-rod.com/",
         "note": "Official ARES lure-game rod brand site by Uzaki Nissin."
       }
-    ]
+    ],
+    "logoUrl": "",
+    "logoUsage": "own-design",
+    "logoNote": "RodBase-designed text brand tile. Not an official brand logo file."
   },
   {
     "id": "major-craft",
@@ -191,7 +200,10 @@ export const brands = [
         "url": "https://www.majorcrafteurope.com/product-category/rods/",
         "note": "Official Europe rod category index."
       }
-    ]
+    ],
+    "logoUrl": "",
+    "logoUsage": "own-design",
+    "logoNote": "RodBase-designed text brand tile. Not an official brand logo file."
   },
   {
     "id": "gamakatsu",
@@ -201,7 +213,10 @@ export const brands = [
     "rods": 0,
     "description": "Prepared brand entry for future specialist rod indexing.",
     "logoText": "Gamakatsu",
-    "featured": false
+    "featured": false,
+    "logoUrl": "",
+    "logoUsage": "own-design",
+    "logoNote": "RodBase-designed text brand tile. Not an official brand logo file."
   },
   {
     "id": "tenryu",
@@ -211,7 +226,10 @@ export const brands = [
     "rods": 0,
     "description": "Prepared brand entry for future premium rod indexing.",
     "logoText": "TENRYU",
-    "featured": false
+    "featured": false,
+    "logoUrl": "",
+    "logoUsage": "own-design",
+    "logoNote": "RodBase-designed text brand tile. Not an official brand logo file."
   },
   {
     "id": "abu-garcia",
@@ -221,7 +239,10 @@ export const brands = [
     "rods": 0,
     "description": "Prepared brand entry for future global rod indexing.",
     "logoText": "Abu Garcia",
-    "featured": false
+    "featured": false,
+    "logoUrl": "",
+    "logoUsage": "own-design",
+    "logoNote": "RodBase-designed text brand tile. Not an official brand logo file."
   },
   {
     "id": "st-croix",
@@ -231,7 +252,10 @@ export const brands = [
     "rods": 0,
     "description": "Prepared brand entry for future North American rod indexing.",
     "logoText": "ST. CROIX",
-    "featured": false
+    "featured": false,
+    "logoUrl": "",
+    "logoUsage": "own-design",
+    "logoNote": "RodBase-designed text brand tile. Not an official brand logo file."
   },
   {
     "id": "megabass",
@@ -241,7 +265,10 @@ export const brands = [
     "rods": 0,
     "description": "Prepared brand entry for future premium lure and bass rod indexing.",
     "logoText": "Megabass",
-    "featured": false
+    "featured": false,
+    "logoUrl": "",
+    "logoUsage": "own-design",
+    "logoNote": "RodBase-designed text brand tile. Not an official brand logo file."
   },
   {
     "id": "tailwalk",
@@ -251,6 +278,9 @@ export const brands = [
     "rods": 0,
     "description": "Prepared brand entry for future Japanese lure, travel, and light-game rod indexing.",
     "logoText": "tailwalk",
-    "featured": false
+    "featured": false,
+    "logoUrl": "",
+    "logoUsage": "own-design",
+    "logoNote": "RodBase-designed text brand tile. Not an official brand logo file."
   }
 ];

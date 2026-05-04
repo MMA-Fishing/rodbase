@@ -2,6 +2,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import Pill from "../components/Pill.jsx";
 import RodCard from "../components/RodCard.jsx";
+import BrandLogo from "../components/BrandLogo.jsx";
 import PageTitle from "../components/PageTitle.jsx";
 import { brands } from "../data/brands.js";
 import { rods } from "../data/rods.js";
@@ -126,9 +127,7 @@ export default function HomePage() {
         <div className="twBrandGrid twBrandGridFeatured">
           {featuredBrands.map((brand) => (
             <Link key={brand.id} className="twBrandCard twFeaturedBrandCard" to={`/brands/${brand.id}`}>
-              <div className={`twBrandLogo twLogo-${brand.id}`}>
-                {brand.logoText}
-              </div>
+              <BrandLogo brand={brand} size="featured" />
               <div className="twBrandName">{brand.name}</div>
             </Link>
           ))}
@@ -137,9 +136,7 @@ export default function HomePage() {
         <div className="twBrandGrid twBrandGridSecondary">
           {secondaryBrands.map((brand) => (
             <Link key={brand.id} className="twBrandCard twSmallBrandCard" to={`/brands/${brand.id}`}>
-              <div className={`twBrandLogo twSmallLogo twLogo-${brand.id}`}>
-                {brand.logoText}
-              </div>
+              <BrandLogo brand={brand} size="small" />
               <div className="twBrandName">{brand.name}</div>
             </Link>
           ))}
@@ -239,4 +236,5 @@ export default function HomePage() {
     </main>
   );
 }
+
 

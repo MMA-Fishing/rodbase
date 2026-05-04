@@ -88,6 +88,15 @@ const allowedImageUsages = new Set([
   "unknown",
 ]);
 
+const allowedLogoUsages = new Set([
+  "own-design",
+  "licensed",
+  "permission-granted",
+  "local-test-only",
+  "official-linked-only",
+  "unknown",
+]);
+
 checkNoDuplicateIds("Brand", brands);
 checkNoDuplicateIds("Series", series);
 checkNoDuplicateIds("Rod", rods);
@@ -102,6 +111,18 @@ brands.forEach((brand) => {
   checkRequiredString(brand, "id", label);
   checkRequiredString(brand, "name", label);
   checkArray(brand, "series", label);
+
+  if (brand.logoUsage && !allowedLogoUsages.has(brand.logoUsage)) {
+    error(`${label} logoUsage should be one of: ${[...allowedLogoUsages].join(", ")}.`);
+  }
+
+  if (brand.logoUrl && brand.logoUsage === "official-linked-only") {
+    error(`${label} is official-linked-only but still has logoUrl. Remove logoUrl unless permission/licence is confirmed.`);
+  }
+
+  if (brand.logoUsage === "local-test-only") {
+    warning(`${label} uses a local-test-only logo. Do not publish or commit official logo files without permission.`);
+  }
 
   if (brand.officialSites !== undefined) {
     checkArray(brand, "officialSites", label);
@@ -192,6 +213,7 @@ console.log(`Warnings: ${warningCount}`);
 if (errorCount > 0) {
   process.exit(1);
 }
+
 
 
 
