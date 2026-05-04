@@ -1,59 +1,64 @@
 ﻿import { Link } from "react-router-dom";
+import PageTitle from "../components/PageTitle.jsx";
 import Pill from "../components/Pill.jsx";
 import { articleCards } from "../data/articles.js";
+import { useLocale } from "../context/LocaleContext.jsx";
+import { getArticleText, makeArticleId } from "../i18n/articleContent.js";
 
 export default function ArticlesPage() {
+  const { locale, t } = useLocale();
+
   return (
     <main className="articlesCataloguePage">
+      <PageTitle
+        title={t("articles.pageTitle")}
+        description={t("articles.pageDescription")}
+      />
+
       <section className="articlesHero">
-        <div className="container articlesHeroInner articlesHeroInnerSimple">
+        <div className="container articlesHeroInner">
           <div>
-            <div className="catalogEyebrow">RodBase guides</div>
-            <h1>Rod knowledge, buying notes, and spec explanations.</h1>
-            <p>
-              Learn how to compare rods by total length, closed length, lure rating,
-              PE rating, construction, reel type, and fishing style.
-            </p>
+            <div className="catalogEyebrow">{t("articles.eyebrow")}</div>
+            <h1>{t("articles.title")}</h1>
+            <p>{t("articles.description")}</p>
+          </div>
+
+          <div className="articlesHeroStats">
+            <div>
+              <b>{articleCards.length}</b>
+              <span>{t("articles.availableArticles")}</span>
+            </div>
           </div>
         </div>
       </section>
 
       <section className="container articlesCatalogueContent">
-        <div className="catalogSectionHeader">
-          <div>
-            <div className="catalogEyebrow">Article index</div>
-            <h2>{t("articles.eyebrow")}</h2>
+        {articleCards.length > 0 ? (
+          <div className="articleCatalogueGrid">
+            {articleCards.map((article) => {
+              const articleId = makeArticleId(article);
+
+              return (
+                <Link
+                  key={articleId}
+                  className="articleCatalogueCard"
+                  to={`/articles/${articleId}`}
+                >
+                  <Pill>{getArticleText(locale, article, "type")}</Pill>
+                  <h2>{getArticleText(locale, article, "title")}</h2>
+                  <p>{getArticleText(locale, article, "description")}</p>
+                  <span>{t("articles.readArticle")}</span>
+                </Link>
+              );
+            })}
           </div>
-          <Link className="catalogTextLink" to="/search">{t("header.searchRods")}</Link>
-        </div>
-
-        <div className="articlesGrid">
-          {articleCards.map((article, index) => (
-            <Link key={article.id} className="articleCatalogueCard" to={`/articles/${article.id}`}>
-              <div className="articleNumber">{String(index + 1).padStart(2, "0")}</div>
-
-              <div className="articleCardBody">
-                <div className="articleCardTop">
-                  <Pill>{article.type}</Pill>
-                  <span>{article.readTime}</span>
-                </div>
-
-                <h3>{article.title}</h3>
-                <p>{article.description}</p>
-
-                <div className="articleCardFooter">
-                  <span>{article.date}</span>
-                  <strong>Read article →</strong>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+        ) : (
+          <div className="catalogNoResults">
+            <div className="catalogEyebrow">{t("articles.eyebrow")}</div>
+            <h2>{t("articles.noArticles")}</h2>
+          </div>
+        )}
       </section>
     </main>
   );
 }
-
-
-
-

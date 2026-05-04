@@ -11,6 +11,7 @@ import { series } from "../data/series.js";
 import { rodTypeCards } from "../data/rodTypeCards.js";
 import { newReleases } from "../data/newReleases.js";
 import { useLocale } from "../context/LocaleContext.jsx";
+import { getArticleText } from "../i18n/articleContent.js";
 import {
   formatLengthM,
   formatLengthCm,
@@ -20,7 +21,7 @@ import {
 
 export default function HomePage() {
   const navigate = useNavigate();
-  const { t } = useLocale();
+  const { locale, t } = useLocale();
   const [homeSearch, setHomeSearch] = useState("");
 
   function submitHomeSearch() {
@@ -225,9 +226,9 @@ export default function HomePage() {
         <div className="catalogGuideGrid">
           {articleCards.map((article) => (
             <Link key={article.id} className="catalogGuideCard" to={`/articles/${article.id}`}>
-              <Pill>{article.type}</Pill>
-              <h3>{article.title}</h3>
-              <p>{article.description}</p>
+              <Pill>{getArticleText(locale, article, "type")}</Pill>
+              <h3>{getArticleText(locale, article, "title")}</h3>
+              <p>{getArticleText(locale, article, "description")}</p>
               <span>{t("home.readArticle")}</span>
             </Link>
           ))}
@@ -236,4 +237,5 @@ export default function HomePage() {
     </main>
   );
 }
+
 

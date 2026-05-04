@@ -3,14 +3,16 @@ import PageTitle from "../components/PageTitle.jsx";
 import Pill from "../components/Pill.jsx";
 import { articleCards } from "../data/articles.js";
 import { useLocale } from "../context/LocaleContext.jsx";
+import { getArticleText, makeArticleId } from "../i18n/articleContent.js";
 
 export default function ArticlePage() {
   const { articleId } = useParams();
-  const { t } = useLocale();
+  const { locale, t } = useLocale();
 
-  const article = articleCards.find((item) => item.id === articleId);
+  const article = articleCards.find((item) => makeArticleId(item) === articleId);
+
   const relatedArticles = articleCards
-    .filter((item) => item.id !== articleId)
+    .filter((item) => makeArticleId(item) !== articleId)
     .slice(0, 3);
 
   if (!article) {
@@ -30,7 +32,10 @@ export default function ArticlePage() {
 
   return (
     <main className="articleDetailPage">
-      <PageTitle title={article.title} description={article.description} />
+      <PageTitle
+        title={getArticleText(locale, article, "title")}
+        description={getArticleText(locale, article, "description")}
+      />
 
       <section className="articleDetailHero">
         <div className="container articleDetailHeroInner">
@@ -40,33 +45,22 @@ export default function ArticlePage() {
             </Link>
 
             <div className="articleTypeRow">
-              <Pill>{article.type}</Pill>
+              <Pill>{getArticleText(locale, article, "type")}</Pill>
             </div>
 
-            <h1>{article.title}</h1>
-            <p>{article.description}</p>
+            <h1>{getArticleText(locale, article, "title")}</h1>
+            <p>{getArticleText(locale, article, "description")}</p>
           </div>
         </div>
       </section>
 
       <section className="container articleDetailLayout">
         <article className="articleBodyPanel">
-          <h2>{article.title}</h2>
+          <h2>{getArticleText(locale, article, "title")}</h2>
 
-          <p>
-            {article.description}
-          </p>
-
-          <p>
-            RodBase articles are intended to help users understand rod data in context:
-            total length, closed length, rod weight, construction, lure rating, PE rating,
-            and how those specifications affect real-world use.
-          </p>
-
-          <p>
-            More detailed article content can be expanded here later. For now, this page
-            acts as a structured article shell connected to the catalogue and multilingual UI.
-          </p>
+          <p>{getArticleText(locale, article, "description")}</p>
+          <p>{t("article.bodyIntro1")}</p>
+          <p>{t("article.bodyIntro2")}</p>
         </article>
 
         <aside className="articleSidePanel">
@@ -86,14 +80,18 @@ export default function ArticlePage() {
           </div>
 
           <div className="articleCatalogueGrid">
-            {relatedArticles.map((item) => (
-              <Link key={item.id} className="articleCatalogueCard" to={`/articles/${item.id}`}>
-                <Pill>{item.type}</Pill>
-                <h2>{item.title}</h2>
-                <p>{item.description}</p>
-                <span>{t("articles.readArticle")}</span>
-              </Link>
-            ))}
+            {relatedArticles.map((item) => {
+              const relatedId = makeArticleId(item);
+
+              return (
+                <Link key={relatedId} className="articleCatalogueCard" to={`/articles/${relatedId}`}>
+                  <Pill>{getArticleText(locale, item, "type")}</Pill>
+                  <h2>{getArticleText(locale, item, "title")}</h2>
+                  <p>{getArticleText(locale, item, "description")}</p>
+                  <span>{t("articles.readArticle")}</span>
+                </Link>
+              );
+            })}
           </div>
         </section>
       )}

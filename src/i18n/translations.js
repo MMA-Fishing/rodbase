@@ -344,7 +344,9 @@ export const translations = {
     "notFound.text": "This page may have moved, the rod or series may have been renamed, or the URL may be incorrect.",
     "notFound.searchRods": "Search rods",
     "notFound.browseBrands": "Browse brands",
-    "notFound.goHome": "Go home"
+    "notFound.goHome": "Go home",
+    "article.bodyIntro1": "RodBase articles are intended to help users understand rod data in context: total length, closed length, rod weight, construction, lure rating, PE rating, and how those specifications affect real-world use.",
+    "article.bodyIntro2": "More detailed article content can be expanded here later. For now, this page acts as a structured article shell connected to the catalogue and multilingual UI."
   },
   "zh-Hant": {
     "topbar.left": "釣竿資料庫與比較工具",
@@ -676,7 +678,9 @@ export const translations = {
     "notFound.text": "此頁面可能已移動，釣竿或系列可能已重新命名，或網址可能不正確。",
     "notFound.searchRods": "搜尋釣竿",
     "notFound.browseBrands": "瀏覽品牌",
-    "notFound.goHome": "返回首頁"
+    "notFound.goHome": "返回首頁",
+    "article.bodyIntro1": "RodBase 文章旨在幫助用戶理解釣竿資料的實際意思，包括總長、收納長度、釣竿重量、結構、餌重、PE 線號，以及這些規格如何影響實際使用。",
+    "article.bodyIntro2": "日後可以在這裡擴充更完整的文章內容。目前此頁面先作為連接目錄資料與多語言介面的文章框架。"
   }
 };
 
