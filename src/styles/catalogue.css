@@ -3455,3 +3455,443 @@ footer {
   }
 }
 
+
+/* Mobile UX polish pass */
+
+/* Keep mobile header compact */
+@media (max-width: 700px) {
+  .catalogTopBarInner {
+    font-size: 0.68rem;
+  }
+
+  .catalogTopBarInner span:last-child {
+    display: none;
+  }
+
+  .catalogHeaderMain {
+    padding: 10px 0;
+  }
+
+  .catalogLogo {
+    width: 38px;
+    height: 38px;
+    font-size: 0.82rem;
+  }
+
+  .catalogBrandName {
+    font-size: 1.05rem;
+  }
+
+  .catalogBrandSub {
+    font-size: 0.68rem;
+  }
+}
+
+/* Homepage hero: less vertical height on phone */
+@media (max-width: 700px) {
+  .compactCatalogueHero,
+  .catalogHero {
+    padding: 34px 0 30px;
+  }
+
+  .catalogHeroGrid {
+    gap: 24px;
+  }
+
+  .catalogHero h1 {
+    font-size: clamp(2.1rem, 12vw, 3rem);
+    line-height: 0.98;
+  }
+
+  .catalogHeroCopy p {
+    margin-top: 14px;
+    font-size: 0.96rem;
+    line-height: 1.62;
+  }
+
+  .catalogHeroSearch {
+    margin-top: 20px;
+  }
+
+  .catalogHeroPanel {
+    padding: 18px;
+  }
+
+  .catalogHeroPanel h2 {
+    font-size: 1.45rem;
+  }
+
+  .heroSpecGrid div {
+    padding: 11px;
+  }
+}
+
+/* Brand section: avoid giant one-column brand list on mobile */
+@media (max-width: 700px) {
+  .twStyleSection {
+    padding: 38px 0;
+  }
+
+  .twSectionTitle {
+    margin-bottom: 20px;
+  }
+
+  .twSectionTitle h2 {
+    font-size: 2rem;
+  }
+
+  .twSectionTitle p {
+    font-size: 0.94rem;
+  }
+
+  .twBrandGridFeatured {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+
+  .twBrandGridSecondary {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .twFeaturedBrandCard .twBrandLogo {
+    min-height: 112px;
+    font-size: 1.55rem;
+  }
+
+  .twSmallBrandCard .twBrandLogo {
+    min-height: 72px;
+    font-size: 0.86rem;
+    padding: 10px;
+  }
+
+  .twBrandName {
+    margin-top: 8px;
+    font-size: 0.86rem;
+  }
+}
+
+/* Browse by type: make cards shorter and easier to scan */
+@media (max-width: 700px) {
+  .twTypeGrid {
+    gap: 14px;
+  }
+
+  .twTypeCard {
+    display: grid;
+    grid-template-columns: 92px 1fr;
+    gap: 14px;
+    min-height: 0;
+    text-align: left;
+    padding: 16px;
+    align-items: center;
+  }
+
+  .twRodVisual {
+    height: 138px;
+  }
+
+  .rodBlank {
+    width: 34px;
+    height: 118px;
+    border-width: 2px;
+  }
+
+  .rodBlank::before {
+    height: 38px;
+    bottom: -28px;
+  }
+
+  .rodBlank::after {
+    width: 16px;
+    height: 26px;
+    bottom: -50px;
+  }
+
+  .rodBlank span {
+    font-size: 0.58rem;
+  }
+
+  .twTypeCard h3 {
+    margin-top: 0;
+    font-size: 1.05rem;
+  }
+
+  .twTypeCard p {
+    margin-top: 8px;
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+}
+
+/* Search page: filters should feel compact on phone */
+@media (max-width: 700px) {
+  .catalogSearchHero {
+    padding: 34px 0;
+  }
+
+  .catalogSearchHero h1 {
+    font-size: clamp(2rem, 12vw, 3rem);
+  }
+
+  .catalogSearchHero p {
+    font-size: 0.94rem;
+    line-height: 1.62;
+  }
+
+  .catalogSearchControls {
+    padding: 12px 0;
+  }
+
+  .quickCategoryRail {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 3px;
+  }
+
+  .quickCategory {
+    white-space: nowrap;
+  }
+
+  .catalogSearchLayout {
+    padding-top: 18px;
+    gap: 18px;
+  }
+
+  .catalogFilterSidebar {
+    border-top: 4px solid var(--red);
+  }
+
+  .catalogFilterHeader,
+  .catalogFilterGroup {
+    padding: 14px;
+  }
+
+  .catalogFilterList {
+    gap: 6px;
+  }
+
+  .catalogFilterPill {
+    padding: 6px 8px;
+    font-size: 0.74rem;
+  }
+
+  .catalogResultsToolbar {
+    padding: 14px;
+    margin-bottom: 14px;
+  }
+
+  .catalogResultsToolbar h2 {
+    font-size: 1.45rem;
+  }
+}
+
+/* Rod cards: make mobile cards tighter and more product-catalogue-like */
+@media (max-width: 700px) {
+  .catalogRodGrid,
+  .catalogSearchResultsGrid {
+    gap: 14px;
+  }
+
+  .catalogRodCard {
+    border-top-width: 3px;
+  }
+
+  .rodImagePanel {
+    min-height: 94px;
+    padding: 12px;
+  }
+
+  .rodImagePlaceholder {
+    padding: 10px;
+  }
+
+  .rodImagePlaceholder span {
+    font-size: 0.62rem;
+  }
+
+  .rodImagePlaceholder strong {
+    font-size: 0.9rem;
+  }
+
+  .catalogRodBody {
+    padding: 14px;
+  }
+
+  .catalogRodKicker {
+    font-size: 0.62rem;
+  }
+
+  .catalogRodTitleRow {
+    gap: 8px;
+  }
+
+  .catalogRodTitleRow h3 {
+    font-size: 1.05rem;
+  }
+
+  .compareCheck {
+    font-size: 0.68rem;
+  }
+
+  .catalogRodType {
+    font-size: 0.84rem;
+  }
+
+  .catalogSpecTable {
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 12px;
+  }
+
+  .catalogSpecTable div {
+    padding: 8px;
+  }
+
+  .catalogSpecTable span {
+    font-size: 0.66rem;
+  }
+
+  .catalogSpecTable b {
+    font-size: 0.82rem;
+  }
+
+  .catalogRodTags {
+    margin-top: 10px;
+  }
+
+  .catalogRodTags .pill {
+    font-size: 0.68rem;
+    padding: 5px 7px;
+  }
+
+  .catalogRodMeta {
+    margin-top: 10px;
+  }
+
+  .catalogRodFooter {
+    margin-top: 12px;
+    padding-top: 12px;
+  }
+
+  .catalogViewButton {
+    padding: 8px 10px;
+  }
+}
+
+/* Rod detail: reduce huge visual height on phone */
+@media (max-width: 700px) {
+  .rodDetailHero {
+    padding: 34px 0;
+  }
+
+  .rodDetailImageStage {
+    min-height: 230px;
+  }
+
+  .rodDetailSummary h1 {
+    font-size: clamp(2rem, 12vw, 3rem);
+  }
+
+  .rodDetailSummary p {
+    font-size: 0.94rem;
+    line-height: 1.62;
+  }
+
+  .rodDetailCoreSpecs div {
+    padding: 11px;
+  }
+
+  .rodDetailContentGrid {
+    padding-top: 20px;
+  }
+
+  .rodDetailPanel {
+    padding: 16px;
+  }
+
+  .rodDetailSpecRow {
+    align-items: start;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .rodDetailSpecRow b {
+    text-align: left;
+  }
+}
+
+/* Compare page: make horizontal table behaviour more obvious */
+.compareSwipeHint {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .compareHero {
+    padding: 34px 0;
+  }
+
+  .compareHero h1 {
+    font-size: clamp(2rem, 12vw, 3rem);
+  }
+
+  .compareContent {
+    padding-top: 22px;
+  }
+
+  .compareSwipeHint {
+    display: block;
+    background: #fffdf8;
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--red);
+    color: var(--muted);
+    font-size: 0.86rem;
+    font-weight: 850;
+    line-height: 1.45;
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  .compareTable th,
+  .compareTable td {
+    padding: 11px;
+  }
+
+  .compareSummaryBody h3 {
+    font-size: 1.05rem;
+  }
+}
+
+/* Articles and data pages: avoid oversized hero on phone */
+@media (max-width: 700px) {
+  .articlesHero,
+  .articleDetailHero,
+  .dataHero {
+    padding: 34px 0;
+  }
+
+  .articlesHero h1,
+  .articleDetailHero h1,
+  .dataHero h1 {
+    font-size: clamp(2rem, 12vw, 3rem);
+  }
+
+  .articlesHero p,
+  .articleDetailHero p,
+  .dataHero p {
+    font-size: 0.94rem;
+    line-height: 1.62;
+  }
+
+  .articleCatalogueCard {
+    grid-template-columns: 46px 1fr;
+  }
+
+  .articleCardBody {
+    padding: 16px;
+  }
+
+  .articleCardBody h3 {
+    font-size: 1.08rem;
+  }
+}

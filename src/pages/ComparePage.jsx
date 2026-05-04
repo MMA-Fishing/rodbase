@@ -124,6 +124,7 @@ export default function ComparePage() {
           ))}
         </div>
 
+        <div className="compareSwipeHint">Swipe sideways to compare all rod specifications.</div>
         <div className="compareTableShell">
           <table className="compareTable">
             <thead>
@@ -182,4 +183,7 @@ export default function ComparePage() {
     </main>
   );
 }
+
+
+
 
