@@ -22,9 +22,9 @@ export default function ArticlesPage() {
         <div className="catalogSectionHeader">
           <div>
             <div className="catalogEyebrow">Article index</div>
-            <h2>Guides & explanations</h2>
+            <h2>{t("articles.eyebrow")}</h2>
           </div>
-          <Link className="catalogTextLink" to="/search">Search rods</Link>
+          <Link className="catalogTextLink" to="/search">{t("header.searchRods")}</Link>
         </div>
 
         <div className="articlesGrid">
@@ -53,6 +53,7 @@ export default function ArticlesPage() {
     </main>
   );
 }
+
 
 
 

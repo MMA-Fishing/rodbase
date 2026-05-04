@@ -74,8 +74,8 @@ export default function HomePage() {
             <div className="catalogQuickLinks">
               <button onClick={() => navigate("/search?q=daiwa")}>Daiwa</button>
               <button onClick={() => navigate("/search?q=shimano")}>Shimano</button>
-              <button onClick={() => navigate("/search?q=telescopic")}>Telescopic</button>
-              <button onClick={() => navigate("/search?q=travel")}>Travel rods</button>
+              <button onClick={() => navigate("/search?q=telescopic")}>{t("search.quick.telescopic")}</button>
+              <button onClick={() => navigate("/search?q=travel")}>{t("search.quick.travel")}</button>
             </div>
 
             <div className="homeDataStats">
@@ -236,3 +236,4 @@ export default function HomePage() {
     </main>
   );
 }
+

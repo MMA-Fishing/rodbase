@@ -89,8 +89,21 @@ function hasSuspiciousEnglish(text) {
 
   if (!trimmed) return false;
   if (trimmed.length < 3) return false;
+  if (trimmed.length > 120) return false;
   if (/^[{}()[\].,;:'"`<>/\\|?!@#$%^&*\-+=\s]+$/.test(trimmed)) return false;
   if (/^[A-Z0-9_./:-]+$/.test(trimmed)) return false;
+
+  const looksLikeCode =
+    trimmed.includes("&&") ||
+    trimmed.includes("=>") ||
+    trimmed.includes("===") ||
+    trimmed.includes("const ") ||
+    trimmed.includes("return ") ||
+    trimmed.includes("className") ||
+    trimmed.includes("currentSeries") ||
+    trimmed.includes("rod.");
+
+  if (looksLikeCode) return false;
 
   if (allowedFragments.some((fragment) => trimmed === fragment)) {
     return false;
@@ -165,3 +178,4 @@ for (const finding of findings) {
 }
 
 console.log("\nReview these manually. Some may be product names, brand names, or allowed technical terms.");
+
