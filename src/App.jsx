@@ -1,6 +1,7 @@
 ﻿import { Navigate, Route, Routes } from "react-router-dom";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
+import CompareTray from "./components/CompareTray.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import BrandsPage from "./pages/BrandsPage.jsx";
 import SearchPage from "./pages/SearchPage.jsx";
@@ -34,6 +35,7 @@ export default function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 
+      <CompareTray />
       <Footer />
     </CompareProvider>
   );

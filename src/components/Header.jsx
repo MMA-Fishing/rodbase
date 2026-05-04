@@ -1,15 +1,17 @@
 ﻿import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useCompare } from "../context/CompareContext.jsx";
 
 export default function Header() {
   const navigate = useNavigate();
+  const { compareIds } = useCompare();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
 
   const nav = [
     { label: "Rods", path: "/search" },
     { label: "Brands", path: "/brands" },
-    { label: "Compare", path: "/compare" },
+    { label: "Compare", path: "/compare", count: compareIds.length },
     { label: "Articles", path: "/articles" },
   ];
 
@@ -56,6 +58,7 @@ export default function Header() {
               }
             >
               {item.label}
+              {item.count > 0 && <span className="navCountBadge">{item.count}</span>}
             </NavLink>
           ))}
           <span className="catalogNavDisabled">Reels <small>Next</small></span>
@@ -100,6 +103,7 @@ export default function Header() {
               }
             >
               {item.label}
+              {item.count > 0 && <span className="navCountBadge">{item.count}</span>}
             </NavLink>
           ))}
 

@@ -4157,3 +4157,158 @@ footer {
     margin-top: 5px;
   }
 }
+
+/* Persistent compare tray */
+.navCountBadge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  margin-left: 6px;
+  padding: 0 5px;
+  background: var(--red);
+  color: white;
+  font-size: 0.68rem;
+  font-weight: 950;
+}
+
+.compareTray {
+  position: sticky;
+  bottom: 0;
+  z-index: 30;
+  background: rgba(21, 19, 15, 0.96);
+  color: white;
+  border-top: 1px solid rgba(255,255,255,0.16);
+  backdrop-filter: blur(12px);
+}
+
+.compareTrayInner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  align-items: center;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.compareTraySummary strong {
+  display: block;
+  font-size: 0.95rem;
+}
+
+.compareTraySummary span {
+  display: block;
+  color: #d8d0c4;
+  font-size: 0.76rem;
+  margin-top: 2px;
+  white-space: nowrap;
+}
+
+.compareTrayItems {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.compareTrayItem {
+  display: grid;
+  grid-template-columns: 1fr 28px;
+  align-items: stretch;
+  min-width: 190px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.16);
+}
+
+.compareTrayItem a {
+  color: white;
+  text-decoration: none;
+  padding: 9px 10px;
+}
+
+.compareTrayItem span {
+  display: block;
+  color: #d8d0c4;
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 900;
+}
+
+.compareTrayItem strong {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.9rem;
+}
+
+.compareTrayItem em {
+  display: block;
+  color: #d8d0c4;
+  font-size: 0.72rem;
+  font-style: normal;
+  margin-top: 3px;
+}
+
+.compareTrayItem button {
+  border: 0;
+  border-left: 1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.04);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 950;
+}
+
+.compareTrayActions {
+  display: flex;
+  gap: 8px;
+}
+
+.compareTrayActions button,
+.compareTrayActions a {
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.08);
+  color: white;
+  text-decoration: none;
+  padding: 10px 12px;
+  font-size: 0.82rem;
+  font-weight: 950;
+  white-space: nowrap;
+}
+
+.compareTrayActions a {
+  background: var(--red);
+  border-color: var(--red);
+}
+
+@media (max-width: 900px) {
+  .compareTrayInner {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .compareTraySummary {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .compareTrayActions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .compareTrayActions button,
+  .compareTrayActions a {
+    text-align: center;
+  }
+}
+
+@media (max-width: 700px) {
+  .compareTray {
+    position: sticky;
+  }
+
+  .compareTrayItem {
+    min-width: 165px;
+  }
+}

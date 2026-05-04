@@ -22,12 +22,8 @@ export default function RodCard({ rod }) {
   const compared = isCompared(rod.id);
   const compareFull = !compared && !canAddMore;
 
-  function handleCompareChange(event) {
-    event.preventDefault();
-    event.stopPropagation();
-
+  function handleCompareChange() {
     if (compareFull) return;
-
     toggleCompareId(rod.id);
   }
 
