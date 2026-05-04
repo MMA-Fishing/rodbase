@@ -55,6 +55,12 @@ export const brands = [
         "label": "Daiwa Taiwan",
         "url": "https://www.daiwaseiko.com.tw/",
         "note": "Taiwan regional official website."
+      },
+      {
+        "region": "Malaysia",
+        "label": "Daiwa Malaysia",
+        "url": "https://daiwa.my/",
+        "note": "Malaysia regional official website."
       }
     ]
   },
