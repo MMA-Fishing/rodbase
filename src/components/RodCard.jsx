@@ -1,6 +1,7 @@
 ﻿import { Link } from "react-router-dom";
 import Pill from "./Pill.jsx";
 import RodImage from "./RodImage.jsx";
+import SourceBadge from "./SourceBadge.jsx";
 import {
   formatLengthM,
   formatLengthCm,
@@ -57,6 +58,7 @@ export default function RodCard({ rod }) {
         </div>
 
         <p className="catalogRodType">{rod.rodType}</p>
+        <SourceBadge record={rod} />
 
         <div className="catalogSpecTable">
           <div>
@@ -114,5 +116,6 @@ export default function RodCard({ rod }) {
     </article>
   );
 }
+
 
 

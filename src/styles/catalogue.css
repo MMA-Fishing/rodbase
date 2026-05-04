@@ -5411,3 +5411,35 @@ footer {
   color: var(--red);
   font-weight: 950;
 }
+
+/* Source/reference badge on rod cards */
+.sourceBadge {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  border: 1px solid var(--line);
+  background: #faf6ed;
+  color: var(--muted);
+  padding: 6px 8px;
+  margin-top: 10px;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.sourceBadgeOfficial {
+  border-color: rgba(180,35,24,0.22);
+  background: rgba(180,35,24,0.08);
+  color: var(--red);
+}
+
+.sourceBadgeMissing {
+  background: #fffdf8;
+  color: var(--muted);
+}
+
+@media (max-width: 700px) {
+  .sourceBadge {
+    font-size: 0.68rem;
+    padding: 5px 7px;
+  }
+}
