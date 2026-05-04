@@ -26,13 +26,15 @@ export default function BrandLogo({ brand, size = "default", className = "" }) {
 
   if (canShowLogo) {
     return (
-      <img
-        className={`brandLogoImage brandLogoImage-${size} ${className}`}
-        src={brand.logoUrl}
-        alt={`${brand.name} logo`}
-        loading="lazy"
-        onError={() => setFailed(true)}
-      />
+      <div className={`brandLogoOfficialWrap brandLogoOfficialWrap-${size} ${className}`}>
+        <img
+          className={`brandLogoImage brandLogoImage-${size}`}
+          src={brand.logoUrl}
+          alt={`${brand.name} official logo`}
+          loading="lazy"
+          onError={() => setFailed(true)}
+        />
+      </div>
     );
   }
 

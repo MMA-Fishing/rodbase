@@ -63,9 +63,9 @@ export const brands = [
         "note": "Malaysia regional official website."
       }
     ],
-    "logoUrl": "",
-    "logoUsage": "own-design",
-    "logoNote": "RodBase-designed text brand tile. Not an official brand logo file."
+    "logoUrl": "/images/brands/daiwa.svg",
+    "logoUsage": "permission-granted",
+    "logoNote": "Official brand logo used with permission."
   },
   {
     "id": "shimano",
@@ -120,9 +120,9 @@ export const brands = [
         "note": "UK / European official fishing product site."
       }
     ],
-    "logoUrl": "",
-    "logoUsage": "own-design",
-    "logoNote": "RodBase-designed text brand tile. Not an official brand logo file."
+    "logoUrl": "/images/brands/shimano.svg",
+    "logoUsage": "permission-granted",
+    "logoNote": "Official brand logo used with permission."
   },
   {
     "id": "nissin",
@@ -157,9 +157,9 @@ export const brands = [
         "note": "Official ARES lure-game rod brand site by Uzaki Nissin."
       }
     ],
-    "logoUrl": "",
-    "logoUsage": "own-design",
-    "logoNote": "RodBase-designed text brand tile. Not an official brand logo file."
+    "logoUrl": "/images/brands/nissin.svg",
+    "logoUsage": "permission-granted",
+    "logoNote": "Official brand logo used with permission."
   },
   {
     "id": "major-craft",
@@ -201,9 +201,9 @@ export const brands = [
         "note": "Official Europe rod category index."
       }
     ],
-    "logoUrl": "",
-    "logoUsage": "own-design",
-    "logoNote": "RodBase-designed text brand tile. Not an official brand logo file."
+    "logoUrl": "/images/brands/major-craft.svg",
+    "logoUsage": "permission-granted",
+    "logoNote": "Official brand logo used with permission."
   },
   {
     "id": "gamakatsu",
