@@ -16,6 +16,14 @@ function getRodImageClass(rod) {
   return "rodFallbackStandard";
 }
 
+function getFallbackLabel(rod) {
+  if ((rod.sourceRecords || []).some((source) => source.url)) {
+    return "Official reference available";
+  }
+
+  return "Reference graphic only";
+}
+
 export default function RodImage({ rod, className = "" }) {
   const [failed, setFailed] = useState(false);
 
@@ -55,7 +63,7 @@ export default function RodImage({ rod, className = "" }) {
 
       <div className="rodFallbackBottom">
         <span>{rod.construction || "Rod"}</span>
-        <span>No hosted product image</span>
+        <span>{getFallbackLabel(rod)}</span>
       </div>
     </div>
   );

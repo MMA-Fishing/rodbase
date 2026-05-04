@@ -78,6 +78,16 @@ const brandNames = new Set(brands.map((brand) => brand.name));
 const seriesKeys = new Set(series.map((item) => `${item.brand}:::${item.name}`));
 const rodIds = new Set(rods.map((rod) => rod.id));
 
+const allowedImageUsages = new Set([
+  "none",
+  "own-photo",
+  "licensed",
+  "permission-granted",
+  "official-linked-only",
+  "local-test-only",
+  "unknown",
+]);
+
 checkNoDuplicateIds("Brand", brands);
 checkNoDuplicateIds("Series", series);
 checkNoDuplicateIds("Rod", rods);
@@ -176,4 +186,5 @@ console.log(`Warnings: ${warningCount}`);
 if (errorCount > 0) {
   process.exit(1);
 }
+
 
