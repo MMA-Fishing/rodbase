@@ -1,10 +1,9 @@
-﻿import { Link, useParams } from "react-router-dom";
-import Pill from "../components/Pill.jsx";
+﻿import { Link, Navigate, useParams } from "react-router-dom";
 import RodCard from "../components/RodCard.jsx";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
 import PageTitle from "../components/PageTitle.jsx";
-import { series } from "../data/series.js";
 import { rods } from "../data/rods.js";
+import { series } from "../data/series.js";
 import {
   brandToId,
   formatLengthM,
@@ -14,123 +13,88 @@ import {
   formatPeRange,
   valueOrUnknown,
 } from "../utils/rodFormatters.js";
-
-function formatSeriesMarket(currentSeries) {
-  if (!currentSeries.marketRegions || currentSeries.marketRegions.length === 0) {
-    return "Market to be confirmed";
-  }
-
-  return currentSeries.marketRegions.join(" / ");
-}
+import { useLocale } from "../context/LocaleContext.jsx";
 
 export default function SeriesPage() {
   const { seriesId } = useParams();
+  const { t } = useLocale();
+
   const currentSeries = series.find((item) => item.id === seriesId);
 
   if (!currentSeries) {
-    return (
-      <main className="container page">
-        <div className="card">
-          <div className="eyebrow">Series not found</div>
-          <h1>We could not find this series.</h1>
-          <p className="note">
-            The series may have been renamed, removed, or the URL may be incorrect.
-          </p>
-          <div className="buttonRow">
-            <Link className="blackButton" to="/brands">Back to brands</Link>
-            <Link className="outlineButton" to="/">Home</Link>
-          </div>
-        </div>
-      </main>
-    );
+    return <Navigate to="/brands" replace />;
   }
 
-  const matchingRods = rods.filter(
-    (rod) =>
-      rod.brand === currentSeries.brand &&
-      rod.series === currentSeries.name
+  const seriesRods = rods.filter(
+    (rod) => rod.brand === currentSeries.brand && rod.series === currentSeries.name
   );
 
-  const featuredRods = rods.filter((rod) =>
-    (currentSeries.featuredRodIds || []).includes(rod.id)
-  );
-
-  const rodsToShow = matchingRods.length > 0 ? matchingRods : featuredRods;
-  const marketText = formatSeriesMarket(currentSeries);
+  const marketText =
+    (currentSeries.marketRegions || []).join(" / ") || t("common.notListed");
 
   return (
     <main className="seriesDetailPage">
-      <PageTitle title={currentSeries.displayName} description={`Browse ${currentSeries.displayName} rod variants, specs, source links, and indexed models.`} />
+      <PageTitle
+        title={currentSeries.displayName || `${currentSeries.brand} ${currentSeries.name}`}
+        description={`${currentSeries.displayName || currentSeries.name} ${t("series.pageDescription")}`}
+      />
+
       <section className="seriesDetailHero">
         <div className="container seriesDetailHeroGrid">
           <div>
-            <div className="catalogEyebrow">{currentSeries.brand} / Series</div>
-            <h1>{currentSeries.displayName}</h1>
+            <div className="catalogEyebrow">{t("series.eyebrow")}</div>
+            <h1>{currentSeries.displayName || currentSeries.name}</h1>
             <p>{currentSeries.description}</p>
 
-            <div className="seriesHeroPills">
-              <Pill>{valueOrUnknown(currentSeries.catalogueStatus)}</Pill>
-              <Pill>{marketText}</Pill>
-              <Pill>{rodsToShow.length} indexed rods</Pill>
+            <div className="seriesToolbar">
+              <Link to={`/brands/${brandToId(currentSeries.brand)}`}>
+                {t("series.backToBrand")}
+              </Link>
+              <Link to={`/search?q=${encodeURIComponent(currentSeries.name)}`}>
+                {t("series.searchSeries")}
+              </Link>
             </div>
           </div>
 
-          <div className="seriesHeroVisual">
-            <div className="seriesHeroRodRack">
-              <div className="seriesHeroRod seriesHeroRodOne" />
-              <div className="seriesHeroRod seriesHeroRodTwo" />
-              <div className="seriesHeroRod seriesHeroRodThree" />
-            </div>
+          <aside className="seriesHeroPanel">
+            <div className="panelLabel">{t("series.overview")}</div>
 
-            <div className="seriesHeroVisualLabel">
-              <span>{currentSeries.brand}</span>
-              <strong>{currentSeries.name}</strong>
+            <div className="seriesStatsGrid">
+              <div>
+                <span>{t("series.variants")}</span>
+                <b>{currentSeries.variantsCount ?? seriesRods.length}</b>
+              </div>
+              <div>
+                <span>{t("series.currentRecent")}</span>
+                <b>{currentSeries.currentCount ?? seriesRods.length}</b>
+              </div>
+              <div>
+                <span>{t("series.archived")}</span>
+                <b>{currentSeries.archivedCount ?? 0}</b>
+              </div>
+              <div>
+                <span>{t("series.market")}</span>
+                <b>{marketText}</b>
+              </div>
             </div>
-          </div>
+          </aside>
         </div>
       </section>
 
       <section className="container seriesDetailContent">
         <Breadcrumbs
           items={[
-            { label: "Brands", to: "/brands" },
+            { label: t("nav.brands"), to: "/brands" },
             { label: currentSeries.brand, to: `/brands/${brandToId(currentSeries.brand)}` },
             { label: currentSeries.name },
           ]}
         />
-        <div className="seriesToolbar">
-          <Link to={`/brands/${brandToId(currentSeries.brand)}`}>
-            ← Back to {currentSeries.brand}
-          </Link>
-          <Link to={`/search?q=${encodeURIComponent(currentSeries.name)}`}>
-            Search this series
-          </Link>
-        </div>
-
-        <div className="seriesStatsGrid seriesStatsGridClean">
-          <div>
-            <span>Indexed rods</span>
-            <b>{rodsToShow.length}</b>
-          </div>
-          <div>
-            <span>Brand</span>
-            <b>{currentSeries.brand}</b>
-          </div>
-          <div>
-            <span>Status</span>
-            <b>{currentSeries.catalogueStatus || "In progress"}</b>
-          </div>
-          <div>
-            <span>Market</span>
-            <b>{marketText}</b>
-          </div>
-        </div>
 
         <section className="seriesPanel">
           <div className="seriesPanelHeader">
             <div>
-              <div className="catalogEyebrow">Series profile</div>
-              <h2>What this series is for</h2>
+              <div className="catalogEyebrow">{t("series.eyebrow")}</div>
+              <h2>{t("series.whatFor")}</h2>
             </div>
           </div>
 
@@ -147,8 +111,8 @@ export default function SeriesPage() {
           <section className="seriesPanel seriesReferencePanel">
             <div className="seriesPanelHeader">
               <div>
-                <div className="catalogEyebrow">Official references</div>
-                <h2>Series source links</h2>
+                <div className="catalogEyebrow">{t("series.officialEyebrow")}</div>
+                <h2>{t("series.sourceLinks")}</h2>
               </div>
             </div>
 
@@ -163,7 +127,9 @@ export default function SeriesPage() {
                 >
                   <span>{source.sourceType || "Reference"}</span>
                   <strong>{source.label}</strong>
-                  {source.lastChecked && <em>Last checked: {source.lastChecked}</em>}
+                  {source.lastChecked && (
+                    <em>{t("series.lastChecked")}: {source.lastChecked}</em>
+                  )}
                   {source.note && <p>{source.note}</p>}
                 </a>
               ))}
@@ -171,73 +137,75 @@ export default function SeriesPage() {
           </section>
         )}
 
-        {rodsToShow.length > 0 && (
-          <section className="seriesPanel">
-            <div className="seriesPanelHeader">
-              <div>
-                <div className="catalogEyebrow">Variant table</div>
-                <h2>Indexed rod variants</h2>
-              </div>
-              <Link to="/compare">Compare rods</Link>
+        <section className="seriesPanel">
+          <div className="seriesPanelHeader">
+            <div>
+              <div className="catalogEyebrow">{t("series.variantTableEyebrow")}</div>
+              <h2>{t("series.variantTableTitle")}</h2>
+              <p>{t("series.variantTableDesc")}</p>
             </div>
+          </div>
 
+          {seriesRods.length > 0 ? (
             <div className="seriesVariantTableWrap">
               <table className="seriesVariantTable">
                 <thead>
                   <tr>
-                    <th>Model</th>
-                    <th>Total length</th>
-                    <th>Closed</th>
-                    <th>Weight</th>
-                    <th>Lure</th>
-                    <th>PE</th>
-                    <th>Status</th>
+                    <th>{t("series.table.model")}</th>
+                    <th>{t("series.table.length")}</th>
+                    <th>{t("series.table.closed")}</th>
+                    <th>{t("series.table.weight")}</th>
+                    <th>{t("series.table.lure")}</th>
+                    <th>{t("series.table.line")}</th>
+                    <th>{t("series.table.power")}</th>
+                    <th>{t("series.table.action")}</th>
                   </tr>
                 </thead>
+
                 <tbody>
-                  {rodsToShow.map((rod) => (
+                  {seriesRods.map((rod) => (
                     <tr key={rod.id}>
                       <td>
-                        <Link to={`/rods/${rod.id}`}>
-                          <strong>{rod.model}</strong>
-                          <span>{rod.displayName}</span>
-                        </Link>
+                        <Link to={`/rods/${rod.id}`}>{rod.model}</Link>
                       </td>
                       <td>{formatLengthM(rod.lengthCm)}</td>
                       <td>{formatLengthCm(rod.closedLengthCm)}</td>
                       <td>{formatWeightG(rod.weightG)}</td>
                       <td>{formatLureRange(rod)}</td>
                       <td>{formatPeRange(rod)}</td>
-                      <td>{valueOrUnknown(rod.catalogueStatus)}</td>
+                      <td>{valueOrUnknown(rod.power)}</td>
+                      <td>{valueOrUnknown(rod.action)}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-          </section>
-        )}
+          ) : (
+            <div className="seriesEmptyState">
+              <h3>{t("series.emptyTitle")}</h3>
+              <p>{t("series.emptyText")}</p>
+            </div>
+          )}
+        </section>
 
         <section className="seriesPanel">
           <div className="seriesPanelHeader">
             <div>
-              <div className="catalogEyebrow">Rod cards</div>
-              <h2>Rods in this series</h2>
+              <div className="catalogEyebrow">{t("series.cardsEyebrow")}</div>
+              <h2>{t("series.cardsTitle")}</h2>
             </div>
-            <Link to="/search">Open rod finder</Link>
           </div>
 
-          {rodsToShow.length > 0 ? (
+          {seriesRods.length > 0 ? (
             <div className="catalogRodGrid">
-              {rodsToShow.map((rod) => (
+              {seriesRods.map((rod) => (
                 <RodCard key={rod.id} rod={rod} />
               ))}
             </div>
           ) : (
             <div className="seriesEmptyState">
-              <h2>No rod variants indexed yet</h2>
-              <p>
-                This series exists in the database, but individual rod variants have not been added yet.
-              </p>
+              <h3>{t("series.emptyTitle")}</h3>
+              <p>{t("series.emptyText")}</p>
             </div>
           )}
         </section>
@@ -245,6 +213,3 @@ export default function SeriesPage() {
     </main>
   );
 }
-
-
-
