@@ -2,27 +2,23 @@
 import Pill from "../components/Pill.jsx";
 import RodCard from "../components/RodCard.jsx";
 import { rods } from "../data/rods.js";
-
-function formatLureRange(rod) {
-  if (rod.minLureG == null || rod.maxLureG == null) return "Unknown";
-  return `${rod.minLureG}-${rod.maxLureG}g`;
-}
-
-function formatPeRange(rod) {
-  if (rod.minPe == null || rod.maxPe == null) return "Unknown";
-  return `PE ${rod.minPe}-${rod.maxPe}`;
-}
-
-function formatPrice(rod) {
-  if (rod.priceHkdApprox == null) return "Unknown";
-  return `~HKD ${rod.priceHkdApprox}`;
-}
+import {
+  formatLengthM,
+  formatLengthCm,
+  formatWeightG,
+  formatLureRange,
+  formatPeRange,
+  formatPriceHkd,
+  formatMarketRegions,
+  makeSeriesId,
+  valueOrUnknown,
+} from "../utils/rodFormatters.js";
 
 function SpecRow({ label, value }) {
   return (
     <div className="rodDetailSpecRow">
       <span>{label}</span>
-      <b>{value || "Unknown"}</b>
+      <b>{valueOrUnknown(value)}</b>
     </div>
   );
 }
@@ -59,6 +55,8 @@ export default function RodPage() {
     })
     .slice(0, 3);
 
+  const sourceRecords = rod.sourceRecords || [];
+
   return (
     <main className="rodDetailPage">
       <section className="rodDetailHero">
@@ -78,9 +76,9 @@ export default function RodPage() {
             </div>
 
             <div className="rodDetailVisualMeta">
-              <span>{rod.construction}</span>
-              <span>{rod.reelType}</span>
-              <span>{rod.marketRegions.join(" / ")}</span>
+              <span>{valueOrUnknown(rod.construction)}</span>
+              <span>{valueOrUnknown(rod.reelType)}</span>
+              <span>{formatMarketRegions(rod)}</span>
             </div>
           </div>
 
@@ -90,22 +88,23 @@ export default function RodPage() {
             <p>{rod.editorNote}</p>
 
             <div className="rodDetailPills">
-              <Pill>{rod.catalogueStatus}</Pill>
-              <Pill>{rod.marketRegions.join(" / ")}</Pill>
+              <Pill>{valueOrUnknown(rod.catalogueStatus)}</Pill>
+              <Pill>{formatMarketRegions(rod)}</Pill>
+              <Pill>{valueOrUnknown(rod.construction)}</Pill>
             </div>
 
             <div className="rodDetailCoreSpecs">
               <div>
                 <span>Total length</span>
-                <b>{(rod.lengthCm / 100).toFixed(2)}m</b>
+                <b>{formatLengthM(rod.lengthCm)}</b>
               </div>
               <div>
                 <span>Closed length</span>
-                <b>{rod.closedLengthCm}cm</b>
+                <b>{formatLengthCm(rod.closedLengthCm)}</b>
               </div>
               <div>
                 <span>Weight</span>
-                <b>{rod.weightG}g</b>
+                <b>{formatWeightG(rod.weightG)}</b>
               </div>
               <div>
                 <span>Lure</span>
@@ -117,7 +116,7 @@ export default function RodPage() {
               </div>
               <div>
                 <span>Sections</span>
-                <b>{rod.sections}</b>
+                <b>{valueOrUnknown(rod.sections)}</b>
               </div>
             </div>
 
@@ -145,20 +144,20 @@ export default function RodPage() {
               <SpecRow label="Model / variant" value={rod.model} />
               <SpecRow label="Generation" value={rod.generation} />
               <SpecRow label="Catalogue status" value={rod.catalogueStatus} />
-              <SpecRow label="Market regions" value={rod.marketRegions.join(" / ")} />
+              <SpecRow label="Market regions" value={formatMarketRegions(rod)} />
               <SpecRow label="Rod type" value={rod.rodType} />
               <SpecRow label="Reel type" value={rod.reelType} />
               <SpecRow label="Construction" value={rod.construction} />
-              <SpecRow label="Total length" value={`${(rod.lengthCm / 100).toFixed(2)}m`} />
-              <SpecRow label="Closed length" value={`${rod.closedLengthCm}cm`} />
-              <SpecRow label="Weight" value={`${rod.weightG}g`} />
+              <SpecRow label="Total length" value={formatLengthM(rod.lengthCm)} />
+              <SpecRow label="Closed length" value={formatLengthCm(rod.closedLengthCm)} />
+              <SpecRow label="Weight" value={formatWeightG(rod.weightG)} />
               <SpecRow label="Sections" value={rod.sections} />
               <SpecRow label="Lure weight" value={formatLureRange(rod)} />
               <SpecRow label="PE rating" value={formatPeRange(rod)} />
               <SpecRow label="Power" value={rod.power} />
               <SpecRow label="Action" value={rod.action} />
               <SpecRow label="Tip type" value={rod.tipType} />
-              <SpecRow label="Typical price" value={formatPrice(rod)} />
+              <SpecRow label="Typical price" value={formatPriceHkd(rod)} />
             </div>
           </section>
 
@@ -173,31 +172,33 @@ export default function RodPage() {
             <div className="rodAliasGrid">
               <div>
                 <span>Official name</span>
-                <b>{rod.officialName || "Unknown"}</b>
+                <b>{valueOrUnknown(rod.officialName)}</b>
               </div>
               <div>
                 <span>Japanese name</span>
-                <b>{rod.japaneseName || "Unknown"}</b>
+                <b>{valueOrUnknown(rod.japaneseName)}</b>
               </div>
               <div>
                 <span>Chinese name</span>
-                <b>{rod.chineseName || "Unknown"}</b>
+                <b>{valueOrUnknown(rod.chineseName)}</b>
               </div>
               <div>
                 <span>Model code</span>
-                <b>{rod.modelCode || "Unknown"}</b>
+                <b>{valueOrUnknown(rod.modelCode)}</b>
               </div>
               <div>
                 <span>JAN code</span>
-                <b>{rod.janCode || "Unknown"}</b>
+                <b>{valueOrUnknown(rod.janCode)}</b>
               </div>
             </div>
 
-            <div className="rodAliasList">
-              {(rod.aliases || []).map((alias) => (
-                <span key={alias}>{alias}</span>
-              ))}
-            </div>
+            {(rod.aliases || []).length > 0 && (
+              <div className="rodAliasList">
+                {rod.aliases.map((alias) => (
+                  <span key={alias}>{alias}</span>
+                ))}
+              </div>
+            )}
           </section>
 
           <section className="rodDetailPanel">
@@ -220,21 +221,26 @@ export default function RodPage() {
 
         <aside className="rodDetailSideColumn">
           <section className="rodDetailPanel compact">
-            <div className="catalogEyebrow">Source status</div>
+            <div className="catalogEyebrow">Source records</div>
             <h2>Sources</h2>
 
-            <div className="sourceRecordList">
-              {(rod.sourceRecords || []).map((source, index) => (
-                <div className="sourceRecord" key={index}>
-                  <span>{source.sourceType}</span>
-                  <b>{source.label}</b>
-                </div>
-              ))}
-            </div>
-
-            <p className="sourceReminder">
-              Specs should be checked against official catalogues or trusted listings before being treated as final.
-            </p>
+            {sourceRecords.length > 0 ? (
+              <div className="sourceRecordList">
+                {sourceRecords.map((source, index) => (
+                  <div className="sourceRecord" key={`${source.label}-${index}`}>
+                    <span>{valueOrUnknown(source.sourceType)}</span>
+                    <b>{valueOrUnknown(source.label)}</b>
+                    {source.lastChecked && <em>Last checked: {source.lastChecked}</em>}
+                    {source.note && <p>{source.note}</p>}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="sourceReminder">
+                Source records have not been added yet. Specs should be checked against official
+                catalogues or trusted listings before being treated as final.
+              </p>
+            )}
           </section>
 
           <section className="rodDetailPanel compact">
@@ -243,7 +249,7 @@ export default function RodPage() {
             <p className="sourceReminder">
               Open the series page to compare variants within the same product family.
             </p>
-            <Link className="rodSideButton" to={`/series/${rod.brand.toLowerCase()}-${rod.series.toLowerCase().replaceAll(" ", "-")}`}>
+            <Link className="rodSideButton" to={`/series/${makeSeriesId(rod.brand, rod.series)}`}>
               View series
             </Link>
           </section>
@@ -270,6 +276,3 @@ export default function RodPage() {
     </main>
   );
 }
-
-
-

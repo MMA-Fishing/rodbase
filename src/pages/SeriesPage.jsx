@@ -3,20 +3,15 @@ import Pill from "../components/Pill.jsx";
 import RodCard from "../components/RodCard.jsx";
 import { series } from "../data/series.js";
 import { rods } from "../data/rods.js";
-
-function brandToId(brandName) {
-  return String(brandName || "").toLowerCase().replaceAll(" ", "-");
-}
-
-function formatLureRange(rod) {
-  if (rod.minLureG == null || rod.maxLureG == null) return "Unknown";
-  return `${rod.minLureG}-${rod.maxLureG}g`;
-}
-
-function formatPeRange(rod) {
-  if (rod.minPe == null || rod.maxPe == null) return "Unknown";
-  return `PE ${rod.minPe}-${rod.maxPe}`;
-}
+import {
+  brandToId,
+  formatLengthM,
+  formatLengthCm,
+  formatWeightG,
+  formatLureRange,
+  formatPeRange,
+  valueOrUnknown,
+} from "../utils/rodFormatters.js";
 
 export default function SeriesPage() {
   const { seriesId } = useParams();
@@ -62,8 +57,8 @@ export default function SeriesPage() {
             <p>{currentSeries.description}</p>
 
             <div className="seriesHeroPills">
-              <Pill>{currentSeries.catalogueStatus}</Pill>
-              <Pill>{currentSeries.marketRegions.join(" / ")}</Pill>
+              <Pill>{valueOrUnknown(currentSeries.catalogueStatus)}</Pill>
+              <Pill>{(currentSeries.marketRegions || []).join(" / ") || "Unknown market"}</Pill>
             </div>
           </div>
 
@@ -84,7 +79,9 @@ export default function SeriesPage() {
 
       <section className="container seriesDetailContent">
         <div className="seriesToolbar">
-          <Link to={`/brands/${brandToId(currentSeries.brand)}`}>← Back to {currentSeries.brand}</Link>
+          <Link to={`/brands/${brandToId(currentSeries.brand)}`}>
+            ← Back to {currentSeries.brand}
+          </Link>
           <Link to={`/search?q=${encodeURIComponent(currentSeries.name)}`}>
             Search this series
           </Link>
@@ -120,7 +117,7 @@ export default function SeriesPage() {
           <p className="seriesProfileText">{currentSeries.description}</p>
 
           <div className="seriesUseCaseList">
-            {currentSeries.useCases.map((tag) => (
+            {(currentSeries.useCases || []).map((tag) => (
               <span key={tag}>{tag}</span>
             ))}
           </div>
@@ -158,12 +155,12 @@ export default function SeriesPage() {
                           <span>{rod.displayName}</span>
                         </Link>
                       </td>
-                      <td>{(rod.lengthCm / 100).toFixed(2)}m</td>
-                      <td>{rod.closedLengthCm}cm</td>
-                      <td>{rod.weightG}g</td>
+                      <td>{formatLengthM(rod.lengthCm)}</td>
+                      <td>{formatLengthCm(rod.closedLengthCm)}</td>
+                      <td>{formatWeightG(rod.weightG)}</td>
                       <td>{formatLureRange(rod)}</td>
                       <td>{formatPeRange(rod)}</td>
-                      <td>{rod.catalogueStatus}</td>
+                      <td>{valueOrUnknown(rod.catalogueStatus)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -200,5 +197,3 @@ export default function SeriesPage() {
     </main>
   );
 }
-
-
