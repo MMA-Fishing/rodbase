@@ -1,12 +1,15 @@
-﻿import { Link, useParams } from "react-router-dom";
-import Pill from "../components/Pill.jsx";
-import RodCard from "../components/RodCard.jsx";
-import RodImage from "../components/RodImage.jsx";
+﻿import { Link, Navigate, useParams } from "react-router-dom";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
 import PageTitle from "../components/PageTitle.jsx";
+import RodCard from "../components/RodCard.jsx";
+import RodImage from "../components/RodImage.jsx";
 import { rods } from "../data/rods.js";
+import { useCompare } from "../context/CompareContext.jsx";
+import { useLocale } from "../context/LocaleContext.jsx";
 import { getPrimarySourceRecord } from "../utils/sourceHelpers.js";
 import {
+  brandToId,
+  makeSeriesId,
   formatLengthM,
   formatLengthCm,
   formatWeightG,
@@ -14,7 +17,6 @@ import {
   formatPeRange,
   formatPriceHkd,
   formatMarketRegions,
-  makeSeriesId,
   valueOrUnknown,
 } from "../utils/rodFormatters.js";
 
@@ -22,49 +24,71 @@ function SpecRow({ label, value }) {
   return (
     <div className="rodDetailSpecRow">
       <span>{label}</span>
-      <b>{valueOrUnknown(value)}</b>
+      <b>{value}</b>
     </div>
   );
 }
 
+function formatLineRange(rod, notListedText) {
+  if (rod.minLineLb == null || rod.maxLineLb == null) return notListedText;
+  return `${rod.minLineLb}-${rod.maxLineLb}lb`;
+}
+
+function formatCarbon(rod, notListedText) {
+  if (rod.carbonPercent == null) return notListedText;
+  return `${rod.carbonPercent}%`;
+}
+
 export default function RodPage() {
   const { rodId } = useParams();
+  const { t } = useLocale();
+
+  const {
+    maxCompareRods,
+    canAddMore,
+    isCompared,
+    toggleCompareId,
+  } = useCompare();
+
   const rod = rods.find((item) => item.id === rodId);
 
   if (!rod) {
-    return (
-      <main className="container page">
-        <div className="card">
-          <div className="eyebrow">Rod not found</div>
-          <h1>We could not find this rod.</h1>
-          <p className="note">
-            The rod may have been renamed, removed, or the URL may be incorrect.
-          </p>
-          <div className="buttonRow">
-            <Link className="blackButton" to="/search">Back to search</Link>
-            <Link className="outlineButton" to="/">Home</Link>
-          </div>
-        </div>
-      </main>
-    );
+    return <Navigate to="/search" replace />;
   }
-
-  const similarRods = rods
-    .filter((item) => item.id !== rod.id)
-    .filter((item) => {
-      const sameBrand = item.brand === rod.brand;
-      const sameSeries = item.series === rod.series;
-      const sharedUseCase = item.useCases?.some((tag) => rod.useCases?.includes(tag));
-      return sameBrand || sameSeries || sharedUseCase;
-    })
-    .slice(0, 3);
 
   const sourceRecords = rod.sourceRecords || [];
   const primarySource = getPrimarySourceRecord(rod);
+  const compared = isCompared(rod.id);
+  const compareFull = !compared && !canAddMore;
+  const notListed = t("common.notListed");
+
+  const relatedRods = rods
+    .filter((item) => item.id !== rod.id && (item.series === rod.series || item.brand === rod.brand))
+    .slice(0, 3);
+
+  function handleCompareToggle() {
+    if (compareFull) return;
+    toggleCompareId(rod.id);
+  }
 
   return (
     <main className="rodDetailPage">
-      <PageTitle title={rod.displayName} description={`${rod.displayName} specs, length, closed length, weight, lure rating, PE rating, official references, and comparison data.`} />
+      <PageTitle
+        title={rod.displayName}
+        description={`${rod.displayName} ${t("rod.pageDescription")}`}
+      />
+
+      <section className="container breadcrumbBand">
+        <Breadcrumbs
+          items={[
+            { label: t("nav.brands"), to: "/brands" },
+            { label: rod.brand, to: `/brands/${brandToId(rod.brand)}` },
+            { label: rod.series, to: `/series/${makeSeriesId(rod.brand, rod.series)}` },
+            { label: rod.model },
+          ]}
+        />
+      </section>
+
       <section className="rodDetailHero">
         <div className="container rodDetailHeroGrid">
           <div className="rodDetailVisualPanel">
@@ -78,47 +102,25 @@ export default function RodPage() {
               <span>{formatMarketRegions(rod)}</span>
             </div>
           </div>
+
           <div className="rodDetailSummary">
             <div className="catalogEyebrow">{rod.brand} / {rod.series}</div>
-            <h1>{rod.displayName}</h1>
-            <p>{rod.editorNote}</p>
-
-            <div className="rodDetailPills">
-              <Pill>{valueOrUnknown(rod.catalogueStatus)}</Pill>
-              <Pill>{formatMarketRegions(rod)}</Pill>
-              <Pill>{valueOrUnknown(rod.construction)}</Pill>
-            </div>
-
-            <div className="rodDetailCoreSpecs">
-              <div>
-                <span>Total length</span>
-                <b>{formatLengthM(rod.lengthCm)}</b>
-              </div>
-              <div>
-                <span>Closed length</span>
-                <b>{formatLengthCm(rod.closedLengthCm)}</b>
-              </div>
-              <div>
-                <span>Weight</span>
-                <b>{formatWeightG(rod.weightG)}</b>
-              </div>
-              <div>
-                <span>Lure</span>
-                <b>{formatLureRange(rod)}</b>
-              </div>
-              <div>
-                <span>Line</span>
-                <b>{formatPeRange(rod)}</b>
-              </div>
-              <div>
-                <span>Sections</span>
-                <b>{valueOrUnknown(rod.sections)}</b>
-              </div>
-            </div>
+            <h1>{rod.displayName || rod.model}</h1>
+            <p>{rod.editorNote || rod.rodType}</p>
 
             <div className="rodDetailActions">
-              <button>Add to compare</button>
-              <Link to="/search">Back to search</Link>
+              <button
+                type="button"
+                className={compared ? "rodCompareButtonActive" : ""}
+                disabled={compareFull}
+                onClick={handleCompareToggle}
+                title={compareFull ? `${maxCompareRods} ${t("rod.maximumCompare")}` : ""}
+              >
+                {compared ? t("rod.removeFromCompare") : t("rod.addToCompare")}
+              </button>
+
+              <Link to="/search">{t("rod.backToSearch")}</Link>
+
               {primarySource?.url && (
                 <a
                   className="officialReferenceButton"
@@ -126,124 +128,115 @@ export default function RodPage() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  View official reference
+                  {t("rod.viewOfficialReference")}
                 </a>
               )}
+
+              {compared && <Link to="/compare">{t("rod.openCompare")}</Link>}
+            </div>
+
+            <div className="rodDetailCoreSpecs">
+              <div>
+                <span>{t("rod.length")}</span>
+                <b>{formatLengthM(rod.lengthCm)}</b>
+              </div>
+              <div>
+                <span>{t("rod.closedLength")}</span>
+                <b>{formatLengthCm(rod.closedLengthCm)}</b>
+              </div>
+              <div>
+                <span>{t("rod.weight")}</span>
+                <b>{formatWeightG(rod.weightG)}</b>
+              </div>
+              <div>
+                <span>{t("rod.lure")}</span>
+                <b>{formatLureRange(rod)}</b>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="container breadcrumbBand">
-        <Breadcrumbs
-          items={[
-            { label: "Brands", to: "/brands" },
-            { label: rod.brand, to: `/brands/${rod.brand.toLowerCase().replaceAll(" ", "-")}` },
-            { label: rod.series, to: `/series/${makeSeriesId(rod.brand, rod.series)}` },
-            { label: rod.model },
-          ]}
-        />
-      </section>
-
       <section className="container rodDetailContentGrid">
-        <div className="rodDetailMainColumn">
+        <section className="rodDetailPanel">
+          <div className="rodDetailPanelHeader">
+            <div>
+              <div className="catalogEyebrow">{t("rod.panel.identity")}</div>
+              <h2>{t("rod.panel.officialSpecs")}</h2>
+            </div>
+          </div>
+
+          <div className="rodDetailSpecList">
+            <SpecRow label={t("rod.field.brand")} value={rod.brand} />
+            <SpecRow label={t("rod.field.series")} value={rod.series} />
+            <SpecRow label={t("rod.field.model")} value={rod.model} />
+            <SpecRow label={t("rod.field.generation")} value={valueOrUnknown(rod.generation)} />
+            <SpecRow label={t("rod.field.catalogueStatus")} value={valueOrUnknown(rod.catalogueStatus)} />
+            <SpecRow label={t("rod.field.market")} value={formatMarketRegions(rod)} />
+            <SpecRow label={t("rod.field.rodType")} value={valueOrUnknown(rod.rodType)} />
+            <SpecRow label={t("rod.field.reelType")} value={valueOrUnknown(rod.reelType)} />
+            <SpecRow label={t("rod.field.construction")} value={valueOrUnknown(rod.construction)} />
+            <SpecRow label={t("rod.field.sections")} value={rod.sections ?? notListed} />
+            <SpecRow label={t("rod.field.power")} value={valueOrUnknown(rod.power)} />
+            <SpecRow label={t("rod.field.action")} value={valueOrUnknown(rod.action)} />
+            <SpecRow label={t("rod.field.tipType")} value={valueOrUnknown(rod.tipType)} />
+            <SpecRow label={t("rod.field.peRating")} value={formatPeRange(rod)} />
+            <SpecRow label={t("rod.field.lineRating")} value={formatLineRange(rod, notListed)} />
+            <SpecRow label={t("rod.field.carbonPercent")} value={formatCarbon(rod, notListed)} />
+            <SpecRow label={t("rod.field.price")} value={formatPriceHkd(rod)} />
+          </div>
+        </section>
+
+        <section className="rodDetailSideStack">
           <section className="rodDetailPanel">
             <div className="rodDetailPanelHeader">
               <div>
-                <div className="catalogEyebrow">Specification table</div>
-                <h2>Official specs</h2>
+                <div className="catalogEyebrow">{t("rod.panel.namesAliases")}</div>
+                <h2>{t("rod.panel.namesAliases")}</h2>
               </div>
             </div>
 
-            <div className="rodDetailSpecTable">
-              <SpecRow label="Brand" value={rod.brand} />
-              <SpecRow label="Series" value={rod.series} />
-              <SpecRow label="Model / variant" value={rod.model} />
-              <SpecRow label="Generation" value={rod.generation} />
-              <SpecRow label="Catalogue status" value={rod.catalogueStatus} />
-              <SpecRow label="Market regions" value={formatMarketRegions(rod)} />
-              <SpecRow label="Rod type" value={rod.rodType} />
-              <SpecRow label="Reel type" value={rod.reelType} />
-              <SpecRow label="Construction" value={rod.construction} />
-              <SpecRow label="Total length" value={formatLengthM(rod.lengthCm)} />
-              <SpecRow label="Closed length" value={formatLengthCm(rod.closedLengthCm)} />
-              <SpecRow label="Weight" value={formatWeightG(rod.weightG)} />
-              <SpecRow label="Sections" value={rod.sections} />
-              <SpecRow label="Lure weight" value={formatLureRange(rod)} />
-              <SpecRow label="PE rating" value={formatPeRange(rod)} />
-              <SpecRow label="Power" value={rod.power} />
-              <SpecRow label="Action" value={rod.action} />
-              <SpecRow label="Tip type" value={rod.tipType} />
-              <SpecRow label="Typical price" value={formatPriceHkd(rod)} />
+            <div className="rodDetailSpecList">
+              <SpecRow label={t("rod.field.officialName")} value={valueOrUnknown(rod.officialName)} />
+              <SpecRow label={t("rod.field.japaneseName")} value={valueOrUnknown(rod.japaneseName)} />
+              <SpecRow label={t("rod.field.chineseName")} value={valueOrUnknown(rod.chineseName)} />
+              <SpecRow label={t("rod.field.aliases")} value={(rod.aliases || []).join(" / ") || notListed} />
+              <SpecRow label={t("rod.field.modelCode")} value={valueOrUnknown(rod.modelCode)} />
+              <SpecRow label={t("rod.field.janCode")} value={valueOrUnknown(rod.janCode)} />
             </div>
           </section>
 
           <section className="rodDetailPanel">
             <div className="rodDetailPanelHeader">
               <div>
-                <div className="catalogEyebrow">Names and aliases</div>
-                <h2>Regional naming</h2>
+                <div className="catalogEyebrow">{t("rod.panel.interpretation")}</div>
+                <h2>{t("rod.panel.interpretation")}</h2>
               </div>
             </div>
 
-            <div className="rodAliasGrid">
-              <div>
-                <span>Official name</span>
-                <b>{valueOrUnknown(rod.officialName)}</b>
-              </div>
-              <div>
-                <span>Japanese name</span>
-                <b>{valueOrUnknown(rod.japaneseName)}</b>
-              </div>
-              <div>
-                <span>Chinese name</span>
-                <b>{valueOrUnknown(rod.chineseName)}</b>
-              </div>
-              <div>
-                <span>Model code</span>
-                <b>{valueOrUnknown(rod.modelCode)}</b>
-              </div>
-              <div>
-                <span>JAN code</span>
-                <b>{valueOrUnknown(rod.janCode)}</b>
-              </div>
-            </div>
+            <p className="rodDetailNote">
+              {rod.editorNote || notListed}
+            </p>
 
-            {(rod.aliases || []).length > 0 && (
-              <div className="rodAliasList">
-                {rod.aliases.map((alias) => (
-                  <span key={alias}>{alias}</span>
-                ))}
-              </div>
-            )}
-          </section>
-
-          <section className="rodDetailPanel">
-            <div className="rodDetailPanelHeader">
-              <div>
-                <div className="catalogEyebrow">Interpretation</div>
-                <h2>Editor note</h2>
-              </div>
-            </div>
-
-            <p className="rodEditorNote">{rod.editorNote}</p>
-
-            <div className="rodAliasList">
+            <div className="seriesUseCaseList">
               {(rod.useCases || []).map((tag) => (
                 <span key={tag}>{tag}</span>
               ))}
             </div>
           </section>
-        </div>
 
-        <aside className="rodDetailSideColumn">
-          <section className="rodDetailPanel compact">
-            <div className="catalogEyebrow">Source records</div>
-            <h2>Sources</h2>
+          <section className="rodDetailPanel">
+            <div className="rodDetailPanelHeader">
+              <div>
+                <div className="catalogEyebrow">{t("rod.panel.sources")}</div>
+                <h2>{t("rod.panel.sources")}</h2>
+                <p>{t("rod.sources.description")}</p>
+              </div>
+            </div>
 
-            {sourceRecords.length > 0 ? (
-              <div className="sourceRecordList">
-                {sourceRecords.map((source, index) => (
+            <div className="sourceRecordList">
+              {sourceRecords.length > 0 ? (
+                sourceRecords.map((source, index) => (
                   <div className="sourceRecord" key={`${source.label}-${index}`}>
                     <span>{valueOrUnknown(source.sourceType)}</span>
 
@@ -255,45 +248,34 @@ export default function RodPage() {
                       <b>{valueOrUnknown(source.label)}</b>
                     )}
 
-                    {source.lastChecked && <em>Last checked: {source.lastChecked}</em>}
+                    {source.lastChecked && (
+                      <em>{t("rod.sources.lastChecked")}: {source.lastChecked}</em>
+                    )}
+
                     {source.note && <p>{source.note}</p>}
                   </div>
-                ))}
-              </div>
-            ) : (
-              <p className="sourceReminder">
-                Source records have not been added yet. Specs should be checked against official
-                catalogues or trusted listings before being treated as final.
-              </p>
-            )}
+                ))
+              ) : (
+                <p className="rodDetailNote">{notListed}</p>
+              )}
+            </div>
           </section>
-
-          <section className="rodDetailPanel compact">
-            <div className="catalogEyebrow">Series</div>
-            <h2>{rod.series}</h2>
-            <p className="sourceReminder">
-              Open the series page to compare variants within the same product family.
-            </p>
-            <Link className="rodSideButton" to={`/series/${makeSeriesId(rod.brand, rod.series)}`}>
-              View series
-            </Link>
-          </section>
-        </aside>
+        </section>
       </section>
 
-      {similarRods.length > 0 && (
-        <section className="container rodSimilarSection">
+      {relatedRods.length > 0 && (
+        <section className="container rodRelatedSection">
           <div className="catalogSectionHeader">
             <div>
-              <div className="catalogEyebrow">Similar rods</div>
-              <h2>Related indexed rods</h2>
+              <div className="catalogEyebrow">{t("rod.panel.related")}</div>
+              <h2>{t("rod.panel.related")}</h2>
+              <p>{t("rod.related.description")}</p>
             </div>
-            <Link className="catalogTextLink" to="/search">Search all rods</Link>
           </div>
 
           <div className="catalogRodGrid">
-            {similarRods.map((item) => (
-              <RodCard key={item.id} rod={item} />
+            {relatedRods.map((relatedRod) => (
+              <RodCard key={relatedRod.id} rod={relatedRod} />
             ))}
           </div>
         </section>
@@ -301,9 +283,3 @@ export default function RodPage() {
     </main>
   );
 }
-
-
-
-
-
-

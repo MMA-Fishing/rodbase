@@ -5900,3 +5900,36 @@ html[lang="zh-Hant"] body {
   font-weight: 950;
   margin-top: 14px;
 }
+
+/* Rod detail multilingual layout support */
+.rodDetailSpecList {
+  display: grid;
+  gap: 10px;
+}
+
+.rodDetailSideStack {
+  display: grid;
+  gap: 18px;
+}
+
+.rodDetailNote {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.sourceRecordList {
+  display: grid;
+  gap: 12px;
+}
+
+.rodRelatedSection {
+  padding-top: 28px;
+  padding-bottom: 64px;
+}
+
+@media (max-width: 900px) {
+  .rodDetailHeroGrid,
+  .rodDetailContentGrid {
+    grid-template-columns: 1fr;
+  }
+}
