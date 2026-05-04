@@ -8,10 +8,31 @@ import {
   formatPeRange,
   formatMarketRegions,
 } from "../utils/rodFormatters.js";
+import { useCompare } from "../context/CompareContext.jsx";
 
 export default function RodCard({ rod }) {
+  const {
+    compareIds,
+    maxCompareRods,
+    canAddMore,
+    isCompared,
+    toggleCompareId,
+  } = useCompare();
+
+  const compared = isCompared(rod.id);
+  const compareFull = !compared && !canAddMore;
+
+  function handleCompareChange(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (compareFull) return;
+
+    toggleCompareId(rod.id);
+  }
+
   return (
-    <article className="catalogRodCard">
+    <article className={compared ? "catalogRodCard catalogRodCardCompared" : "catalogRodCard"}>
       <div className="rodImagePanel">
         <div className="rodImagePlaceholder">
           <span>{rod.brand}</span>
@@ -26,8 +47,17 @@ export default function RodCard({ rod }) {
 
         <div className="catalogRodTitleRow">
           <h3>{rod.displayName || rod.model}</h3>
-          <label className="compareCheck">
-            <input type="checkbox" />
+
+          <label
+            className={compareFull ? "compareCheck compareCheckDisabled" : "compareCheck"}
+            title={compareFull ? `Maximum ${maxCompareRods} rods can be compared` : "Add to compare"}
+          >
+            <input
+              type="checkbox"
+              checked={compared}
+              disabled={compareFull}
+              onChange={handleCompareChange}
+            />
             Compare
           </label>
         </div>
@@ -70,6 +100,8 @@ export default function RodCard({ rod }) {
         <div className="catalogRodMeta">
           <span>{rod.catalogueStatus}</span>
           <span>{formatMarketRegions(rod)}</span>
+          {compared && <span>In compare set</span>}
+          {compareFull && <span>Compare full</span>}
         </div>
 
         <div className="catalogRodFooter">
@@ -79,7 +111,12 @@ export default function RodCard({ rod }) {
           </Link>
         </div>
       </div>
+
+      {compareIds.length > 0 && compared && (
+        <Link className="compareMiniLink" to="/compare">
+          View compare
+        </Link>
+      )}
     </article>
   );
 }
-

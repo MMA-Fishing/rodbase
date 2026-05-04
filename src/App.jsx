@@ -10,10 +10,11 @@ import SeriesPage from "./pages/SeriesPage.jsx";
 import ArticlesPage from "./pages/ArticlesPage.jsx";
 import ArticlePage from "./pages/ArticlePage.jsx";
 import DataCorrectionsPage from "./pages/DataCorrectionsPage.jsx";
+import { CompareProvider } from "./context/CompareContext.jsx";
 
 export default function App() {
   return (
-    <div>
+    <CompareProvider>
       <Header />
 
       <Routes>
@@ -34,9 +35,6 @@ export default function App() {
       </Routes>
 
       <Footer />
-    </div>
+    </CompareProvider>
   );
 }
-
-
-
