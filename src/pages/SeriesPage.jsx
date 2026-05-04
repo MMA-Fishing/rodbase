@@ -14,10 +14,11 @@ import {
   valueOrUnknown,
 } from "../utils/rodFormatters.js";
 import { useLocale } from "../context/LocaleContext.jsx";
+import { translateDataLabel, translateLabelList } from "../i18n/dataLabels.js";
 
 export default function SeriesPage() {
   const { seriesId } = useParams();
-  const { t } = useLocale();
+  const { locale, t } = useLocale();
 
   const currentSeries = series.find((item) => item.id === seriesId);
 
@@ -30,7 +31,7 @@ export default function SeriesPage() {
   );
 
   const marketText =
-    (currentSeries.marketRegions || []).join(" / ") || t("common.notListed");
+    translateLabelList(locale, currentSeries.marketRegions);
 
   return (
     <main className="seriesDetailPage">
@@ -102,7 +103,7 @@ export default function SeriesPage() {
 
           <div className="seriesUseCaseList">
             {(currentSeries.useCases || []).map((tag) => (
-              <span key={tag}>{tag}</span>
+              <span key={tag}>{translateDataLabel(locale, tag)}</span>
             ))}
           </div>
         </section>
@@ -173,8 +174,8 @@ export default function SeriesPage() {
                       <td>{formatWeightG(rod.weightG)}</td>
                       <td>{formatLureRange(rod)}</td>
                       <td>{formatPeRange(rod)}</td>
-                      <td>{valueOrUnknown(rod.power)}</td>
-                      <td>{valueOrUnknown(rod.action)}</td>
+                      <td>{translateDataLabel(locale, valueOrUnknown(rod.power))}</td>
+                      <td>{translateDataLabel(locale, valueOrUnknown(rod.action))}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -213,3 +214,4 @@ export default function SeriesPage() {
     </main>
   );
 }
+

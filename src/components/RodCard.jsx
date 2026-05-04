@@ -7,11 +7,11 @@ import {
   formatWeightG,
   formatLureRange,
   formatPeRange,
-  formatMarketRegions,
 } from "../utils/rodFormatters.js";
 import { useCompare } from "../context/CompareContext.jsx";
 import { useLocale } from "../context/LocaleContext.jsx";
 import { getPrimarySourceRecord } from "../utils/sourceHelpers.js";
+import { translateDataLabel, translateLabelList } from "../i18n/dataLabels.js";
 
 export default function RodCard({ rod }) {
   const {
@@ -22,7 +22,7 @@ export default function RodCard({ rod }) {
     toggleCompareId,
   } = useCompare();
 
-  const { t } = useLocale();
+  const { locale, t } = useLocale();
 
   const compared = isCompared(rod.id);
   const compareFull = !compared && !canAddMore;
@@ -61,7 +61,7 @@ export default function RodCard({ rod }) {
           </label>
         </div>
 
-        <p className="catalogRodType">{rod.rodType}</p>
+        <p className="catalogRodType">{translateDataLabel(locale, rod.rodType)}</p>
 
         <div className="catalogSpecTable">
           <div>
@@ -92,13 +92,13 @@ export default function RodCard({ rod }) {
 
         <div className="catalogRodTags">
           {(rod.useCases || []).slice(0, 4).map((tag) => (
-            <Pill key={tag}>{tag}</Pill>
+            <Pill key={tag}>{translateDataLabel(locale, tag)}</Pill>
           ))}
         </div>
 
         <div className="catalogRodMeta">
-          <span>{rod.catalogueStatus}</span>
-          <span>{formatMarketRegions(rod)}</span>
+          <span>{translateDataLabel(locale, rod.catalogueStatus)}</span>
+          <span>{translateLabelList(locale, rod.marketRegions)}</span>
           {compared && <span>{t("rodCard.inCompareSet")}</span>}
           {compareFull && <span>{t("rodCard.compareFull")}</span>}
         </div>

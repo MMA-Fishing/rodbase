@@ -7,6 +7,7 @@ import { rods } from "../data/rods.js";
 import { useCompare } from "../context/CompareContext.jsx";
 import { useLocale } from "../context/LocaleContext.jsx";
 import { getPrimarySourceRecord } from "../utils/sourceHelpers.js";
+import { translateDataLabel, translateLabelList } from "../i18n/dataLabels.js";
 import {
   brandToId,
   makeSeriesId,
@@ -41,7 +42,7 @@ function formatCarbon(rod, notListedText) {
 
 export default function RodPage() {
   const { rodId } = useParams();
-  const { t } = useLocale();
+  const { locale, t } = useLocale();
 
   const {
     maxCompareRods,
@@ -97,9 +98,9 @@ export default function RodPage() {
             </div>
 
             <div className="rodDetailVisualMeta">
-              <span>{valueOrUnknown(rod.construction)}</span>
-              <span>{valueOrUnknown(rod.reelType)}</span>
-              <span>{formatMarketRegions(rod)}</span>
+              <span>{translateDataLabel(locale, valueOrUnknown(rod.construction))}</span>
+              <span>{translateDataLabel(locale, valueOrUnknown(rod.reelType))}</span>
+              <span>{translateLabelList(locale, rod.marketRegions)}</span>
             </div>
           </div>
 
@@ -171,15 +172,15 @@ export default function RodPage() {
             <SpecRow label={t("rod.field.series")} value={rod.series} />
             <SpecRow label={t("rod.field.model")} value={rod.model} />
             <SpecRow label={t("rod.field.generation")} value={valueOrUnknown(rod.generation)} />
-            <SpecRow label={t("rod.field.catalogueStatus")} value={valueOrUnknown(rod.catalogueStatus)} />
-            <SpecRow label={t("rod.field.market")} value={formatMarketRegions(rod)} />
-            <SpecRow label={t("rod.field.rodType")} value={valueOrUnknown(rod.rodType)} />
-            <SpecRow label={t("rod.field.reelType")} value={valueOrUnknown(rod.reelType)} />
-            <SpecRow label={t("rod.field.construction")} value={valueOrUnknown(rod.construction)} />
+            <SpecRow label={t("rod.field.catalogueStatus")} value={translateDataLabel(locale, valueOrUnknown(rod.catalogueStatus))} />
+            <SpecRow label={t("rod.field.market")} value={translateLabelList(locale, rod.marketRegions)} />
+            <SpecRow label={t("rod.field.rodType")} value={translateDataLabel(locale, valueOrUnknown(rod.rodType))} />
+            <SpecRow label={t("rod.field.reelType")} value={translateDataLabel(locale, valueOrUnknown(rod.reelType))} />
+            <SpecRow label={t("rod.field.construction")} value={translateDataLabel(locale, valueOrUnknown(rod.construction))} />
             <SpecRow label={t("rod.field.sections")} value={rod.sections ?? notListed} />
-            <SpecRow label={t("rod.field.power")} value={valueOrUnknown(rod.power)} />
-            <SpecRow label={t("rod.field.action")} value={valueOrUnknown(rod.action)} />
-            <SpecRow label={t("rod.field.tipType")} value={valueOrUnknown(rod.tipType)} />
+            <SpecRow label={t("rod.field.power")} value={translateDataLabel(locale, valueOrUnknown(rod.power))} />
+            <SpecRow label={t("rod.field.action")} value={translateDataLabel(locale, valueOrUnknown(rod.action))} />
+            <SpecRow label={t("rod.field.tipType")} value={translateDataLabel(locale, valueOrUnknown(rod.tipType))} />
             <SpecRow label={t("rod.field.peRating")} value={formatPeRange(rod)} />
             <SpecRow label={t("rod.field.lineRating")} value={formatLineRange(rod, notListed)} />
             <SpecRow label={t("rod.field.carbonPercent")} value={formatCarbon(rod, notListed)} />
@@ -220,7 +221,7 @@ export default function RodPage() {
 
             <div className="seriesUseCaseList">
               {(rod.useCases || []).map((tag) => (
-                <span key={tag}>{tag}</span>
+                <span key={tag}>{translateDataLabel(locale, tag)}</span>
               ))}
             </div>
           </section>
@@ -283,3 +284,4 @@ export default function RodPage() {
     </main>
   );
 }
+
