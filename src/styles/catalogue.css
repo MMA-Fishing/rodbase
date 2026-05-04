@@ -3895,3 +3895,15 @@ footer {
     font-size: 1.08rem;
   }
 }
+
+/* Header hierarchy polish */
+.catalogSubmitLink {
+  background: var(--red);
+  border-color: var(--red);
+  color: white;
+}
+
+.catalogSubmitLink:hover {
+  background: var(--red-dark);
+  border-color: var(--red-dark);
+}

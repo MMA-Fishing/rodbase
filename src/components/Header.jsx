@@ -33,7 +33,7 @@ export default function Header() {
       <div className="catalogTopBar">
         <div className="container catalogTopBarInner">
           <span>Fishing rod database & comparison tool</span>
-          <span>Rods active · Reels planned next</span>
+          <span>Browse by brand, series, type, and exact specifications</span>
         </div>
       </div>
 
@@ -42,7 +42,7 @@ export default function Header() {
           <div className="catalogLogo">RB</div>
           <div>
             <div className="catalogBrandName">RodBase</div>
-            <div className="catalogBrandSub">Fishing Rod IMDb</div>
+            <div className="catalogBrandSub">Fishing Rod Database</div>
           </div>
         </Link>
 
@@ -70,8 +70,8 @@ export default function Header() {
           <button type="submit">Search</button>
         </form>
 
-        <Link className="catalogSubmitLink" to="/data-corrections">
-          Data & Corrections
+        <Link className="catalogSubmitLink" to="/search">
+          Search rods
         </Link>
 
         <button className="mobileMenu" onClick={() => setOpen(!open)}>
@@ -104,6 +104,7 @@ export default function Header() {
           ))}
 
           <span className="mobileNavButton disabledMobileNav">Reels · Next</span>
+
           <Link className="mobileNavButton" to="/data-corrections" onClick={() => setOpen(false)}>
             Data & Corrections
           </Link>
@@ -112,6 +113,3 @@ export default function Header() {
     </header>
   );
 }
-
-
-
