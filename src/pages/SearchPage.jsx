@@ -1,9 +1,10 @@
 ﻿import { useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import RodCard from "../components/RodCard.jsx";
 import { brands } from "../data/brands.js";
 import { rods } from "../data/rods.js";
 import { useCases } from "../data/useCases.js";
+import { useCompare } from "../context/CompareContext.jsx";
 
 function normalize(value) {
   return String(value || "").toLowerCase().trim();
@@ -60,22 +61,197 @@ function FilterButton({ active, children, onClick }) {
   );
 }
 
+function FilterPanel({
+  activeFilterCount,
+  brands,
+  selectedBrands,
+  setSelectedBrands,
+  constructionOptions,
+  selectedConstruction,
+  setSelectedConstruction,
+  minTotalLength,
+  maxTotalLength,
+  setMinTotalLength,
+  setMaxTotalLength,
+  maxClosed,
+  setMaxClosed,
+  maxWeight,
+  setMaxWeight,
+  selectedUseCases,
+  setSelectedUseCases,
+  resetAllFilters,
+}) {
+  return (
+    <aside className="catalogFilterSidebar">
+      <div className="catalogFilterHeader">
+        <h2>Filters</h2>
+        <span>{activeFilterCount} active</span>
+      </div>
+
+      <div className="catalogFilterGroup">
+        <h3>Brand</h3>
+        <div className="catalogFilterList">
+          {brands.map((brand) => (
+            <FilterButton
+              key={brand.name}
+              active={selectedBrands.includes(brand.name)}
+              onClick={() =>
+                setSelectedBrands((current) =>
+                  toggleArrayValue(current, brand.name)
+                )
+              }
+            >
+              {brand.name}
+            </FilterButton>
+          ))}
+        </div>
+      </div>
+
+      <div className="catalogFilterGroup">
+        <h3>Construction</h3>
+        <div className="catalogFilterList">
+          {constructionOptions.map((option) => (
+            <FilterButton
+              key={option}
+              active={selectedConstruction.includes(option)}
+              onClick={() =>
+                setSelectedConstruction((current) =>
+                  toggleArrayValue(current, option)
+                )
+              }
+            >
+              {option}
+            </FilterButton>
+          ))}
+        </div>
+      </div>
+
+      <div className="catalogFilterGroup">
+        <div className="filterLabelRow">
+          <h3>Total length</h3>
+          <b>
+            {(minTotalLength / 100).toFixed(2)}m -{" "}
+            {(maxTotalLength / 100).toFixed(2)}m
+          </b>
+        </div>
+
+        <div
+          className="dualLengthSlider"
+          style={{
+            "--minPercent": `${(minTotalLength / 700) * 100}%`,
+            "--maxPercent": `${(maxTotalLength / 700) * 100}%`,
+          }}
+        >
+          <div className="dualLengthSliderTrack" />
+
+          <input
+            className="dualLengthRange dualLengthRangeMin"
+            type="range"
+            min="0"
+            max="700"
+            step="5"
+            value={minTotalLength}
+            onChange={(event) =>
+              setMinTotalLength(
+                Math.min(Number(event.target.value), maxTotalLength)
+              )
+            }
+          />
+
+          <input
+            className="dualLengthRange dualLengthRangeMax"
+            type="range"
+            min="0"
+            max="700"
+            step="5"
+            value={maxTotalLength}
+            onChange={(event) =>
+              setMaxTotalLength(
+                Math.max(Number(event.target.value), minTotalLength)
+              )
+            }
+          />
+        </div>
+
+        <div className="lengthScale">
+          <span>0m</span>
+          <span>3.5m</span>
+          <span>7m</span>
+        </div>
+      </div>
+
+      <div className="catalogFilterGroup">
+        <div className="filterLabelRow">
+          <h3>Max closed length</h3>
+          <b>{maxClosed}cm</b>
+        </div>
+        <input
+          type="range"
+          min="40"
+          max="160"
+          value={maxClosed}
+          onChange={(event) => setMaxClosed(Number(event.target.value))}
+        />
+      </div>
+
+      <div className="catalogFilterGroup">
+        <div className="filterLabelRow">
+          <h3>Max rod weight</h3>
+          <b>{maxWeight}g</b>
+        </div>
+        <input
+          type="range"
+          min="40"
+          max="600"
+          value={maxWeight}
+          onChange={(event) => setMaxWeight(Number(event.target.value))}
+        />
+      </div>
+
+      <div className="catalogFilterGroup">
+        <h3>Use case</h3>
+        <div className="catalogFilterList">
+          {useCases.slice(0, 12).map((tag) => (
+            <FilterButton
+              key={tag}
+              active={selectedUseCases.includes(tag)}
+              onClick={() =>
+                setSelectedUseCases((current) =>
+                  toggleArrayValue(current, tag)
+                )
+              }
+            >
+              {tag}
+            </FilterButton>
+          ))}
+        </div>
+      </div>
+
+      <div className="catalogFilterFooter">
+        <button type="button" onClick={resetAllFilters}>
+          Reset all filters
+        </button>
+      </div>
+    </aside>
+  );
+}
+
 export default function SearchPage() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { compareIds } = useCompare();
+
   const initialKeyword = searchParams.get("q") || "";
 
   const [keyword, setKeyword] = useState(initialKeyword);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedConstruction, setSelectedConstruction] = useState([]);
   const [selectedUseCases, setSelectedUseCases] = useState([]);
-
-  // Total length range: 0m to 7m, stored in cm.
   const [minTotalLength, setMinTotalLength] = useState(0);
   const [maxTotalLength, setMaxTotalLength] = useState(700);
-
-  const [maxClosed, setMaxClosed] = useState(120);
-  const [maxWeight, setMaxWeight] = useState(400);
+  const [maxClosed, setMaxClosed] = useState(160);
+  const [maxWeight, setMaxWeight] = useState(600);
   const [sortMode, setSortMode] = useState("relevance");
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   useEffect(() => {
     setKeyword(searchParams.get("q") || "");
@@ -104,8 +280,8 @@ export default function SearchPage() {
     setSelectedUseCases([]);
     setMinTotalLength(0);
     setMaxTotalLength(700);
-    setMaxClosed(120);
-    setMaxWeight(400);
+    setMaxClosed(160);
+    setMaxWeight(600);
     setSortMode("relevance");
   }
 
@@ -122,7 +298,7 @@ export default function SearchPage() {
 
       const matchesUseCase =
         selectedUseCases.length === 0 ||
-        selectedUseCases.some((useCase) => rod.useCases.includes(useCase));
+        selectedUseCases.some((useCase) => (rod.useCases || []).includes(useCase));
 
       const matchesSpecs =
         rod.lengthCm >= minTotalLength &&
@@ -166,11 +342,11 @@ export default function SearchPage() {
     selectedUseCases.length +
     (minTotalLength !== 0 ? 1 : 0) +
     (maxTotalLength !== 700 ? 1 : 0) +
-    (maxClosed !== 120 ? 1 : 0) +
-    (maxWeight !== 400 ? 1 : 0) +
+    (maxClosed !== 160 ? 1 : 0) +
+    (maxWeight !== 600 ? 1 : 0) +
     (keyword.trim() ? 1 : 0);
 
-  const constructionOptions = ["Telescopic", "4-piece", "2-piece", "1-piece"];
+  const constructionOptions = ["Telescopic", "4-piece", "3-piece", "2-piece", "1-piece", "Multi-piece"];
 
   const quickCategories = [
     { label: "All rods", value: "" },
@@ -181,6 +357,39 @@ export default function SearchPage() {
     { label: "Daiwa", value: "daiwa" },
     { label: "Shimano", value: "shimano" },
   ];
+
+  const activeSummary = [
+    keyword.trim() ? `Keyword: ${keyword.trim()}` : null,
+    selectedBrands.length ? `${selectedBrands.length} brand${selectedBrands.length === 1 ? "" : "s"}` : null,
+    selectedConstruction.length ? `${selectedConstruction.length} construction type${selectedConstruction.length === 1 ? "" : "s"}` : null,
+    selectedUseCases.length ? `${selectedUseCases.length} use case${selectedUseCases.length === 1 ? "" : "s"}` : null,
+    minTotalLength !== 0 || maxTotalLength !== 700
+      ? `Length ${(minTotalLength / 100).toFixed(2)}m-${(maxTotalLength / 100).toFixed(2)}m`
+      : null,
+    maxClosed !== 160 ? `Closed ≤ ${maxClosed}cm` : null,
+    maxWeight !== 600 ? `Weight ≤ ${maxWeight}g` : null,
+  ].filter(Boolean);
+
+  const filterPanelProps = {
+    activeFilterCount,
+    brands,
+    selectedBrands,
+    setSelectedBrands,
+    constructionOptions,
+    selectedConstruction,
+    setSelectedConstruction,
+    minTotalLength,
+    maxTotalLength,
+    setMinTotalLength,
+    setMaxTotalLength,
+    maxClosed,
+    setMaxClosed,
+    maxWeight,
+    setMaxWeight,
+    selectedUseCases,
+    setSelectedUseCases,
+    resetAllFilters,
+  };
 
   return (
     <main className="catalogSearchPage">
@@ -224,9 +433,7 @@ export default function SearchPage() {
               placeholder="Search brand, series, model code, alias, use case..."
             />
             <button onClick={() => applyKeywordSearch()}>Search</button>
-            <button className="secondarySearchButton" onClick={resetAllFilters}>
-              Reset
-            </button>
+            <button className="secondarySearchButton" onClick={resetAllFilters}>Reset</button>
           </div>
 
           <div className="quickCategoryRail">
@@ -244,155 +451,53 @@ export default function SearchPage() {
               </button>
             ))}
           </div>
+
+          <div className="mobileFilterSortBar">
+            <button
+              type="button"
+              className="mobileFilterToggleButton"
+              aria-expanded={filtersOpen}
+              onClick={() => setFiltersOpen((current) => !current)}
+            >
+              <span className="filterToggleIcon" aria-hidden="true">
+                {filtersOpen ? "−" : "+"}
+              </span>
+              <span className="filterToggleText">
+                {filtersOpen ? "Hide filters" : "Filter & Sort"}
+              </span>
+              {activeFilterCount > 0 && (
+                <span className="filterCountBadge">{activeFilterCount}</span>
+              )}
+            </button>
+
+            <select value={sortMode} onChange={(event) => setSortMode(event.target.value)}>
+              <option value="relevance">Relevance</option>
+              <option value="closedLengthAsc">Shortest closed</option>
+              <option value="weightAsc">Lightest</option>
+              <option value="ratingDesc">Highest rated</option>
+              <option value="lengthAsc">Shortest length</option>
+              <option value="priceAsc">Lowest price</option>
+            </select>
+          </div>
+
+          {activeSummary.length > 0 && (
+            <div className="activeFilterSummary">
+              {activeSummary.map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
       <section className="container catalogSearchLayout">
-        <aside className="catalogFilterSidebar">
-          <div className="catalogFilterHeader">
-            <h2>Filters</h2>
-            <span>{activeFilterCount} active</span>
-          </div>
+        <div className={filtersOpen ? "mobileFilterPanel mobileFilterPanelOpen" : "mobileFilterPanel"}>
+          <FilterPanel {...filterPanelProps} />
+        </div>
 
-          <div className="catalogFilterGroup">
-            <h3>Brand</h3>
-            <div className="catalogFilterList">
-              {brands.map((brand) => (
-                <FilterButton
-                  key={brand.name}
-                  active={selectedBrands.includes(brand.name)}
-                  onClick={() =>
-                    setSelectedBrands((current) =>
-                      toggleArrayValue(current, brand.name)
-                    )
-                  }
-                >
-                  {brand.name}
-                </FilterButton>
-              ))}
-            </div>
-          </div>
-
-          <div className="catalogFilterGroup">
-            <h3>Construction</h3>
-            <div className="catalogFilterList">
-              {constructionOptions.map((option) => (
-                <FilterButton
-                  key={option}
-                  active={selectedConstruction.includes(option)}
-                  onClick={() =>
-                    setSelectedConstruction((current) =>
-                      toggleArrayValue(current, option)
-                    )
-                  }
-                >
-                  {option}
-                </FilterButton>
-              ))}
-            </div>
-          </div>
-
-          <div className="catalogFilterGroup">
-            <div className="filterLabelRow">
-              <h3>Total length</h3>
-              <b>
-                {(minTotalLength / 100).toFixed(2)}m -{" "}
-                {(maxTotalLength / 100).toFixed(2)}m
-              </b>
-            </div>
-
-            <div
-              className="dualLengthSlider"
-              style={{
-                "--minPercent": `${(minTotalLength / 700) * 100}%`,
-                "--maxPercent": `${(maxTotalLength / 700) * 100}%`,
-              }}
-            >
-              <div className="dualLengthSliderTrack" />
-
-              <input
-                className="dualLengthRange dualLengthRangeMin"
-                type="range"
-                min="0"
-                max="700"
-                step="5"
-                value={minTotalLength}
-                onChange={(event) =>
-                  setMinTotalLength(
-                    Math.min(Number(event.target.value), maxTotalLength)
-                  )
-                }
-              />
-
-              <input
-                className="dualLengthRange dualLengthRangeMax"
-                type="range"
-                min="0"
-                max="700"
-                step="5"
-                value={maxTotalLength}
-                onChange={(event) =>
-                  setMaxTotalLength(
-                    Math.max(Number(event.target.value), minTotalLength)
-                  )
-                }
-              />
-            </div>
-
-            <div className="lengthScale">
-              <span>0m</span>
-              <span>3.5m</span>
-              <span>7m</span>
-            </div>
-          </div>
-
-          <div className="catalogFilterGroup">
-            <div className="filterLabelRow">
-              <h3>Max closed length</h3>
-              <b>{maxClosed}cm</b>
-            </div>
-            <input
-              type="range"
-              min="40"
-              max="120"
-              value={maxClosed}
-              onChange={(event) => setMaxClosed(Number(event.target.value))}
-            />
-          </div>
-
-          <div className="catalogFilterGroup">
-            <div className="filterLabelRow">
-              <h3>Max rod weight</h3>
-              <b>{maxWeight}g</b>
-            </div>
-            <input
-              type="range"
-              min="80"
-              max="400"
-              value={maxWeight}
-              onChange={(event) => setMaxWeight(Number(event.target.value))}
-            />
-          </div>
-
-          <div className="catalogFilterGroup">
-            <h3>Use case</h3>
-            <div className="catalogFilterList">
-              {useCases.slice(0, 10).map((tag) => (
-                <FilterButton
-                  key={tag}
-                  active={selectedUseCases.includes(tag)}
-                  onClick={() =>
-                    setSelectedUseCases((current) =>
-                      toggleArrayValue(current, tag)
-                    )
-                  }
-                >
-                  {tag}
-                </FilterButton>
-              ))}
-            </div>
-          </div>
-        </aside>
+        <div className="desktopFilterPanel">
+          <FilterPanel {...filterPanelProps} />
+        </div>
 
         <section className="catalogResultsArea">
           <div className="catalogResultsToolbar">
@@ -408,14 +513,22 @@ export default function SearchPage() {
               )}
             </div>
 
-            <select value={sortMode} onChange={(event) => setSortMode(event.target.value)}>
-              <option value="relevance">Sort: relevance</option>
-              <option value="closedLengthAsc">Sort: shortest closed length</option>
-              <option value="weightAsc">Sort: lightest</option>
-              <option value="ratingDesc">Sort: highest rated</option>
-              <option value="lengthAsc">Sort: shortest total length</option>
-              <option value="priceAsc">Sort: lowest price</option>
-            </select>
+            <div className="resultsToolbarActions">
+              {compareIds.length > 0 && (
+                <Link to="/compare">
+                  Compare selected ({compareIds.length})
+                </Link>
+              )}
+
+              <select value={sortMode} onChange={(event) => setSortMode(event.target.value)}>
+                <option value="relevance">Sort: relevance</option>
+                <option value="closedLengthAsc">Sort: shortest closed length</option>
+                <option value="weightAsc">Sort: lightest</option>
+                <option value="ratingDesc">Sort: highest rated</option>
+                <option value="lengthAsc">Sort: shortest total length</option>
+                <option value="priceAsc">Sort: lowest price</option>
+              </select>
+            </div>
           </div>
 
           {filtered.length > 0 ? (
@@ -429,10 +542,14 @@ export default function SearchPage() {
               <div className="catalogEyebrow">No results</div>
               <h2>No matching rods found.</h2>
               <p>
-                Try a broader keyword, remove brand/use-case filters, increase the length range,
-                or reset all filters.
+                Try removing one or two filters first. Brand, use case, closed length,
+                and weight filters usually narrow the list the fastest.
               </p>
-              <button onClick={resetAllFilters}>Reset filters</button>
+
+              <div className="noResultsActions">
+                <button onClick={resetAllFilters}>Reset filters</button>
+                <Link to="/brands">Browse brands</Link>
+              </div>
             </div>
           )}
         </section>
@@ -440,5 +557,4 @@ export default function SearchPage() {
     </main>
   );
 }
-
 

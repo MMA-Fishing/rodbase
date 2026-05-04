@@ -4312,3 +4312,212 @@ footer {
     min-width: 165px;
   }
 }
+
+/* Search UX upgrade: mobile filter/sort and active filter summary */
+.mobileFilterSortBar,
+.mobileFilterPanel {
+  display: none;
+}
+
+.desktopFilterPanel {
+  display: block;
+}
+
+.activeFilterSummary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.activeFilterSummary span {
+  background: #15130f;
+  color: white;
+  padding: 7px 9px;
+  font-size: 0.76rem;
+  font-weight: 850;
+}
+
+.resultsToolbarActions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.resultsToolbarActions a {
+  background: var(--red);
+  color: white;
+  text-decoration: none;
+  padding: 11px 13px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.catalogFilterFooter {
+  padding: 14px 18px 18px;
+}
+
+.catalogFilterFooter button {
+  width: 100%;
+  border: 0;
+  background: var(--ink);
+  color: white;
+  padding: 12px;
+  font-weight: 950;
+}
+
+.noResultsActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.noResultsActions button,
+.noResultsActions a {
+  border: 0;
+  background: var(--ink);
+  color: white;
+  text-decoration: none;
+  padding: 12px 16px;
+  font-weight: 900;
+}
+
+.noResultsActions a {
+  background: var(--red);
+}
+
+@media (max-width: 1100px) {
+  .desktopFilterPanel {
+    display: none;
+  }
+
+  .mobileFilterSortBar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .mobileFilterSortBar button {
+    border: 0;
+    background: var(--ink);
+    color: white;
+    padding: 12px 13px;
+    font-weight: 950;
+    text-align: left;
+  }
+
+  .mobileFilterSortBar button span {
+    display: inline-grid;
+    place-items: center;
+    min-width: 20px;
+    height: 20px;
+    margin-left: 8px;
+    background: var(--red);
+    color: white;
+    font-size: 0.72rem;
+  }
+
+  .mobileFilterSortBar select {
+    border: 1px solid var(--line);
+    background: #fffdf8;
+    padding: 0 12px;
+    font-weight: 850;
+  }
+
+  .mobileFilterPanel {
+    display: none;
+  }
+
+  .mobileFilterPanelOpen {
+    display: block;
+  }
+
+  .mobileFilterPanel .catalogFilterSidebar {
+    position: static;
+    margin-bottom: 0;
+  }
+
+  .catalogSearchLayout {
+    display: block;
+  }
+
+  .catalogResultsArea {
+    margin-top: 18px;
+  }
+}
+
+@media (max-width: 700px) {
+  .mobileFilterSortBar {
+    grid-template-columns: 1fr;
+  }
+
+  .mobileFilterSortBar select {
+    min-height: 42px;
+  }
+
+  .activeFilterSummary {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 3px;
+  }
+
+  .activeFilterSummary span {
+    white-space: nowrap;
+  }
+
+  .resultsToolbarActions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .resultsToolbarActions a {
+    text-align: center;
+  }
+
+  .noResultsActions {
+    flex-direction: column;
+  }
+}
+
+/* Mobile filter expand/collapse indicator */
+.mobileFilterToggleButton {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.mobileFilterToggleButton .filterToggleIcon {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  margin-left: 0;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.28);
+  color: white;
+  font-size: 1.1rem;
+  line-height: 1;
+  font-weight: 950;
+}
+
+.mobileFilterToggleButton .filterToggleText {
+  flex: 1;
+  min-width: 0;
+  margin-left: 0;
+  background: transparent;
+  color: white;
+}
+
+.mobileFilterToggleButton .filterCountBadge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  margin-left: auto;
+  background: var(--red);
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 950;
+}
