@@ -122,7 +122,7 @@ export const rodSchemaFields = [
     type: "enum",
     required: true,
     example: "Telescopic",
-    note: "Physical construction / piece count style.",
+    note: "Physical construction / piece-count style.",
   },
   {
     key: "lengthCm",
