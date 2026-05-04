@@ -141,6 +141,34 @@ export default function SeriesPage() {
           </div>
         </section>
 
+        {(currentSeries.sourceRecords || []).length > 0 && (
+          <section className="seriesPanel seriesReferencePanel">
+            <div className="seriesPanelHeader">
+              <div>
+                <div className="catalogEyebrow">Official references</div>
+                <h2>Series source links</h2>
+              </div>
+            </div>
+
+            <div className="seriesSourceGrid">
+              {currentSeries.sourceRecords.map((source, index) => (
+                <a
+                  key={`${source.label}-${index}`}
+                  href={source.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="seriesSourceCard"
+                >
+                  <span>{source.sourceType || "Reference"}</span>
+                  <strong>{source.label}</strong>
+                  {source.lastChecked && <em>Last checked: {source.lastChecked}</em>}
+                  {source.note && <p>{source.note}</p>}
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
         {rodsToShow.length > 0 && (
           <section className="seriesPanel">
             <div className="seriesPanelHeader">
@@ -215,4 +243,5 @@ export default function SeriesPage() {
     </main>
   );
 }
+
 

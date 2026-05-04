@@ -5117,3 +5117,60 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
+/* Series official reference links */
+.seriesSourceGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.seriesSourceCard {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  background: #faf6ed;
+  border: 1px solid var(--line);
+  padding: 14px;
+}
+
+.seriesSourceCard:hover {
+  border-color: var(--red);
+  background: #fffdf8;
+}
+
+.seriesSourceCard span {
+  display: block;
+  color: var(--red);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.66rem;
+  font-weight: 950;
+}
+
+.seriesSourceCard strong {
+  display: block;
+  margin-top: 5px;
+}
+
+.seriesSourceCard em {
+  display: block;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-style: normal;
+  line-height: 1.45;
+  margin-top: 6px;
+}
+
+.seriesSourceCard p {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  margin-top: 7px;
+}
+
+@media (max-width: 700px) {
+  .seriesSourceGrid {
+    grid-template-columns: 1fr;
+  }
+}
