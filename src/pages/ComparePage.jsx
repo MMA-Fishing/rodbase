@@ -185,7 +185,7 @@ export default function ComparePage() {
 
                       <div className="compareMiniSpecs">
                         <span>{formatLengthM(rod.lengthCm)}</span>
-                        <span>{formatLengthCm(rod.closedLengthCm)} closed</span>
+                        <span>{formatLengthCm(rod.closedLengthCm)} {t("rodCard.closed")}</span>
                         <span>{formatWeightG(rod.weightG)}</span>
                       </div>
                     </div>
@@ -291,3 +291,4 @@ export default function ComparePage() {
     </main>
   );
 }
+

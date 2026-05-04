@@ -25,8 +25,16 @@ export function LocaleProvider({ children }) {
   }, [locale]);
 
   function setLocale(nextLocale) {
-    const supported = supportedLocales.some((item) => item.code === nextLocale);
-    if (!supported) return;
+    const localeInfo = supportedLocales.find((item) => item.code === nextLocale);
+    if (!localeInfo) return;
+
+    if (typeof document !== "undefined") {
+      document.documentElement.lang = localeInfo.htmlLang || "en";
+    }
+
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(STORAGE_KEY, nextLocale);
+    }
 
     setLocaleState(nextLocale);
   }
@@ -61,3 +69,4 @@ export function useLocale() {
 
   return context;
 }
+
