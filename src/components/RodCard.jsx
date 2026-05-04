@@ -1,7 +1,7 @@
 ﻿import { Link } from "react-router-dom";
 import Pill from "./Pill.jsx";
 import RodImage from "./RodImage.jsx";
-import SourceBadge from "./SourceBadge.jsx";
+import { getPrimarySourceRecord } from "../utils/sourceHelpers.js";
 import {
   formatLengthM,
   formatLengthCm,
@@ -23,6 +23,7 @@ export default function RodCard({ rod }) {
 
   const compared = isCompared(rod.id);
   const compareFull = !compared && !canAddMore;
+  const primarySource = getPrimarySourceRecord(rod);
 
   function handleCompareChange() {
     if (compareFull) return;
@@ -58,7 +59,6 @@ export default function RodCard({ rod }) {
         </div>
 
         <p className="catalogRodType">{rod.rodType}</p>
-        <SourceBadge record={rod} />
 
         <div className="catalogSpecTable">
           <div>
@@ -102,9 +102,23 @@ export default function RodCard({ rod }) {
 
         <div className="catalogRodFooter">
           <span className="catalogRating">★ {rod.rating ?? "—"}</span>
-          <Link className="catalogViewButton" to={`/rods/${rod.id}`}>
-            View details
-          </Link>
+
+          <div className="catalogRodFooterActions">
+            {primarySource?.url && (
+              <a
+                className="catalogSourceButton"
+                href={primarySource.url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Source ↗
+              </a>
+            )}
+
+            <Link className="catalogViewButton" to={`/rods/${rod.id}`}>
+              View details
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -116,6 +130,8 @@ export default function RodCard({ rod }) {
     </article>
   );
 }
+
+
 
 
 

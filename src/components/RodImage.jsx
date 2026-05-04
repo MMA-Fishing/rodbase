@@ -16,11 +16,7 @@ function getRodImageClass(rod) {
   return "rodFallbackStandard";
 }
 
-function getFallbackLabel(rod) {
-  if ((rod.sourceRecords || []).some((source) => source.url)) {
-    return "Official reference available";
-  }
-
+function getFallbackLabel() {
   return "Reference graphic only";
 }
 
@@ -68,3 +64,4 @@ export default function RodImage({ rod, className = "" }) {
     </div>
   );
 }
+

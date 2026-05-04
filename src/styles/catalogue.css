@@ -5443,3 +5443,50 @@ footer {
     padding: 5px 7px;
   }
 }
+
+/* Rod card official reference action */
+.catalogRodFooter {
+  gap: 12px;
+}
+
+.catalogRodFooterActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.catalogSourceButton {
+  display: inline-flex;
+  align-items: center;
+  background: #fffdf8;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  text-decoration: none;
+  padding: 8px 10px;
+  font-size: 0.78rem;
+  font-weight: 950;
+}
+
+.catalogSourceButton:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+@media (max-width: 700px) {
+  .catalogRodFooter {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .catalogRodFooterActions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .catalogSourceButton,
+  .catalogViewButton {
+    justify-content: center;
+    text-align: center;
+  }
+}
