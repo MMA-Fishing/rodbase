@@ -145,7 +145,7 @@ export default function HomePage() {
           <div className="catalogSectionHeader">
             <div>
               <div className="catalogEyebrow">New releases</div>
-              <h2>Newly indexed & release watch</h2>
+              <h2>Newly indexed rods</h2>
             </div>
             <Link className="catalogTextLink" to="/search">View all rods</Link>
           </div>
@@ -207,5 +207,6 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 

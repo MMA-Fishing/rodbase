@@ -5,12 +5,13 @@
   },
   {
     rodId: "shimano-lurematic-mobile-s86ml",
-    label: "New release watch",
+    label: "Newly indexed",
   },
   {
     rodId: "daiwa-holiday-pack-270",
     label: "Recently added",
   },
 ];
+
 
 

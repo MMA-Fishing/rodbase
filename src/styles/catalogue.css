@@ -1365,7 +1365,7 @@ footer {
   line-height: 1.65;
 }
 
-.seriesDemoRod {
+.seriesIndexedRod {
   margin-top: 16px;
   color: var(--muted);
   font-size: 0.86rem;
@@ -3454,3 +3454,4 @@ footer {
     min-height: 240px;
   }
 }
+

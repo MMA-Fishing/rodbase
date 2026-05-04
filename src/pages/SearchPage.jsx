@@ -198,7 +198,7 @@ export default function SearchPage() {
           <div className="catalogSearchStats">
             <div>
               <b>{rods.length}</b>
-              <span>Demo rod records</span>
+              <span>Rod records</span>
             </div>
             <div>
               <b>{brands.length}</b>
@@ -440,4 +440,5 @@ export default function SearchPage() {
     </main>
   );
 }
+
 

@@ -101,7 +101,7 @@ export default function SeriesPage() {
             <b>{currentSeries.archivedCount}</b>
           </div>
           <div>
-            <span>Indexed demo rods</span>
+            <span>Indexed rods</span>
             <b>{rodsToShow.length}</b>
           </div>
         </div>
@@ -197,3 +197,4 @@ export default function SeriesPage() {
     </main>
   );
 }
+

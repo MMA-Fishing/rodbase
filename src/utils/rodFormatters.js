@@ -47,3 +47,4 @@ export function makeSeriesId(brandName, seriesName) {
     .toLowerCase()
     .replaceAll(" ", "-")}`;
 }
+

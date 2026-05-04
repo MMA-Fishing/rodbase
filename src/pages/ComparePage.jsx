@@ -82,7 +82,7 @@ export default function ComparePage() {
             </div>
             <div>
               <b>Live</b>
-              <span>Demo compare set</span>
+              <span>Current compare set</span>
             </div>
           </div>
         </div>
@@ -182,3 +182,4 @@ export default function ComparePage() {
     </main>
   );
 }
+

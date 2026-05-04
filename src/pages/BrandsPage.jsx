@@ -107,7 +107,7 @@ export default function BrandsPage() {
             <div className="brandHeroMeta">
               <span>{selectedBrandData.country}</span>
               <span>{selectedBrandData.rods} planned/indexed records</span>
-              <span>{brandRodCount} live demo rods</span>
+              <span>{brandRodCount} indexed rods</span>
             </div>
           </div>
 
@@ -174,11 +174,11 @@ export default function BrandsPage() {
                     </div>
 
                     {matchingRods.length > 0 ? (
-                      <div className="seriesDemoRod">
-                        Demo indexed rod: <b>{matchingRods[0].displayName}</b>
+                      <div className="seriesIndexedRod">
+                        Indexed rod example: <b>{matchingRods[0].displayName}</b>
                       </div>
                     ) : (
-                      <div className="seriesDemoRod">
+                      <div className="seriesIndexedRod">
                         Individual rod variants not indexed yet.
                       </div>
                     )}
@@ -203,5 +203,7 @@ export default function BrandsPage() {
     </main>
   );
 }
+
+
 
 
