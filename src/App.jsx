@@ -12,6 +12,7 @@ import SeriesPage from "./pages/SeriesPage.jsx";
 import ArticlesPage from "./pages/ArticlesPage.jsx";
 import ArticlePage from "./pages/ArticlePage.jsx";
 import DataCorrectionsPage from "./pages/DataCorrectionsPage.jsx";
+import NotFoundPage from "./pages/NotFoundPage.jsx";
 import { CompareProvider } from "./context/CompareContext.jsx";
 
 export default function App() {
@@ -34,7 +35,7 @@ export default function App() {
         <Route path="/source-policy" element={<Navigate to="/data-corrections" replace />} />
         <Route path="/submit" element={<Navigate to="/data-corrections" replace />} />
         <Route path="/submit-correction" element={<Navigate to="/data-corrections" replace />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
 
       <CompareTray />
@@ -42,3 +43,4 @@ export default function App() {
     </CompareProvider>
   );
 }
+
