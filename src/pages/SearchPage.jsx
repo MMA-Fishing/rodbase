@@ -1,6 +1,7 @@
 ﻿import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import RodCard from "../components/RodCard.jsx";
+import PageTitle from "../components/PageTitle.jsx";
 import { brands } from "../data/brands.js";
 import { rods } from "../data/rods.js";
 import { useCases } from "../data/useCases.js";
@@ -393,6 +394,7 @@ export default function SearchPage() {
 
   return (
     <main className="catalogSearchPage">
+      <PageTitle title="Search Rods" description="Search indexed fishing rods by brand, series, model code, length, closed length, weight, construction, and use case." />
       <section className="catalogSearchHero">
         <div className="container catalogSearchHeroInner">
           <div>
@@ -557,4 +559,5 @@ export default function SearchPage() {
     </main>
   );
 }
+
 

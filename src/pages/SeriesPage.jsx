@@ -2,6 +2,7 @@
 import Pill from "../components/Pill.jsx";
 import RodCard from "../components/RodCard.jsx";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
+import PageTitle from "../components/PageTitle.jsx";
 import { series } from "../data/series.js";
 import { rods } from "../data/rods.js";
 import {
@@ -59,6 +60,7 @@ export default function SeriesPage() {
 
   return (
     <main className="seriesDetailPage">
+      <PageTitle title={currentSeries.displayName} description={`Browse ${currentSeries.displayName} rod variants, specs, source links, and indexed models.`} />
       <section className="seriesDetailHero">
         <div className="container seriesDetailHeroGrid">
           <div>
@@ -243,5 +245,6 @@ export default function SeriesPage() {
     </main>
   );
 }
+
 
 

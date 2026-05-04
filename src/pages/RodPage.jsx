@@ -3,6 +3,7 @@ import Pill from "../components/Pill.jsx";
 import RodCard from "../components/RodCard.jsx";
 import RodImage from "../components/RodImage.jsx";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
+import PageTitle from "../components/PageTitle.jsx";
 import { rods } from "../data/rods.js";
 import { getPrimarySourceRecord } from "../utils/sourceHelpers.js";
 import {
@@ -63,6 +64,7 @@ export default function RodPage() {
 
   return (
     <main className="rodDetailPage">
+      <PageTitle title={rod.displayName} description={`${rod.displayName} specs, length, closed length, weight, lure rating, PE rating, official references, and comparison data.`} />
       <section className="rodDetailHero">
         <div className="container rodDetailHeroGrid">
           <div className="rodDetailVisualPanel">
@@ -299,6 +301,7 @@ export default function RodPage() {
     </main>
   );
 }
+
 
 
 

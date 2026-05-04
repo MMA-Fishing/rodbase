@@ -3,6 +3,7 @@ import { brands } from "../data/brands.js";
 import { series } from "../data/series.js";
 import { rods } from "../data/rods.js";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
+import PageTitle from "../components/PageTitle.jsx";
 
 function BrandSelectionGrid() {
   const featuredBrands = brands.filter((brand) => brand.featured);
@@ -10,6 +11,7 @@ function BrandSelectionGrid() {
 
   return (
     <main className="container page brandLandingPage">
+      <PageTitle title="Browse Rod Brands" description="Browse fishing rods by brand, series, model family, and indexed rod variants." />
       <div className="twSectionTitle">
         <h1>Browse Rods by Brand</h1>
         <p>Choose a brand to view its rod series, model families, and indexed variants.</p>
@@ -103,6 +105,7 @@ export default function BrandsPage() {
 
   return (
     <main className="brandSeriesPage">
+      <PageTitle title={`${selectedBrandData.name} Rods`} description={`Browse ${selectedBrandData.name} rod series, model families, official references, and indexed rod variants.`} />
       <section className="brandHero brandHeroCatalogue">
         <div className="container brandHeroInner">
           <div>
@@ -234,6 +237,7 @@ export default function BrandsPage() {
     </main>
   );
 }
+
 
 
 

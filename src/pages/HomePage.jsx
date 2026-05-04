@@ -2,6 +2,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import Pill from "../components/Pill.jsx";
 import RodCard from "../components/RodCard.jsx";
+import PageTitle from "../components/PageTitle.jsx";
 import { brands } from "../data/brands.js";
 import { rods } from "../data/rods.js";
 import { articleCards } from "../data/articles.js";
@@ -46,6 +47,7 @@ export default function HomePage() {
 
   return (
     <main className="catalogHome">
+      <PageTitle title="Fishing Rod Database" description="Browse and compare fishing rods by brand, series, model, length, closed length, lure rating, PE rating, and construction." />
       <section className="catalogHero compactCatalogueHero">
         <div className="container catalogHeroGrid">
           <div className="catalogHeroCopy">
@@ -237,3 +239,4 @@ export default function HomePage() {
     </main>
   );
 }
+

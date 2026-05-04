@@ -1,6 +1,7 @@
 ﻿import { Fragment, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { rods } from "../data/rods.js";
+import PageTitle from "../components/PageTitle.jsx";
 import {
   formatLengthM,
   formatLengthCm,
@@ -103,6 +104,7 @@ export default function ComparePage() {
 
   return (
     <main className="compareCataloguePage">
+      <PageTitle title="Compare Rods" description="Compare selected fishing rods side by side by dimensions, construction, lure rating, PE rating, use case, and source records." />
       <section className="compareHero">
         <div className="container compareHeroGrid">
           <div>
@@ -290,3 +292,4 @@ export default function ComparePage() {
     </main>
   );
 }
+
