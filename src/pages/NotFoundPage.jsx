@@ -1,27 +1,27 @@
 ﻿import { Link } from "react-router-dom";
 import PageTitle from "../components/PageTitle.jsx";
+import { useLocale } from "../context/LocaleContext.jsx";
 
 export default function NotFoundPage() {
+  const { t } = useLocale();
+
   return (
     <main className="notFoundPage">
       <PageTitle
-        title="Page Not Found"
-        description="The requested RodBase page could not be found. Search rods, browse brands, or return home."
+        title={t("notFound.pageTitle")}
+        description={t("notFound.pageDescription")}
       />
 
       <section className="container notFoundPanel">
         <div>
-          <div className="catalogEyebrow">404</div>
-          <h1>Page not found.</h1>
-          <p>
-            This page may have moved, the rod or series may have been renamed,
-            or the URL may be incorrect.
-          </p>
+          <div className="catalogEyebrow">{t("notFound.eyebrow")}</div>
+          <h1>{t("notFound.title")}</h1>
+          <p>{t("notFound.text")}</p>
 
           <div className="notFoundActions">
-            <Link to="/search">Search rods</Link>
-            <Link to="/brands">Browse brands</Link>
-            <Link to="/">Go home</Link>
+            <Link to="/search">{t("notFound.searchRods")}</Link>
+            <Link to="/brands">{t("notFound.browseBrands")}</Link>
+            <Link to="/">{t("notFound.goHome")}</Link>
           </div>
         </div>
 
