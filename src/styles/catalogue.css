@@ -5398,3 +5398,16 @@ footer {
     min-height: 140px;
   }
 }
+
+/* Prominent official reference CTA */
+.officialReferenceButton {
+  background: #fffdf8 !important;
+  color: var(--ink) !important;
+  border: 1px solid var(--line) !important;
+}
+
+.officialReferenceButton::after {
+  content: " ↗";
+  color: var(--red);
+  font-weight: 950;
+}

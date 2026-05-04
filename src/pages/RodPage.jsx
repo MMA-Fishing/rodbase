@@ -4,6 +4,7 @@ import RodCard from "../components/RodCard.jsx";
 import RodImage from "../components/RodImage.jsx";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
 import { rods } from "../data/rods.js";
+import { getPrimarySourceRecord } from "../utils/sourceHelpers.js";
 import {
   formatLengthM,
   formatLengthCm,
@@ -58,6 +59,7 @@ export default function RodPage() {
     .slice(0, 3);
 
   const sourceRecords = rod.sourceRecords || [];
+  const primarySource = getPrimarySourceRecord(rod);
 
   return (
     <main className="rodDetailPage">
@@ -115,6 +117,16 @@ export default function RodPage() {
             <div className="rodDetailActions">
               <button>Add to compare</button>
               <Link to="/search">Back to search</Link>
+              {primarySource?.url && (
+                <a
+                  className="officialReferenceButton"
+                  href={primarySource.url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  View official reference
+                </a>
+              )}
             </div>
           </div>
         </div>
@@ -287,6 +299,7 @@ export default function RodPage() {
     </main>
   );
 }
+
 
 
 
