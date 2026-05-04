@@ -4521,3 +4521,46 @@ footer {
   font-size: 0.72rem;
   font-weight: 950;
 }
+
+/* Breadcrumb navigation */
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 850;
+  margin-bottom: 18px;
+}
+
+.breadcrumbs a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+  color: var(--red);
+}
+
+.breadcrumbSeparator {
+  color: #b9b0a4;
+  margin-right: 6px;
+}
+
+.breadcrumbCurrent {
+  color: var(--ink);
+}
+
+.breadcrumbBand {
+  padding-top: 22px;
+}
+
+@media (max-width: 700px) {
+  .breadcrumbs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    padding-bottom: 4px;
+  }
+}

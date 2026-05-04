@@ -1,6 +1,7 @@
 ﻿import { Link, useParams } from "react-router-dom";
 import Pill from "../components/Pill.jsx";
 import RodCard from "../components/RodCard.jsx";
+import Breadcrumbs from "../components/Breadcrumbs.jsx";
 import { series } from "../data/series.js";
 import { rods } from "../data/rods.js";
 import {
@@ -88,6 +89,13 @@ export default function SeriesPage() {
       </section>
 
       <section className="container seriesDetailContent">
+        <Breadcrumbs
+          items={[
+            { label: "Brands", to: "/brands" },
+            { label: currentSeries.brand, to: `/brands/${brandToId(currentSeries.brand)}` },
+            { label: currentSeries.name },
+          ]}
+        />
         <div className="seriesToolbar">
           <Link to={`/brands/${brandToId(currentSeries.brand)}`}>
             ← Back to {currentSeries.brand}
@@ -207,3 +215,4 @@ export default function SeriesPage() {
     </main>
   );
 }
+

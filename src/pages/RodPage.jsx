@@ -1,6 +1,7 @@
 ﻿import { Link, useParams } from "react-router-dom";
 import Pill from "../components/Pill.jsx";
 import RodCard from "../components/RodCard.jsx";
+import Breadcrumbs from "../components/Breadcrumbs.jsx";
 import { rods } from "../data/rods.js";
 import {
   formatLengthM,
@@ -126,6 +127,17 @@ export default function RodPage() {
             </div>
           </div>
         </div>
+      </section>
+
+      <section className="container breadcrumbBand">
+        <Breadcrumbs
+          items={[
+            { label: "Brands", to: "/brands" },
+            { label: rod.brand, to: `/brands/${rod.brand.toLowerCase().replaceAll(" ", "-")}` },
+            { label: rod.series, to: `/series/${makeSeriesId(rod.brand, rod.series)}` },
+            { label: rod.model },
+          ]}
+        />
       </section>
 
       <section className="container rodDetailContentGrid">
@@ -276,4 +288,5 @@ export default function RodPage() {
     </main>
   );
 }
+
 

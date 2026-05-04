@@ -2,6 +2,7 @@
 import { brands } from "../data/brands.js";
 import { series } from "../data/series.js";
 import { rods } from "../data/rods.js";
+import Breadcrumbs from "../components/Breadcrumbs.jsx";
 
 function BrandSelectionGrid() {
   const featuredBrands = brands.filter((brand) => brand.featured);
@@ -210,3 +211,6 @@ export default function BrandsPage() {
     </main>
   );
 }
+
+
+
