@@ -1,45 +1,40 @@
 ﻿import { Link } from "react-router-dom";
+import { useLocale } from "../context/LocaleContext.jsx";
 
 export default function Footer() {
+  const { t } = useLocale();
+
   return (
-    <footer>
-      <div className="container footerGrid">
-        <div>
+    <footer className="siteFooter">
+      <div className="container siteFooterGrid">
+        <div className="siteFooterBrandBlock">
           <div className="footerBrand">RodBase</div>
-          <p className="footerDisclaimer">
-            All fishing rod information, specifications, ratings, prices, market notes, comparisons, and articles are provided for reference only. RodBase does not guarantee completeness, accuracy, availability, suitability, or purchase outcome. No liability shall be held by RodBase or its operators for any loss, damage, purchase decision, fishing result, or usage issue arising from reliance on this information.
-          </p>
+          <p>{t("footer.description")}</p>
+          <p className="siteFooterDisclaimer">{t("footer.disclaimer")}</p>
+          <span className="siteFooterBadge">{t("footer.referenceOnly")}</span>
         </div>
-        <div>
-          <h3>Database</h3>
-          <div className="footerLinks vertical">
-            <Link to="/brands">Brands</Link>
-            <span>Series</span>
-            <Link to="/search">Advanced Search</Link>
-            <Link to="/compare">Compare Rods</Link>
-          </div>
+
+        <div className="siteFooterColumn">
+          <h3>{t("footer.database")}</h3>
+          <Link to="/brands">{t("footer.brands")}</Link>
+          <Link to="/search">{t("footer.search")}</Link>
+          <Link to="/compare">{t("footer.compare")}</Link>
         </div>
-        <div>
-          <h3>Information</h3>
-          <div className="footerLinks vertical">
-            <Link to="/data-corrections">Data & Corrections</Link>
-            <span>About RodBase</span>
-            <span>Contact</span>
-          </div>
+
+        <div className="siteFooterColumn">
+          <h3>{t("footer.content")}</h3>
+          <Link to="/articles">{t("footer.articles")}</Link>
+          <Link to="/data-corrections">{t("footer.dataCorrections")}</Link>
+          <Link to="/brands">{t("footer.officialReferences")}</Link>
         </div>
-        <div>
-          <h3>Articles</h3>
-          <div className="footerLinks vertical">
-            <Link to="/articles">All Articles</Link>
-            <Link to="/articles/how-to-read-rod-length">Rod Basics</Link>
-            <Link to="/articles/telescopic-vs-multi-piece-rods">Comparisons</Link>
-            <span>Fishing Notes</span>
-          </div>
+
+        <div className="siteFooterColumn">
+          <h3>{t("footer.future")}</h3>
+          <span>{t("footer.reels")}</span>
+          <span>{t("footer.communityData")}</span>
+          <span>{t("footer.multilingual")}</span>
         </div>
       </div>
     </footer>
   );
 }
-
-
-
