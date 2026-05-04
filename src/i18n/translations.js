@@ -130,7 +130,11 @@ export const translations = {
     "rodCard.inCompareSet": "In compare set",
     "rodCard.compareFull": "Compare full",
     "rodCard.viewCompare": "View compare",
-    "rodImage.referenceGraphicOnly": "Reference graphic only"
+    "rodImage.referenceGraphicOnly": "Reference graphic only",
+    "compareTray.title": "Compare",
+    "compareTray.selected": "rods selected",
+    "compareTray.clear": "Clear",
+    "compareTray.compareNow": "Compare now"
   },
   "zh-Hant": {
     "topbar.left": "釣竿資料庫與比較工具",
@@ -248,7 +252,11 @@ export const translations = {
     "rodCard.inCompareSet": "已加入比較",
     "rodCard.compareFull": "比較已滿",
     "rodCard.viewCompare": "查看比較",
-    "rodImage.referenceGraphicOnly": "參考圖示"
+    "rodImage.referenceGraphicOnly": "參考圖示",
+    "compareTray.title": "比較",
+    "compareTray.selected": "支釣竿已選",
+    "compareTray.clear": "清除",
+    "compareTray.compareNow": "立即比較"
   }
 };
 
