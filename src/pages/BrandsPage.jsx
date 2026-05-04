@@ -106,8 +106,9 @@ export default function BrandsPage() {
 
             <div className="brandHeroMeta">
               <span>{selectedBrandData.country}</span>
-              <span>{selectedBrandData.rods} planned/indexed records</span>
+              <span>{selectedBrandSeries.length} series listed</span>
               <span>{brandRodCount} indexed rods</span>
+              <span>Catalogue in progress</span>
             </div>
           </div>
 
@@ -168,7 +169,7 @@ export default function BrandsPage() {
                     </div>
 
                     <div className="brandFamilyTags">
-                      {item.useCases.slice(0, 4).map((tag) => (
+                      {(item.useCases || []).slice(0, 4).map((tag) => (
                         <span key={tag}>{tag}</span>
                       ))}
                     </div>
@@ -184,6 +185,7 @@ export default function BrandsPage() {
                     )}
 
                     <div className="brandFamilyFooter">
+                      <span>{matchingRods.length} indexed rod{matchingRods.length === 1 ? "" : "s"}</span>
                       <strong>View series →</strong>
                     </div>
                   </div>
@@ -203,7 +205,3 @@ export default function BrandsPage() {
     </main>
   );
 }
-
-
-
-
