@@ -1,111 +1,74 @@
 ﻿import { Link } from "react-router-dom";
-import Pill from "../components/Pill.jsx";
-
-const dataTypes = [
-  {
-    title: "Official specs",
-    description:
-      "Rod specifications should come from official brand pages, official catalogues, or reliable catalogue records whenever possible.",
-  },
-  {
-    title: "Shop and market notes",
-    description:
-      "Retailer listings can help with price, availability, and discontinued models, but they may be incomplete or outdated.",
-  },
-  {
-    title: "User corrections",
-    description:
-      "Community corrections are useful for missing rods, regional names, old models, and real-world ownership notes, but they should be reviewed before becoming official data.",
-  },
-  {
-    title: "Editor notes",
-    description:
-      "RodBase explanations and suggestions are separated from official specifications, so users can tell the difference between facts and interpretation.",
-  },
-];
+import PageTitle from "../components/PageTitle.jsx";
+import { useLocale } from "../context/LocaleContext.jsx";
 
 export default function DataCorrectionsPage() {
+  const { t } = useLocale();
+
+  const correctionItems = [
+    t("data.item.specs"),
+    t("data.item.aliases"),
+    t("data.item.sources"),
+    t("data.item.status"),
+    t("data.item.media"),
+  ];
+
   return (
     <main className="dataCorrectionsPage">
+      <PageTitle title={t("data.pageTitle")} description={t("data.pageDescription")} />
+
       <section className="dataHero">
         <div className="container dataHeroInner">
           <div>
-            <div className="catalogEyebrow">Data & Corrections</div>
-            <h1>Help keep RodBase useful and accurate.</h1>
-            <p>
-              RodBase is a reference database for fishing rods. We collect rod information from
-              official catalogues, brand pages, retailer listings, and community corrections.
-            </p>
+            <div className="catalogEyebrow">{t("data.eyebrow")}</div>
+            <h1>{t("data.title")}</h1>
+            <p>{t("data.description")}</p>
 
-            <div className="dataHeroPills">
-              <Pill>Official specs first</Pill>
-              <Pill>Corrections welcome</Pill>
-              <Pill>Reference only</Pill>
-              <Pill>Reviewed data</Pill>
+            <div className="dataHeroActions">
+              <Link to="/search">{t("data.openSearch")}</Link>
+              <Link to="/brands">{t("data.browseBrands")}</Link>
             </div>
-          </div>
-
-          <div className="dataHeroPanel">
-            <b>Reference</b>
-            <span>Not a shop. Not a guarantee. Always verify before buying.</span>
           </div>
         </div>
       </section>
 
       <section className="container dataCorrectionsContent">
-        <div className="dataTypeGrid">
-          {dataTypes.map((item) => (
-            <article key={item.title} className="dataTypeCard">
-              <h2>{item.title}</h2>
-              <p>{item.description}</p>
-            </article>
-          ))}
+        <div className="dataPolicyGrid">
+          <section className="dataCorrectionPanel">
+            <div className="catalogEyebrow">{t("data.eyebrow")}</div>
+            <h2>{t("data.sourceTitle")}</h2>
+            <p>{t("data.sourceText")}</p>
+          </section>
+
+          <section className="dataCorrectionPanel">
+            <div className="catalogEyebrow">{t("data.eyebrow")}</div>
+            <h2>{t("data.imageTitle")}</h2>
+            <p>{t("data.imageText")}</p>
+          </section>
+
+          <section className="dataCorrectionPanel">
+            <div className="catalogEyebrow">{t("data.eyebrow")}</div>
+            <h2>{t("data.correctionTitle")}</h2>
+            <p>{t("data.correctionText")}</p>
+          </section>
+
+          <section className="dataCorrectionPanel">
+            <div className="catalogEyebrow">{t("data.eyebrow")}</div>
+            <h2>{t("data.whatCanBeCorrected")}</h2>
+
+            <div className="dataCorrectionList">
+              {correctionItems.map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
+          </section>
         </div>
 
-        <section className="dataCorrectionPanel">
-          <div>
-            <div className="catalogEyebrow">Correction workflow</div>
-            <h2>How corrections should work</h2>
-          </div>
-
-          <div className="dataCorrectionRows">
-            <div><span>Wrong specification</span><b>Submit a correction with a source</b></div>
-            <div><span>Missing rod model</span><b>Submit brand, series, model, and source link</b></div>
-            <div><span>Different regional name</span><b>Submit alias or market name</b></div>
-            <div><span>Owner experience</span><b>Submit as review, not official spec</b></div>
-            <div><span>Conflicting data</span><b>Marked for review before publishing</b></div>
-          </div>
-        </section>
-
         <section className="dataDisclaimerPanel">
-          <h2>Image and media policy</h2>
-          <p>
-            RodBase does not copy official product photos by default. Product images should only be used
-            when they are owned by RodBase, licensed, permission-approved, or otherwise clearly allowed.
-            When image usage is not confirmed, RodBase should use a neutral fallback graphic and link users
-            to the official product page instead.
-          </p>
-        </section>
-
-        <section className="dataDisclaimerPanel">
-          <h2>Reference-only note</h2>
-          <p>
-            All fishing rod information, specifications, ratings, prices, market notes, comparisons,
-            and articles are provided for reference only. RodBase does not guarantee completeness,
-            accuracy, availability, suitability, or purchase outcome. Always check official brand
-            information and seller details before buying.
-          </p>
-
-          <div className="dataActionRow">
-            <Link to="/search">Search rods</Link>
-            <Link to="/articles">Read guides</Link>
-          </div>
+          <h2>{t("data.referenceTitle")}</h2>
+          <p>{t("data.referenceText")}</p>
         </section>
       </section>
     </main>
   );
 }
-
-
-
-
