@@ -5174,3 +5174,180 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
+/* Premium rod fallback graphics */
+.rodProductImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 150px;
+  object-fit: contain;
+  object-position: center;
+  background: #ede6d9;
+}
+
+.rodFallbackGraphic {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  width: 100%;
+  min-height: 170px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 78% 24%, rgba(180,35,24,0.14), transparent 30%),
+    linear-gradient(135deg, rgba(255,253,248,0.95), rgba(237,230,217,0.95));
+  color: var(--ink);
+  padding: 14px;
+}
+
+.rodFallbackGraphic::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(21,19,15,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(21,19,15,0.04) 1px, transparent 1px);
+  background-size: 18px 18px;
+  mask-image: linear-gradient(90deg, rgba(0,0,0,0.55), transparent 70%);
+  pointer-events: none;
+}
+
+.rodFallbackTop,
+.rodFallbackBottom {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+
+.rodFallbackTop span {
+  color: var(--red);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.66rem;
+  font-weight: 950;
+}
+
+.rodFallbackTop strong {
+  font-size: 0.95rem;
+  letter-spacing: -0.02em;
+}
+
+.rodFallbackBottom {
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 850;
+}
+
+.rodFallbackStage {
+  position: relative;
+  z-index: 1;
+  min-height: 95px;
+}
+
+.rodFallbackBlank {
+  position: absolute;
+  left: 8%;
+  right: 5%;
+  top: 50%;
+  height: 7px;
+  background: #15130f;
+  border-radius: 999px;
+  transform: rotate(-5deg);
+  transform-origin: left center;
+  box-shadow: 0 8px 20px rgba(21,19,15,0.16);
+}
+
+.rodFallbackBlank::after {
+  content: "";
+  position: absolute;
+  right: -9px;
+  top: -4px;
+  width: 18px;
+  height: 16px;
+  border: 2px solid #15130f;
+  border-left: 0;
+  border-radius: 0 999px 999px 0;
+}
+
+.rodGuide {
+  position: absolute;
+  display: block;
+  width: 11px;
+  height: 11px;
+  border: 2px solid #15130f;
+  border-radius: 50%;
+  background: #fffdf8;
+  top: -14px;
+}
+
+.rodGuideOne { left: 28%; }
+.rodGuideTwo { left: 48%; }
+.rodGuideThree { left: 66%; }
+.rodGuideFour { left: 82%; }
+
+.rodFallbackHandle {
+  position: absolute;
+  left: 10%;
+  top: calc(50% - 5px);
+  width: 40px;
+  height: 17px;
+  background: #15130f;
+  border-radius: 3px;
+  transform: rotate(-5deg);
+  transform-origin: left center;
+}
+
+.rodFallbackReelSeat {
+  position: absolute;
+  left: calc(10% + 34px);
+  top: calc(50% + 5px);
+  width: 20px;
+  height: 28px;
+  border: 3px solid var(--red);
+  border-top: 0;
+  border-radius: 0 0 999px 999px;
+  transform: rotate(-5deg);
+}
+
+.rodFallbackMulti .rodFallbackBlank {
+  background:
+    linear-gradient(90deg, #15130f 0 23%, transparent 23% 25%, #15130f 25% 48%, transparent 48% 50%, #15130f 50% 73%, transparent 73% 75%, #15130f 75% 100%);
+}
+
+.rodFallbackTwoPiece .rodFallbackBlank {
+  background:
+    linear-gradient(90deg, #15130f 0 49%, transparent 49% 51%, #15130f 51% 100%);
+}
+
+.rodFallbackTelescopic .rodFallbackBlank {
+  height: 8px;
+  background:
+    linear-gradient(90deg, #15130f 0 20%, #2d2a24 20% 38%, #15130f 38% 55%, #2d2a24 55% 70%, #15130f 70% 100%);
+}
+
+.rodImagePanel {
+  overflow: hidden;
+}
+
+@media (max-width: 700px) {
+  .rodFallbackGraphic {
+    min-height: 130px;
+  }
+
+  .rodFallbackStage {
+    min-height: 70px;
+  }
+
+  .rodFallbackTop {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .rodFallbackBottom {
+    font-size: 0.64rem;
+  }
+}

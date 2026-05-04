@@ -209,6 +209,13 @@ export const rodSchemaFields = [
     note: "Accessible image description.",
   },
   {
+    key: "imageUsage",
+    type: "string",
+    required: false,
+    example: "official-linked-only",
+    note: "Image usage status. Use own-photo, licensed, permission-granted, official-linked-only, unknown, or none.",
+  },
+  {
     key: "sourceRecords",
     type: "object[]",
     required: true,
@@ -279,11 +286,13 @@ export const emptyRodRecord = {
   useCases: [],
   imageUrl: "",
   imageAlt: "",
+  imageUsage: "none",
   rating: null,
 
   sourceRecords: [],
 
   editorNote: "",
 };
+
 
 
