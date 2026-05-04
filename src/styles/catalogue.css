@@ -5617,3 +5617,15 @@ footer {
     text-align: center;
   }
 }
+
+/* Missing official spec wording */
+.catalogSpecTable b,
+.rodDetailSpecRow b,
+.seriesVariantTable td,
+.compareTable td {
+  overflow-wrap: anywhere;
+}
+
+.catalogSpecTable b:has(+ span) {
+  color: inherit;
+}
