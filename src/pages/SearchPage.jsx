@@ -6,6 +6,7 @@ import { brands } from "../data/brands.js";
 import { rods } from "../data/rods.js";
 import { useCases } from "../data/useCases.js";
 import { useCompare } from "../context/CompareContext.jsx";
+import { useLocale } from "../context/LocaleContext.jsx";
 
 function normalize(value) {
   return String(value || "").toLowerCase().trim();
@@ -67,6 +68,7 @@ function FilterButton({ active, children, onClick }) {
 }
 
 function FilterPanel({
+  t,
   activeFilterCount,
   brands,
   selectedBrands,
@@ -89,12 +91,12 @@ function FilterPanel({
   return (
     <aside className="catalogFilterSidebar">
       <div className="catalogFilterHeader">
-        <h2>Filters</h2>
-        <span>{activeFilterCount} active</span>
+        <h2>{t("search.filters")}</h2>
+        <span>{activeFilterCount} {t("search.active")}</span>
       </div>
 
       <div className="catalogFilterGroup">
-        <h3>Brand</h3>
+        <h3>{t("search.brand")}</h3>
         <div className="catalogFilterList">
           {brands.map((brand) => (
             <FilterButton
@@ -113,7 +115,7 @@ function FilterPanel({
       </div>
 
       <div className="catalogFilterGroup">
-        <h3>Construction</h3>
+        <h3>{t("search.construction")}</h3>
         <div className="catalogFilterList">
           {constructionOptions.map((option) => (
             <FilterButton
@@ -133,7 +135,7 @@ function FilterPanel({
 
       <div className="catalogFilterGroup">
         <div className="filterLabelRow">
-          <h3>Total length</h3>
+          <h3>{t("search.totalLength")}</h3>
           <b>
             {(minTotalLength / 100).toFixed(2)}m -{" "}
             {(maxTotalLength / 100).toFixed(2)}m
@@ -187,7 +189,7 @@ function FilterPanel({
 
       <div className="catalogFilterGroup">
         <div className="filterLabelRow">
-          <h3>Max closed length</h3>
+          <h3>{t("search.maxClosedLength")}</h3>
           <b>{maxClosed}cm</b>
         </div>
         <input
@@ -201,7 +203,7 @@ function FilterPanel({
 
       <div className="catalogFilterGroup">
         <div className="filterLabelRow">
-          <h3>Max rod weight</h3>
+          <h3>{t("search.maxRodWeight")}</h3>
           <b>{maxWeight}g</b>
         </div>
         <input
@@ -214,7 +216,7 @@ function FilterPanel({
       </div>
 
       <div className="catalogFilterGroup">
-        <h3>Use case</h3>
+        <h3>{t("search.useCase")}</h3>
         <div className="catalogFilterList">
           {useCases.slice(0, 12).map((tag) => (
             <FilterButton
@@ -234,7 +236,7 @@ function FilterPanel({
 
       <div className="catalogFilterFooter">
         <button type="button" onClick={resetAllFilters}>
-          Reset all filters
+          {t("search.resetAllFilters")}
         </button>
       </div>
     </aside>
@@ -244,6 +246,7 @@ function FilterPanel({
 export default function SearchPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { compareIds } = useCompare();
+  const { t } = useLocale();
 
   const initialKeyword = searchParams.get("q") || "";
 
@@ -363,28 +366,29 @@ export default function SearchPage() {
   const constructionOptions = ["Telescopic", "4-piece", "3-piece", "2-piece", "1-piece", "Multi-piece"];
 
   const quickCategories = [
-    { label: "All rods", value: "" },
-    { label: "Travel / Mobile", value: "travel" },
-    { label: "Telescopic", value: "telescopic" },
-    { label: "Shore", value: "shore" },
-    { label: "Light Game", value: "light game" },
+    { label: t("search.quick.all"), value: "" },
+    { label: t("search.quick.travel"), value: "travel" },
+    { label: t("search.quick.telescopic"), value: "telescopic" },
+    { label: t("search.quick.shore"), value: "shore" },
+    { label: t("search.quick.lightGame"), value: "light game" },
     { label: "Daiwa", value: "daiwa" },
     { label: "Shimano", value: "shimano" },
   ];
 
   const activeSummary = [
-    keyword.trim() ? `Keyword: ${keyword.trim()}` : null,
-    selectedBrands.length ? `${selectedBrands.length} brand${selectedBrands.length === 1 ? "" : "s"}` : null,
-    selectedConstruction.length ? `${selectedConstruction.length} construction type${selectedConstruction.length === 1 ? "" : "s"}` : null,
-    selectedUseCases.length ? `${selectedUseCases.length} use case${selectedUseCases.length === 1 ? "" : "s"}` : null,
+    keyword.trim() ? `${t("search.summary.keyword")}: ${keyword.trim()}` : null,
+    selectedBrands.length ? `${selectedBrands.length} ${selectedBrands.length === 1 ? t("search.summary.brand") : t("search.summary.brands")}` : null,
+    selectedConstruction.length ? `${selectedConstruction.length} ${selectedConstruction.length === 1 ? t("search.summary.construction") : t("search.summary.constructions")}` : null,
+    selectedUseCases.length ? `${selectedUseCases.length} ${selectedUseCases.length === 1 ? t("search.summary.useCase") : t("search.summary.useCases")}` : null,
     minTotalLength !== 0 || maxTotalLength !== 700
-      ? `Length ${(minTotalLength / 100).toFixed(2)}m-${(maxTotalLength / 100).toFixed(2)}m`
+      ? `${t("search.summary.length")} ${(minTotalLength / 100).toFixed(2)}m-${(maxTotalLength / 100).toFixed(2)}m`
       : null,
-    maxClosed !== 160 ? `Closed ≤ ${maxClosed}cm` : null,
-    maxWeight !== 600 ? `Weight ≤ ${maxWeight}g` : null,
+    maxClosed !== 160 ? `${t("search.summary.closed")} ≤ ${maxClosed}cm` : null,
+    maxWeight !== 600 ? `${t("search.summary.weight")} ≤ ${maxWeight}g` : null,
   ].filter(Boolean);
 
   const filterPanelProps = {
+    t,
     activeFilterCount,
     brands,
     selectedBrands,
@@ -407,30 +411,28 @@ export default function SearchPage() {
 
   return (
     <main className="catalogSearchPage">
-      <PageTitle title="Search Rods" description="Search indexed fishing rods by brand, series, model code, length, closed length, weight, construction, and use case." />
+      <PageTitle title={t("search.pageTitle")} description={t("search.pageDescription")} />
+
       <section className="catalogSearchHero">
         <div className="container catalogSearchHeroInner">
           <div>
-            <div className="catalogEyebrow">Rod finder</div>
-            <h1>Search fishing rods by specs.</h1>
-            <p>
-              Filter indexed rods by brand, series, model code, length, closed length,
-              construction, use case, source records, and catalogue data.
-            </p>
+            <div className="catalogEyebrow">{t("search.eyebrow")}</div>
+            <h1>{t("search.title")}</h1>
+            <p>{t("search.description")}</p>
           </div>
 
           <div className="catalogSearchStats">
             <div>
               <b>{rods.length}</b>
-              <span>Rod records</span>
+              <span>{t("search.rodRecords")}</span>
             </div>
             <div>
               <b>{brands.length}</b>
-              <span>Brand entries</span>
+              <span>{t("search.brandEntries")}</span>
             </div>
             <div>
               <b>{filtered.length}</b>
-              <span>Current results</span>
+              <span>{t("search.currentResults")}</span>
             </div>
           </div>
         </div>
@@ -445,10 +447,10 @@ export default function SearchPage() {
               onKeyDown={(event) => {
                 if (event.key === "Enter") applyKeywordSearch();
               }}
-              placeholder="Search brand, series, model code, alias, use case..."
+              placeholder={t("search.inputPlaceholder")}
             />
-            <button onClick={() => applyKeywordSearch()}>Search</button>
-            <button className="secondarySearchButton" onClick={resetAllFilters}>Reset</button>
+            <button onClick={() => applyKeywordSearch()}>{t("search.search")}</button>
+            <button className="secondarySearchButton" onClick={resetAllFilters}>{t("search.reset")}</button>
           </div>
 
           <div className="quickCategoryRail">
@@ -478,7 +480,7 @@ export default function SearchPage() {
                 {filtersOpen ? "−" : "+"}
               </span>
               <span className="filterToggleText">
-                {filtersOpen ? "Hide filters" : "Filter & Sort"}
+                {filtersOpen ? t("search.hideFilters") : t("search.filterSort")}
               </span>
               {activeFilterCount > 0 && (
                 <span className="filterCountBadge">{activeFilterCount}</span>
@@ -486,12 +488,12 @@ export default function SearchPage() {
             </button>
 
             <select value={sortMode} onChange={(event) => setSortMode(event.target.value)}>
-              <option value="relevance">Relevance</option>
-              <option value="closedLengthAsc">Shortest closed</option>
-              <option value="weightAsc">Lightest</option>
-              <option value="ratingDesc">Highest rated</option>
-              <option value="lengthAsc">Shortest length</option>
-              <option value="priceAsc">Lowest price</option>
+              <option value="relevance">{t("search.sort.relevance")}</option>
+              <option value="closedLengthAsc">{t("search.sort.closedLength")}</option>
+              <option value="weightAsc">{t("search.sort.weight")}</option>
+              <option value="ratingDesc">{t("search.sort.rating")}</option>
+              <option value="lengthAsc">{t("search.sort.length")}</option>
+              <option value="priceAsc">{t("search.sort.price")}</option>
             </select>
           </div>
 
@@ -517,13 +519,13 @@ export default function SearchPage() {
         <section className="catalogResultsArea">
           <div className="catalogResultsToolbar">
             <div>
-              <div className="catalogEyebrow">Results</div>
+              <div className="catalogEyebrow">{t("search.results")}</div>
               <h2>
-                {filtered.length} matching rod{filtered.length === 1 ? "" : "s"}
+                {filtered.length} {filtered.length === 1 ? t("search.matchingRod") : t("search.matchingRods")}
               </h2>
               {keyword.trim() && (
                 <p>
-                  Keyword: <b>{keyword.trim()}</b>
+                  {t("search.keyword")}: <b>{keyword.trim()}</b>
                 </p>
               )}
             </div>
@@ -531,17 +533,17 @@ export default function SearchPage() {
             <div className="resultsToolbarActions">
               {compareIds.length > 0 && (
                 <Link to="/compare">
-                  Compare selected ({compareIds.length})
+                  {t("search.compareSelected")} ({compareIds.length})
                 </Link>
               )}
 
               <select value={sortMode} onChange={(event) => setSortMode(event.target.value)}>
-                <option value="relevance">Sort: relevance</option>
-                <option value="closedLengthAsc">Sort: shortest closed length</option>
-                <option value="weightAsc">Sort: lightest</option>
-                <option value="ratingDesc">Sort: highest rated</option>
-                <option value="lengthAsc">Sort: shortest total length</option>
-                <option value="priceAsc">Sort: lowest price</option>
+                <option value="relevance">{t("search.sort.label.relevance")}</option>
+                <option value="closedLengthAsc">{t("search.sort.label.closedLength")}</option>
+                <option value="weightAsc">{t("search.sort.label.weight")}</option>
+                <option value="ratingDesc">{t("search.sort.label.rating")}</option>
+                <option value="lengthAsc">{t("search.sort.label.length")}</option>
+                <option value="priceAsc">{t("search.sort.label.price")}</option>
               </select>
             </div>
           </div>
@@ -554,16 +556,13 @@ export default function SearchPage() {
             </div>
           ) : (
             <div className="catalogNoResults">
-              <div className="catalogEyebrow">No results</div>
-              <h2>No matching rods found.</h2>
-              <p>
-                Try removing one or two filters first. Brand, use case, closed length,
-                and weight filters usually narrow the list the fastest.
-              </p>
+              <div className="catalogEyebrow">{t("search.noResultsEyebrow")}</div>
+              <h2>{t("search.noResultsTitle")}</h2>
+              <p>{t("search.noResultsText")}</p>
 
               <div className="noResultsActions">
-                <button onClick={resetAllFilters}>Reset filters</button>
-                <Link to="/brands">Browse brands</Link>
+                <button onClick={resetAllFilters}>{t("search.resetAllFilters")}</button>
+                <Link to="/brands">{t("search.browseBrands")}</Link>
               </div>
             </div>
           )}
@@ -572,6 +571,3 @@ export default function SearchPage() {
     </main>
   );
 }
-
-
-
