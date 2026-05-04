@@ -1,6 +1,7 @@
 ﻿import { Link, useParams } from "react-router-dom";
 import Pill from "../components/Pill.jsx";
 import RodCard from "../components/RodCard.jsx";
+import RodImage from "../components/RodImage.jsx";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
 import { rods } from "../data/rods.js";
 import {
@@ -63,17 +64,8 @@ export default function RodPage() {
       <section className="rodDetailHero">
         <div className="container rodDetailHeroGrid">
           <div className="rodDetailVisualPanel">
-            <div className="rodDetailImageStage">
-              <div className="rodDetailRodDrawing">
-                <div className="detailRodLine detailRodLineOne" />
-                <div className="detailRodLine detailRodLineTwo" />
-                <div className="detailRodHandle" />
-              </div>
-
-              <div className="rodDetailImageLabel">
-                <span>{rod.brand}</span>
-                <strong>{rod.model}</strong>
-              </div>
+            <div className="rodDetailImageStage rodDetailFallbackStage">
+              <RodImage rod={rod} className="rodDetailProductImage" />
             </div>
 
             <div className="rodDetailVisualMeta">
@@ -82,7 +74,6 @@ export default function RodPage() {
               <span>{formatMarketRegions(rod)}</span>
             </div>
           </div>
-
           <div className="rodDetailSummary">
             <div className="catalogEyebrow">{rod.brand} / {rod.series}</div>
             <h1>{rod.displayName}</h1>
@@ -296,6 +287,7 @@ export default function RodPage() {
     </main>
   );
 }
+
 
 
 

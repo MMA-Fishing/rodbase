@@ -5351,3 +5351,50 @@ footer {
     font-size: 0.64rem;
   }
 }
+
+/* Rod detail hero uses shared fallback graphic */
+.rodDetailFallbackStage {
+  padding: 0;
+  overflow: hidden;
+}
+
+.rodDetailFallbackStage .rodFallbackGraphic,
+.rodDetailFallbackStage .rodProductImage {
+  min-height: 340px;
+  height: 100%;
+}
+
+.rodDetailFallbackStage .rodFallbackGraphic {
+  padding: 22px;
+}
+
+.rodDetailFallbackStage .rodFallbackStage {
+  min-height: 220px;
+}
+
+.rodDetailFallbackStage .rodFallbackBlank {
+  height: 9px;
+}
+
+.rodDetailFallbackStage .rodFallbackTop strong {
+  font-size: 1.25rem;
+}
+
+.rodDetailFallbackStage .rodFallbackTop span {
+  font-size: 0.76rem;
+}
+
+.rodDetailFallbackStage .rodFallbackBottom {
+  font-size: 0.78rem;
+}
+
+@media (max-width: 700px) {
+  .rodDetailFallbackStage .rodFallbackGraphic,
+  .rodDetailFallbackStage .rodProductImage {
+    min-height: 240px;
+  }
+
+  .rodDetailFallbackStage .rodFallbackStage {
+    min-height: 140px;
+  }
+}
