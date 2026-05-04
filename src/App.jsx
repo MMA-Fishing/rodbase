@@ -2,6 +2,7 @@
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import CompareTray from "./components/CompareTray.jsx";
+import ScrollToTop from "./components/ScrollToTop.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import BrandsPage from "./pages/BrandsPage.jsx";
 import SearchPage from "./pages/SearchPage.jsx";
@@ -16,6 +17,7 @@ import { CompareProvider } from "./context/CompareContext.jsx";
 export default function App() {
   return (
     <CompareProvider>
+      <ScrollToTop />
       <Header />
 
       <Routes>
