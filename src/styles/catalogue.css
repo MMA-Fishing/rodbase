@@ -4764,3 +4764,212 @@ body:has(.compareTray) footer {
     animation: none !important;
   }
 }
+
+/* Premium visual consistency pass */
+
+/* Global page rhythm */
+.catalogHome,
+.catalogSearchPage,
+.brandSeriesPage,
+.seriesDetailPage,
+.rodDetailPage,
+.compareCataloguePage,
+.articlesCataloguePage,
+.articleDetailPage,
+.dataCorrectionsPage {
+  background:
+    linear-gradient(180deg, rgba(255,253,248,0.96), rgba(250,246,237,0.82)),
+    var(--paper);
+}
+
+/* More consistent hero text width */
+.catalogHeroCopy,
+.catalogSearchHeroInner > div:first-child,
+.brandHeroInner > div:first-child,
+.seriesDetailHeroGrid > div:first-child,
+.rodDetailSummary,
+.compareHeroGrid > div:first-child,
+.articlesHeroInner > div:first-child,
+.articleDetailHeroInner > div:first-child,
+.dataHeroInner > div:first-child {
+  max-width: 840px;
+}
+
+/* Consistent section breathing room */
+.catalogSection,
+.twStyleSection,
+.brandSeriesContent,
+.seriesDetailContent,
+.rodDetailContentGrid,
+.compareContent,
+.articlesCatalogueContent,
+.articleDetailLayout,
+.dataCorrectionsContent {
+  position: relative;
+}
+
+/* Section headers: more premium catalogue feel */
+.catalogSectionHeader,
+.twSectionTitle,
+.seriesPanelHeader,
+.rodDetailPanelHeader,
+.compareToolbar,
+.catalogResultsToolbar {
+  border-color: rgba(21, 19, 15, 0.1);
+}
+
+.catalogSectionHeader h2,
+.twSectionTitle h1,
+.twSectionTitle h2,
+.seriesPanelHeader h2,
+.rodDetailPanelHeader h2,
+.compareToolbar h2,
+.catalogResultsToolbar h2 {
+  letter-spacing: -0.055em;
+}
+
+/* Cards and panels: consistent surface language */
+.catalogRodCard,
+.brandFamilyCard,
+.catalogSeriesCard,
+.catalogGuideCard,
+.articleCatalogueCard,
+.seriesPanel,
+.rodDetailPanel,
+.compareSummaryCard,
+.compareEmptyState,
+.catalogNoResults,
+.dataTypeCard,
+.dataCorrectionPanel,
+.dataDisclaimerPanel {
+  box-shadow: 0 10px 28px rgba(21, 19, 15, 0.045);
+}
+
+/* Reduce over-heavy visuals but keep catalogue depth */
+.catalogRodCard:hover,
+.brandFamilyCard:hover,
+.catalogSeriesCard:hover,
+.catalogGuideCard:hover,
+.articleCatalogueCard:hover,
+.compareSummaryCard:hover {
+  box-shadow: 0 18px 42px rgba(21, 19, 15, 0.085);
+}
+
+/* Consistent small uppercase labels */
+.catalogEyebrow,
+.seriesBrand,
+.catalogRodKicker,
+.panelLabel {
+  letter-spacing: 0.14em;
+}
+
+/* Specs: improve scanability */
+.catalogSpecTable div,
+.heroSpecGrid div,
+.rodDetailCoreSpecs div,
+.seriesStatsGrid div,
+.brandFamilyStats div,
+.catalogSearchStats div,
+.compareHeroStats div,
+.homeDataStats div {
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease;
+}
+
+.catalogSpecTable div:hover,
+.heroSpecGrid div:hover,
+.rodDetailCoreSpecs div:hover,
+.seriesStatsGrid div:hover,
+.brandFamilyStats div:hover {
+  background: #fffdf8;
+}
+
+/* Tables: premium database feel */
+.compareTable th,
+.seriesVariantTable th {
+  letter-spacing: 0.04em;
+}
+
+.compareTable td,
+.seriesVariantTable td,
+.rodDetailSpecRow {
+  line-height: 1.45;
+}
+
+/* Better empty states */
+.catalogNoResults,
+.compareEmptyState,
+.seriesEmptyState,
+.emptyBrandSeries {
+  border-left: 4px solid var(--red);
+}
+
+/* Button consistency */
+.catalogPanelButton,
+.catalogViewButton,
+.catalogSubmitLink,
+.blackButton,
+.rodSideButton,
+.resultsToolbarActions a,
+.compareTrayActions a,
+.compareEmptyActions a,
+.compareEmptyActions button,
+.noResultsActions button,
+.noResultsActions a {
+  letter-spacing: -0.01em;
+}
+
+/* Footer spacing feels more intentional */
+footer {
+  margin-top: 0;
+}
+
+.footerBrand {
+  letter-spacing: -0.04em;
+}
+
+/* Mobile rhythm */
+@media (max-width: 700px) {
+  .catalogSection,
+  .twStyleSection {
+    padding-top: 42px;
+    padding-bottom: 42px;
+  }
+
+  .brandSeriesContent,
+  .seriesDetailContent,
+  .compareContent,
+  .articlesCatalogueContent,
+  .dataCorrectionsContent {
+    padding-top: 24px;
+    padding-bottom: 52px;
+  }
+
+  .catalogSectionHeader,
+  .compareToolbar,
+  .catalogResultsToolbar,
+  .seriesPanelHeader,
+  .rodDetailPanelHeader {
+    gap: 12px;
+  }
+
+  .catalogSectionHeader h2,
+  .twSectionTitle h1,
+  .twSectionTitle h2,
+  .seriesPanelHeader h2,
+  .rodDetailPanelHeader h2,
+  .compareToolbar h2,
+  .catalogResultsToolbar h2 {
+    font-size: 1.55rem;
+  }
+
+  .catalogRodCard,
+  .brandFamilyCard,
+  .seriesPanel,
+  .rodDetailPanel,
+  .compareSummaryCard,
+  .articleCatalogueCard {
+    box-shadow: 0 8px 22px rgba(21, 19, 15, 0.045);
+  }
+}
