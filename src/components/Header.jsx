@@ -1,18 +1,22 @@
 ﻿import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useCompare } from "../context/CompareContext.jsx";
+import { useLocale } from "../context/LocaleContext.jsx";
+import LanguageSwitcher from "./LanguageSwitcher.jsx";
 
 export default function Header() {
   const navigate = useNavigate();
   const { compareIds } = useCompare();
+  const { t } = useLocale();
+
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
 
   const nav = [
-    { label: "Rods", path: "/search" },
-    { label: "Brands", path: "/brands" },
-    { label: "Compare", path: "/compare", count: compareIds.length },
-    { label: "Articles", path: "/articles" },
+    { label: t("nav.rods"), path: "/search" },
+    { label: t("nav.brands"), path: "/brands" },
+    { label: t("nav.compare"), path: "/compare", count: compareIds.length },
+    { label: t("nav.articles"), path: "/articles" },
   ];
 
   function submitSearch(event) {
@@ -34,8 +38,8 @@ export default function Header() {
     <header className="catalogHeader">
       <div className="catalogTopBar">
         <div className="container catalogTopBarInner">
-          <span>Fishing rod database & comparison tool</span>
-          <span>Browse by brand, series, type, and exact specifications</span>
+          <span>{t("topbar.left")}</span>
+          <span>{t("topbar.right")}</span>
         </div>
       </div>
 
@@ -44,7 +48,7 @@ export default function Header() {
           <div className="catalogLogo">RB</div>
           <div>
             <div className="catalogBrandName">RodBase</div>
-            <div className="catalogBrandSub">Fishing Rod Database</div>
+            <div className="catalogBrandSub">{t("brand.subtitle")}</div>
           </div>
         </Link>
 
@@ -61,20 +65,25 @@ export default function Header() {
               {item.count > 0 && <span className="navCountBadge">{item.count}</span>}
             </NavLink>
           ))}
-          <span className="catalogNavDisabled">Reels <small>Next</small></span>
+
+          <span className="catalogNavDisabled">
+            {t("nav.reels")} <small>{t("nav.next")}</small>
+          </span>
         </nav>
 
         <form className="catalogHeaderSearch" onSubmit={submitSearch}>
           <input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search rods, series, model code..."
+            placeholder={t("header.searchPlaceholder")}
           />
-          <button type="submit">Search</button>
+          <button type="submit">{t("header.search")}</button>
         </form>
 
+        <LanguageSwitcher />
+
         <Link className="catalogSubmitLink" to="/search">
-          Search rods
+          {t("header.searchRods")}
         </Link>
 
         <button className="mobileMenu" onClick={() => setOpen(!open)}>
@@ -88,10 +97,12 @@ export default function Header() {
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search RodBase..."
+              placeholder={t("header.mobileSearchPlaceholder")}
             />
-            <button type="submit">Search</button>
+            <button type="submit">{t("header.search")}</button>
           </form>
+
+          <LanguageSwitcher />
 
           {nav.map((item) => (
             <NavLink
@@ -107,10 +118,12 @@ export default function Header() {
             </NavLink>
           ))}
 
-          <span className="mobileNavButton disabledMobileNav">Reels · Next</span>
+          <span className="mobileNavButton disabledMobileNav">
+            {t("nav.reels")} · {t("nav.next")}
+          </span>
 
           <Link className="mobileNavButton" to="/data-corrections" onClick={() => setOpen(false)}>
-            Data & Corrections
+            {t("header.dataCorrections")}
           </Link>
         </div>
       )}

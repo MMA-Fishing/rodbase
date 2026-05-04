@@ -5792,3 +5792,87 @@ footer {
     max-height: 110px;
   }
 }
+
+/* Multilingual font support: English, Japanese, Traditional Chinese */
+:root {
+  --font-sans-multilingual:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Helvetica Neue",
+    Arial,
+    "Noto Sans",
+    "Noto Sans JP",
+    "Noto Sans TC",
+    "Noto Sans CJK JP",
+    "Noto Sans CJK TC",
+    "Hiragino Sans",
+    "Hiragino Kaku Gothic ProN",
+    "Yu Gothic",
+    "Meiryo",
+    "Microsoft JhengHei",
+    "PingFang TC",
+    "Heiti TC",
+    sans-serif;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+  font-family: var(--font-sans-multilingual);
+}
+
+html[lang="zh-Hant"] body {
+  letter-spacing: 0.01em;
+}
+
+.japaneseText,
+.chineseText,
+[lang="ja"],
+[lang="zh-Hant"] {
+  font-family: var(--font-sans-multilingual);
+}
+
+/* Language switcher */
+.languageSwitcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #faf6ed;
+  border: 1px solid var(--line);
+  padding: 4px;
+}
+
+.languageButton {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  padding: 7px 9px;
+  min-height: 0;
+  font-size: 0.75rem;
+  font-weight: 950;
+}
+
+.activeLanguageButton {
+  background: var(--ink);
+  color: white;
+}
+
+.catalogMobileNav .languageSwitcher {
+  width: 100%;
+  justify-content: stretch;
+}
+
+.catalogMobileNav .languageButton {
+  flex: 1;
+  min-height: 40px;
+}
+
+@media (max-width: 1100px) {
+  .catalogHeaderMain > .languageSwitcher {
+    display: none;
+  }
+}

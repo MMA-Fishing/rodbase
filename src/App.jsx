@@ -14,33 +14,35 @@ import ArticlePage from "./pages/ArticlePage.jsx";
 import DataCorrectionsPage from "./pages/DataCorrectionsPage.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 import { CompareProvider } from "./context/CompareContext.jsx";
+import { LocaleProvider } from "./context/LocaleContext.jsx";
 
 export default function App() {
   return (
-    <CompareProvider>
-      <ScrollToTop />
-      <Header />
+    <LocaleProvider>
+      <CompareProvider>
+        <ScrollToTop />
+        <Header />
 
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/brands" element={<BrandsPage />} />
-        <Route path="/brands/:brandId" element={<BrandsPage />} />
-        <Route path="/series/:seriesId" element={<SeriesPage />} />
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="/compare" element={<ComparePage />} />
-        <Route path="/rods/:rodId" element={<RodPage />} />
-        <Route path="/articles" element={<ArticlesPage />} />
-        <Route path="/articles/:articleId" element={<ArticlePage />} />
-        <Route path="/data-corrections" element={<DataCorrectionsPage />} />
-        <Route path="/source-policy" element={<Navigate to="/data-corrections" replace />} />
-        <Route path="/submit" element={<Navigate to="/data-corrections" replace />} />
-        <Route path="/submit-correction" element={<Navigate to="/data-corrections" replace />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/brands" element={<BrandsPage />} />
+          <Route path="/brands/:brandId" element={<BrandsPage />} />
+          <Route path="/series/:seriesId" element={<SeriesPage />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/compare" element={<ComparePage />} />
+          <Route path="/rods/:rodId" element={<RodPage />} />
+          <Route path="/articles" element={<ArticlesPage />} />
+          <Route path="/articles/:articleId" element={<ArticlePage />} />
+          <Route path="/data-corrections" element={<DataCorrectionsPage />} />
+          <Route path="/source-policy" element={<Navigate to="/data-corrections" replace />} />
+          <Route path="/submit" element={<Navigate to="/data-corrections" replace />} />
+          <Route path="/submit-correction" element={<Navigate to="/data-corrections" replace />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
 
-      <CompareTray />
-      <Footer />
-    </CompareProvider>
+        <CompareTray />
+        <Footer />
+      </CompareProvider>
+    </LocaleProvider>
   );
 }
-
