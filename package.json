@@ -1,19 +1,20 @@
 {
-  "name": "rodbase",
-  "private": true,
-  "version": "0.1.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite --host 0.0.0.0",
-    "build": "vite build",
-    "preview": "vite preview",
-    "check-data": "node scripts/checkData.mjs"
-  },
-  "dependencies": {
-    "@vitejs/plugin-react": "latest",
-    "react": "latest",
-    "react-dom": "latest",
-    "react-router-dom": "^7.14.2",
-    "vite": "latest"
-  }
+    "name":  "rodbase",
+    "private":  true,
+    "version":  "0.1.0",
+    "type":  "module",
+    "scripts":  {
+                    "dev":  "vite --host 0.0.0.0",
+                    "build":  "vite build",
+                    "preview":  "vite preview",
+                    "check-data":  "node scripts/checkData.mjs",
+                    "audit-i18n":  "node ./scripts/auditHardcodedUiText.mjs"
+                },
+    "dependencies":  {
+                         "@vitejs/plugin-react":  "latest",
+                         "react":  "latest",
+                         "react-dom":  "latest",
+                         "react-router-dom":  "^7.14.2",
+                         "vite":  "latest"
+                     }
 }
