@@ -195,6 +195,20 @@ export const rodSchemaFields = [
     note: "Search/filter tags for user browsing.",
   },
   {
+    key: "imageUrl",
+    type: "string",
+    required: false,
+    example: "/images/rods/shimano/lurematic-mobile/s86ml-4.webp",
+    note: "Local public image path for rod product image.",
+  },
+  {
+    key: "imageAlt",
+    type: "string",
+    required: false,
+    example: "Shimano Lurematic Mobile S86ML-4 fishing rod",
+    note: "Accessible image description.",
+  },
+  {
     key: "sourceRecords",
     type: "object[]",
     required: true,
@@ -263,10 +277,13 @@ export const emptyRodRecord = {
   priceHkdApprox: null,
 
   useCases: [],
+  imageUrl: "",
+  imageAlt: "",
   rating: null,
 
   sourceRecords: [],
 
   editorNote: "",
 };
+
 

@@ -241,7 +241,15 @@ export default function RodPage() {
                 {sourceRecords.map((source, index) => (
                   <div className="sourceRecord" key={`${source.label}-${index}`}>
                     <span>{valueOrUnknown(source.sourceType)}</span>
-                    <b>{valueOrUnknown(source.label)}</b>
+
+                    {source.url ? (
+                      <a href={source.url} target="_blank" rel="noreferrer">
+                        {valueOrUnknown(source.label)}
+                      </a>
+                    ) : (
+                      <b>{valueOrUnknown(source.label)}</b>
+                    )}
+
                     {source.lastChecked && <em>Last checked: {source.lastChecked}</em>}
                     {source.note && <p>{source.note}</p>}
                   </div>
@@ -288,5 +296,6 @@ export default function RodPage() {
     </main>
   );
 }
+
 
 

@@ -87,9 +87,21 @@ checkNoConfidenceFields("Series", series);
 checkNoConfidenceFields("Rod", rods);
 
 brands.forEach((brand) => {
-  checkRequiredString(brand, "id", `Brand "${brand.name || "unknown"}"`);
-  checkRequiredString(brand, "name", `Brand "${brand.id || "unknown"}"`);
-  checkArray(brand, "series", `Brand "${brand.name || brand.id}"`);
+  const label = `Brand "${brand.name || brand.id || "unknown"}"`;
+
+  checkRequiredString(brand, "id", label);
+  checkRequiredString(brand, "name", label);
+  checkArray(brand, "series", label);
+
+  if (brand.officialSites !== undefined) {
+    checkArray(brand, "officialSites", label);
+
+    (brand.officialSites || []).forEach((site, index) => {
+      if (!site.region || !site.label || !site.url) {
+        warning(`${label} officialSites[${index}] should include region, label, and url.`);
+      }
+    });
+  }
 });
 
 series.forEach((item) => {
@@ -164,3 +176,4 @@ console.log(`Warnings: ${warningCount}`);
 if (errorCount > 0) {
   process.exit(1);
 }
+

@@ -132,6 +132,29 @@ export default function BrandsPage() {
           </Link>
         </div>
 
+        {(selectedBrandData.officialSites || []).length > 0 && (
+          <section className="brandOfficialSites">
+            <div>
+              <div className="catalogEyebrow">Official references</div>
+              <h2>{selectedBrandData.name} official websites</h2>
+              <p>
+                Product names, model availability, and specifications may differ by region.
+                Always check the relevant official regional site before treating product data as final.
+              </p>
+            </div>
+
+            <div className="officialSiteGrid">
+              {selectedBrandData.officialSites.map((site) => (
+                <a key={`${site.region}-${site.url}`} href={site.url} target="_blank" rel="noreferrer">
+                  <span>{site.region}</span>
+                  <strong>{site.label}</strong>
+                  {site.note && <em>{site.note}</em>}
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
         <div className="catalogSectionHeader brandFamilyHeader">
           <div>
             <div className="catalogEyebrow">Series families</div>
@@ -211,6 +234,7 @@ export default function BrandsPage() {
     </main>
   );
 }
+
 
 
 

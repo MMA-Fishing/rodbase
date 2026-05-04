@@ -78,6 +78,16 @@ export default function DataCorrectionsPage() {
         </section>
 
         <section className="dataDisclaimerPanel">
+          <h2>Image and media policy</h2>
+          <p>
+            RodBase does not copy official product photos by default. Product images should only be used
+            when they are owned by RodBase, licensed, permission-approved, or otherwise clearly allowed.
+            When image usage is not confirmed, RodBase should use a neutral fallback graphic and link users
+            to the official product page instead.
+          </p>
+        </section>
+
+        <section className="dataDisclaimerPanel">
           <h2>Reference-only note</h2>
           <p>
             All fishing rod information, specifications, ratings, prices, market notes, comparisons,
@@ -95,6 +105,7 @@ export default function DataCorrectionsPage() {
     </main>
   );
 }
+
 
 
 

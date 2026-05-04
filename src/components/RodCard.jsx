@@ -1,5 +1,6 @@
 ﻿import { Link } from "react-router-dom";
 import Pill from "./Pill.jsx";
+import RodImage from "./RodImage.jsx";
 import {
   formatLengthM,
   formatLengthCm,
@@ -30,10 +31,7 @@ export default function RodCard({ rod }) {
   return (
     <article className={compared ? "catalogRodCard catalogRodCardCompared" : "catalogRodCard"}>
       <div className="rodImagePanel">
-        <div className="rodImagePlaceholder">
-          <span>{rod.brand}</span>
-          <strong>{rod.model}</strong>
-        </div>
+        <RodImage rod={rod} />
       </div>
 
       <div className="catalogRodBody">
@@ -116,3 +114,4 @@ export default function RodCard({ rod }) {
     </article>
   );
 }
+
