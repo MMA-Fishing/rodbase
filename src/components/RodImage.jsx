@@ -1,4 +1,5 @@
 ﻿import { useState } from "react";
+import { useLocale } from "../context/LocaleContext.jsx";
 
 const PUBLIC_SAFE_IMAGE_USAGE = new Set([
   "own-photo",
@@ -16,12 +17,9 @@ function getRodImageClass(rod) {
   return "rodFallbackStandard";
 }
 
-function getFallbackLabel() {
-  return "Reference graphic only";
-}
-
 export default function RodImage({ rod, className = "" }) {
   const [failed, setFailed] = useState(false);
+  const { t } = useLocale();
 
   const isLocalTestImage = rod.imageUsage === "local-test-only" && import.meta.env.DEV;
   const isPublicSafeImage = PUBLIC_SAFE_IMAGE_USAGE.has(rod.imageUsage);
@@ -59,9 +57,8 @@ export default function RodImage({ rod, className = "" }) {
 
       <div className="rodFallbackBottom">
         <span>{rod.construction || "Rod"}</span>
-        <span>{getFallbackLabel(rod)}</span>
+        <span>{t("rodImage.referenceGraphicOnly")}</span>
       </div>
     </div>
   );
 }
-

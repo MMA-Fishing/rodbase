@@ -1,38 +1,34 @@
-﻿export const supportedLocales = [
+export const supportedLocales = [
   {
-    code: "en",
-    label: "EN",
-    nativeName: "English",
-    htmlLang: "en",
+    "code": "en",
+    "label": "EN",
+    "nativeName": "English",
+    "htmlLang": "en"
   },
   {
-    code: "zh-Hant",
-    label: "繁中",
-    nativeName: "繁體中文",
-    htmlLang: "zh-Hant",
-  },
+    "code": "zh-Hant",
+    "label": "繁中",
+    "nativeName": "繁體中文",
+    "htmlLang": "zh-Hant"
+  }
 ];
 
 export const translations = {
-  en: {
+  "en": {
     "topbar.left": "Fishing rod database & comparison tool",
     "topbar.right": "Browse by brand, series, type, and exact specifications",
-
     "brand.subtitle": "Fishing Rod Database",
-
     "nav.rods": "Rods",
     "nav.brands": "Brands",
     "nav.compare": "Compare",
     "nav.articles": "Articles",
     "nav.reels": "Reels",
     "nav.next": "Next",
-
     "header.searchPlaceholder": "Search rods, series, model code...",
     "header.mobileSearchPlaceholder": "Search RodBase...",
     "header.search": "Search",
     "header.searchRods": "Search rods",
     "header.dataCorrections": "Data & Corrections",
-
     "home.title": "Find fishing rods by brand, type, series, and exact specs.",
     "home.description": "A brand-first fishing rod database for comparing length, closed length, lure rating, PE rating, construction, aliases, and source records.",
     "home.eyebrow": "RodBase catalogue",
@@ -63,7 +59,6 @@ export const translations = {
     "home.readArticle": "Read article →",
     "home.pageTitle": "Fishing Rod Database",
     "home.pageDescription": "Browse and compare fishing rods by brand, series, model, length, closed length, lure rating, PE rating, and construction.",
-
     "search.pageTitle": "Search Rods",
     "search.pageDescription": "Search indexed fishing rods by brand, series, model code, length, closed length, weight, construction, and use case.",
     "search.eyebrow": "Rod finder",
@@ -122,27 +117,36 @@ export const translations = {
     "search.summary.length": "Length",
     "search.summary.closed": "Closed",
     "search.summary.weight": "Weight",
+    "common.notListed": "Not listed",
+    "rodCard.compare": "Compare",
+    "rodCard.length": "Length",
+    "rodCard.closed": "Closed",
+    "rodCard.weight": "Weight",
+    "rodCard.lure": "Lure",
+    "rodCard.line": "Line",
+    "rodCard.sections": "Sections",
+    "rodCard.source": "Source ↗",
+    "rodCard.viewDetails": "View details",
+    "rodCard.inCompareSet": "In compare set",
+    "rodCard.compareFull": "Compare full",
+    "rodCard.viewCompare": "View compare",
+    "rodImage.referenceGraphicOnly": "Reference graphic only"
   },
-
   "zh-Hant": {
     "topbar.left": "釣竿資料庫與比較工具",
     "topbar.right": "按品牌、系列、類型及詳細規格瀏覽釣竿",
-
     "brand.subtitle": "釣竿資料庫",
-
     "nav.rods": "釣竿",
     "nav.brands": "品牌",
     "nav.compare": "比較",
     "nav.articles": "文章",
     "nav.reels": "魚鉸",
     "nav.next": "下一步",
-
     "header.searchPlaceholder": "搜尋釣竿、系列、型號...",
     "header.mobileSearchPlaceholder": "搜尋 RodBase...",
     "header.search": "搜尋",
     "header.searchRods": "搜尋釣竿",
     "header.dataCorrections": "資料與更正",
-
     "home.title": "按品牌、類型、系列及詳細規格尋找釣竿。",
     "home.description": "以品牌為起點的釣竿資料庫，方便比較總長、收納長度、餌重、PE 線號、結構、別名及資料來源紀錄。",
     "home.eyebrow": "RodBase 目錄",
@@ -173,7 +177,6 @@ export const translations = {
     "home.readArticle": "閱讀文章 →",
     "home.pageTitle": "釣竿資料庫",
     "home.pageDescription": "按品牌、系列、型號、總長、收納長度、餌重、PE 線號及結構瀏覽和比較釣竿。",
-
     "search.pageTitle": "搜尋釣竿",
     "search.pageDescription": "按品牌、系列、型號、總長、收納長度、重量、結構及用途搜尋已收錄釣竿。",
     "search.eyebrow": "釣竿搜尋",
@@ -232,7 +235,21 @@ export const translations = {
     "search.summary.length": "總長",
     "search.summary.closed": "收納",
     "search.summary.weight": "重量",
-  },
+    "common.notListed": "未列明",
+    "rodCard.compare": "比較",
+    "rodCard.length": "總長",
+    "rodCard.closed": "收納",
+    "rodCard.weight": "重量",
+    "rodCard.lure": "餌重",
+    "rodCard.line": "線號",
+    "rodCard.sections": "節數",
+    "rodCard.source": "來源 ↗",
+    "rodCard.viewDetails": "查看詳情",
+    "rodCard.inCompareSet": "已加入比較",
+    "rodCard.compareFull": "比較已滿",
+    "rodCard.viewCompare": "查看比較",
+    "rodImage.referenceGraphicOnly": "參考圖示"
+  }
 };
 
 export function translate(locale, key) {

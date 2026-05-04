@@ -1,7 +1,6 @@
 ﻿import { Link } from "react-router-dom";
 import Pill from "./Pill.jsx";
 import RodImage from "./RodImage.jsx";
-import { getPrimarySourceRecord } from "../utils/sourceHelpers.js";
 import {
   formatLengthM,
   formatLengthCm,
@@ -11,6 +10,8 @@ import {
   formatMarketRegions,
 } from "../utils/rodFormatters.js";
 import { useCompare } from "../context/CompareContext.jsx";
+import { useLocale } from "../context/LocaleContext.jsx";
+import { getPrimarySourceRecord } from "../utils/sourceHelpers.js";
 
 export default function RodCard({ rod }) {
   const {
@@ -20,6 +21,8 @@ export default function RodCard({ rod }) {
     isCompared,
     toggleCompareId,
   } = useCompare();
+
+  const { t } = useLocale();
 
   const compared = isCompared(rod.id);
   const compareFull = !compared && !canAddMore;
@@ -46,7 +49,7 @@ export default function RodCard({ rod }) {
 
           <label
             className={compareFull ? "compareCheck compareCheckDisabled" : "compareCheck"}
-            title={compareFull ? `Maximum ${maxCompareRods} rods can be compared` : "Add to compare"}
+            title={compareFull ? `Maximum ${maxCompareRods} rods can be compared` : t("rodCard.compare")}
           >
             <input
               type="checkbox"
@@ -54,7 +57,7 @@ export default function RodCard({ rod }) {
               disabled={compareFull}
               onChange={handleCompareChange}
             />
-            Compare
+            {t("rodCard.compare")}
           </label>
         </div>
 
@@ -62,28 +65,28 @@ export default function RodCard({ rod }) {
 
         <div className="catalogSpecTable">
           <div>
-            <span>Length</span>
+            <span>{t("rodCard.length")}</span>
             <b>{formatLengthM(rod.lengthCm)}</b>
           </div>
           <div>
-            <span>Closed</span>
+            <span>{t("rodCard.closed")}</span>
             <b>{formatLengthCm(rod.closedLengthCm)}</b>
           </div>
           <div>
-            <span>Weight</span>
+            <span>{t("rodCard.weight")}</span>
             <b>{formatWeightG(rod.weightG)}</b>
           </div>
           <div>
-            <span>Lure</span>
+            <span>{t("rodCard.lure")}</span>
             <b>{formatLureRange(rod)}</b>
           </div>
           <div>
-            <span>Line</span>
+            <span>{t("rodCard.line")}</span>
             <b>{formatPeRange(rod)}</b>
           </div>
           <div>
-            <span>Sections</span>
-            <b>{rod.sections ?? "Unknown"}</b>
+            <span>{t("rodCard.sections")}</span>
+            <b>{rod.sections ?? t("common.notListed")}</b>
           </div>
         </div>
 
@@ -96,8 +99,8 @@ export default function RodCard({ rod }) {
         <div className="catalogRodMeta">
           <span>{rod.catalogueStatus}</span>
           <span>{formatMarketRegions(rod)}</span>
-          {compared && <span>In compare set</span>}
-          {compareFull && <span>Compare full</span>}
+          {compared && <span>{t("rodCard.inCompareSet")}</span>}
+          {compareFull && <span>{t("rodCard.compareFull")}</span>}
         </div>
 
         <div className="catalogRodFooter">
@@ -111,12 +114,12 @@ export default function RodCard({ rod }) {
                 target="_blank"
                 rel="noreferrer"
               >
-                Source ↗
+                {t("rodCard.source")}
               </a>
             )}
 
             <Link className="catalogViewButton" to={`/rods/${rod.id}`}>
-              View details
+              {t("rodCard.viewDetails")}
             </Link>
           </div>
         </div>
@@ -124,14 +127,9 @@ export default function RodCard({ rod }) {
 
       {compareIds.length > 0 && compared && (
         <Link className="compareMiniLink" to="/compare">
-          View compare
+          {t("rodCard.viewCompare")}
         </Link>
       )}
     </article>
   );
 }
-
-
-
-
-
