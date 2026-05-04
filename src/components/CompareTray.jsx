@@ -1,9 +1,10 @@
-﻿import { Link } from "react-router-dom";
+﻿import { Link, useLocation } from "react-router-dom";
 import { rods } from "../data/rods.js";
 import { useCompare } from "../context/CompareContext.jsx";
 import { formatLengthM, formatWeightG } from "../utils/rodFormatters.js";
 
 export default function CompareTray() {
+  const location = useLocation();
   const {
     compareIds,
     maxCompareRods,
@@ -15,7 +16,9 @@ export default function CompareTray() {
     .map((id) => rods.find((rod) => rod.id === id))
     .filter(Boolean);
 
-  if (selectedRods.length === 0) {
+  // The compare page already has the full selected-rod controls,
+  // so the persistent tray would be duplicated there.
+  if (location.pathname === "/compare" || selectedRods.length === 0) {
     return null;
   }
 
