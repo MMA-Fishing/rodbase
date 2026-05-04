@@ -4564,3 +4564,203 @@ footer {
     padding-bottom: 4px;
   }
 }
+
+/* Professional interaction and accessibility polish */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+a,
+button,
+input,
+select,
+textarea {
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    opacity 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+button:active,
+.catalogViewButton:active,
+.catalogPanelButton:active,
+.catalogSubmitLink:active,
+.compareTrayActions a:active,
+.compareTrayActions button:active {
+  transform: translateY(1px);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(180, 35, 24, 0.35);
+  outline-offset: 3px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--red) !important;
+  box-shadow: 0 0 0 3px rgba(180, 35, 24, 0.08);
+}
+
+.catalogRodCard,
+.twBrandCard,
+.brandFamilyCard,
+.catalogSeriesCard,
+.catalogGuideCard,
+.articleCatalogueCard,
+.compareSummaryCard {
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.catalogRodCard:hover,
+.twBrandCard:hover,
+.brandFamilyCard:hover,
+.catalogSeriesCard:hover,
+.catalogGuideCard:hover,
+.articleCatalogueCard:hover,
+.compareSummaryCard:hover {
+  box-shadow: 0 14px 34px rgba(21, 19, 15, 0.08);
+}
+
+.catalogRodCard:hover {
+  transform: translateY(-2px);
+}
+
+.catalogViewButton:hover,
+.catalogPanelButton:hover,
+.catalogSubmitLink:hover,
+.compareTrayActions a:hover,
+.rodSideButton:hover,
+.resultsToolbarActions a:hover {
+  filter: brightness(0.96);
+}
+
+.catalogTextLink:hover,
+.brandToolbar a:hover,
+.seriesToolbar a:hover,
+.breadcrumbs a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.catalogFilterPill:hover,
+.quickCategory:hover,
+.twBrandCard:hover .twBrandName,
+.catalogRodMeta span:hover {
+  border-color: var(--red);
+}
+
+.catalogFilterPillActive:hover,
+.activeQuickCategory:hover {
+  opacity: 0.92;
+}
+
+/* Prevent sticky compare tray from covering final content */
+body:has(.compareTray) footer {
+  padding-bottom: 108px;
+}
+
+/* Better readable sticky table columns */
+.stickyCompareColumn {
+  box-shadow: 8px 0 16px rgba(21, 19, 15, 0.04);
+}
+
+.compareTableShell,
+.seriesVariantTableWrap {
+  scrollbar-width: thin;
+  scrollbar-color: var(--red) #eee7dc;
+}
+
+.compareTableShell::-webkit-scrollbar,
+.seriesVariantTableWrap::-webkit-scrollbar,
+.quickCategoryRail::-webkit-scrollbar,
+.compareTrayItems::-webkit-scrollbar,
+.activeFilterSummary::-webkit-scrollbar {
+  height: 8px;
+}
+
+.compareTableShell::-webkit-scrollbar-thumb,
+.seriesVariantTableWrap::-webkit-scrollbar-thumb,
+.quickCategoryRail::-webkit-scrollbar-thumb,
+.compareTrayItems::-webkit-scrollbar-thumb,
+.activeFilterSummary::-webkit-scrollbar-thumb {
+  background: var(--red);
+}
+
+.compareTableShell::-webkit-scrollbar-track,
+.seriesVariantTableWrap::-webkit-scrollbar-track,
+.quickCategoryRail::-webkit-scrollbar-track,
+.compareTrayItems::-webkit-scrollbar-track,
+.activeFilterSummary::-webkit-scrollbar-track {
+  background: #eee7dc;
+}
+
+/* Mobile tap target polish */
+@media (max-width: 700px) {
+  button,
+  .catalogViewButton,
+  .catalogPanelButton,
+  .catalogSubmitLink,
+  .catalogNavLink,
+  .mobileNavButton,
+  .quickCategory,
+  .catalogFilterPill {
+    min-height: 42px;
+  }
+
+  .compareCheck {
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .compareCheck input {
+    width: 18px;
+    height: 18px;
+  }
+
+  .catalogHeroSearch input,
+  .catalogSearchBoxLarge input,
+  .catalogHeaderSearch input,
+  .catalogMobileSearch input {
+    font-size: 16px;
+  }
+
+  .catalogRodCard:hover {
+    transform: none;
+  }
+
+  body:has(.compareTray) footer {
+    padding-bottom: 220px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
