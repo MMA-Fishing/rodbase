@@ -10,6 +10,7 @@ import { articleCards } from "../data/articles.js";
 import { series } from "../data/series.js";
 import { rodTypeCards } from "../data/rodTypeCards.js";
 import { newReleases } from "../data/newReleases.js";
+import { useLocale } from "../context/LocaleContext.jsx";
 import {
   formatLengthM,
   formatLengthCm,
@@ -19,6 +20,7 @@ import {
 
 export default function HomePage() {
   const navigate = useNavigate();
+  const { t } = useLocale();
   const [homeSearch, setHomeSearch] = useState("");
 
   function submitHomeSearch() {
@@ -48,16 +50,14 @@ export default function HomePage() {
 
   return (
     <main className="catalogHome">
-      <PageTitle title="Fishing Rod Database" description="Browse and compare fishing rods by brand, series, model, length, closed length, lure rating, PE rating, and construction." />
+      <PageTitle title={t("home.pageTitle")} description={t("home.pageDescription")} />
+
       <section className="catalogHero compactCatalogueHero">
         <div className="container catalogHeroGrid">
           <div className="catalogHeroCopy">
-            <div className="catalogEyebrow">RodBase catalogue</div>
-            <h1>Find fishing rods by brand, type, series, and exact specs.</h1>
-            <p>
-              A brand-first fishing rod database for comparing length, closed length,
-              lure rating, PE rating, construction, aliases, and source records.
-            </p>
+            <div className="catalogEyebrow">{t("home.eyebrow")}</div>
+            <h1>{t("home.title")}</h1>
+            <p>{t("home.description")}</p>
 
             <div className="catalogHeroSearch">
               <input
@@ -66,9 +66,9 @@ export default function HomePage() {
                 onKeyDown={(event) => {
                   if (event.key === "Enter") submitHomeSearch();
                 }}
-                placeholder="Search Daiwa Mobile Pack, S86ML, Holiday Pack 270..."
+                placeholder={t("home.searchPlaceholder")}
               />
-              <button onClick={submitHomeSearch}>Search database</button>
+              <button onClick={submitHomeSearch}>{t("home.searchButton")}</button>
             </div>
 
             <div className="catalogQuickLinks">
@@ -81,22 +81,22 @@ export default function HomePage() {
             <div className="homeDataStats">
               <div>
                 <b>{rods.length}</b>
-                <span>Indexed rods</span>
+                <span>{t("home.indexedRods")}</span>
               </div>
               <div>
                 <b>{brands.length}</b>
-                <span>Brand entries</span>
+                <span>{t("home.brandEntries")}</span>
               </div>
               <div>
                 <b>{series.length}</b>
-                <span>Series pages</span>
+                <span>{t("home.seriesPages")}</span>
               </div>
             </div>
           </div>
 
           {featuredRod && (
             <aside className="catalogHeroPanel">
-              <div className="panelLabel">Featured indexed rod</div>
+              <div className="panelLabel">{t("home.featuredRod")}</div>
               <h2>{featuredRod.displayName}</h2>
               <p>
                 {featuredRod.rodType} · {featuredRod.construction} ·{" "}
@@ -104,14 +104,14 @@ export default function HomePage() {
               </p>
 
               <div className="heroSpecGrid">
-                <div><span>Length</span><b>{formatLengthM(featuredRod.lengthCm)}</b></div>
-                <div><span>Closed</span><b>{formatLengthCm(featuredRod.closedLengthCm)}</b></div>
-                <div><span>Weight</span><b>{formatWeightG(featuredRod.weightG)}</b></div>
-                <div><span>Lure</span><b>{formatLureRange(featuredRod)}</b></div>
+                <div><span>{t("home.length")}</span><b>{formatLengthM(featuredRod.lengthCm)}</b></div>
+                <div><span>{t("home.closed")}</span><b>{formatLengthCm(featuredRod.closedLengthCm)}</b></div>
+                <div><span>{t("home.weight")}</span><b>{formatWeightG(featuredRod.weightG)}</b></div>
+                <div><span>{t("home.lure")}</span><b>{formatLureRange(featuredRod)}</b></div>
               </div>
 
               <Link className="catalogPanelButton" to={`/rods/${featuredRod.id}`}>
-                Open rod page
+                {t("home.openRodPage")}
               </Link>
             </aside>
           )}
@@ -120,8 +120,8 @@ export default function HomePage() {
 
       <section className="container twStyleSection">
         <div className="twSectionTitle">
-          <h2>Browse Rods by Brand</h2>
-          <p>Start from the manufacturer, then drill into series and model variants.</p>
+          <h2>{t("home.browseBrandTitle")}</h2>
+          <p>{t("home.browseBrandDesc")}</p>
         </div>
 
         <div className="twBrandGrid twBrandGridFeatured">
@@ -145,8 +145,8 @@ export default function HomePage() {
 
       <section className="container twStyleSection">
         <div className="twSectionTitle">
-          <h2>Browse Rods by Type</h2>
-          <p>Choose a fishing style first, then compare specs inside that category.</p>
+          <h2>{t("home.browseTypeTitle")}</h2>
+          <p>{t("home.browseTypeDesc")}</p>
         </div>
 
         <div className="twTypeGrid">
@@ -172,10 +172,10 @@ export default function HomePage() {
         <div className="container">
           <div className="catalogSectionHeader">
             <div>
-              <div className="catalogEyebrow">Recently added</div>
-              <h2>Newly indexed rods</h2>
+              <div className="catalogEyebrow">{t("home.recentEyebrow")}</div>
+              <h2>{t("home.recentTitle")}</h2>
             </div>
-            <Link className="catalogTextLink" to="/search">View all rods</Link>
+            <Link className="catalogTextLink" to="/search">{t("home.viewAllRods")}</Link>
           </div>
 
           <div className="catalogRodGrid">
@@ -192,10 +192,10 @@ export default function HomePage() {
       <section className="container catalogSection">
         <div className="catalogSectionHeader">
           <div>
-            <div className="catalogEyebrow">Series index</div>
-            <h2>Popular rod series</h2>
+            <div className="catalogEyebrow">{t("home.seriesEyebrow")}</div>
+            <h2>{t("home.seriesTitle")}</h2>
           </div>
-          <Link className="catalogTextLink" to="/brands">Browse brands</Link>
+          <Link className="catalogTextLink" to="/brands">{t("home.browseBrands")}</Link>
         </div>
 
         <div className="catalogSeriesGrid">
@@ -216,10 +216,10 @@ export default function HomePage() {
       <section className="container catalogSection">
         <div className="catalogSectionHeader">
           <div>
-            <div className="catalogEyebrow">Guides</div>
-            <h2>Articles & buying notes</h2>
+            <div className="catalogEyebrow">{t("home.guidesEyebrow")}</div>
+            <h2>{t("home.guidesTitle")}</h2>
           </div>
-          <Link className="catalogTextLink" to="/articles">View articles</Link>
+          <Link className="catalogTextLink" to="/articles">{t("home.viewArticles")}</Link>
         </div>
 
         <div className="catalogGuideGrid">
@@ -228,7 +228,7 @@ export default function HomePage() {
               <Pill>{article.type}</Pill>
               <h3>{article.title}</h3>
               <p>{article.description}</p>
-              <span>Read article →</span>
+              <span>{t("home.readArticle")}</span>
             </Link>
           ))}
         </div>
@@ -236,6 +236,3 @@ export default function HomePage() {
     </main>
   );
 }
-
-
-
