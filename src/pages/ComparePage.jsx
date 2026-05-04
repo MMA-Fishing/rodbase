@@ -9,18 +9,20 @@ import {
   formatLureRange,
   formatPeRange,
   formatPriceHkd,
-  formatMarketRegions,
   valueOrUnknown,
 } from "../utils/rodFormatters.js";
 import { useCompare } from "../context/CompareContext.jsx";
 import { useLocale } from "../context/LocaleContext.jsx";
+import { translateDataLabel, translateLabelList } from "../i18n/dataLabels.js";
 
 function rowHasDifference(values) {
   const normalized = values.map((value) => String(value ?? "").trim().toLowerCase());
   return new Set(normalized).size > 1;
 }
 
-function createComparisonGroups(comparedRods, t) {
+function createComparisonGroups(comparedRods, t, locale) {
+  const notListed = t("common.notListed");
+
   return [
     {
       title: t("compare.group.identity"),
@@ -28,39 +30,85 @@ function createComparisonGroups(comparedRods, t) {
         { label: t("compare.row.brand"), values: comparedRods.map((rod) => rod.brand) },
         { label: t("compare.row.series"), values: comparedRods.map((rod) => rod.series) },
         { label: t("compare.row.model"), values: comparedRods.map((rod) => rod.model) },
-        { label: t("compare.row.generation"), values: comparedRods.map((rod) => valueOrUnknown(rod.generation)) },
-        { label: t("compare.row.catalogueStatus"), values: comparedRods.map((rod) => valueOrUnknown(rod.catalogueStatus)) },
-        { label: t("compare.row.marketRegions"), values: comparedRods.map((rod) => formatMarketRegions(rod)) },
+        {
+          label: t("compare.row.generation"),
+          values: comparedRods.map((rod) =>
+            translateDataLabel(locale, valueOrUnknown(rod.generation, notListed))
+          ),
+        },
+        {
+          label: t("compare.row.catalogueStatus"),
+          values: comparedRods.map((rod) =>
+            translateDataLabel(locale, valueOrUnknown(rod.catalogueStatus, notListed))
+          ),
+        },
+        {
+          label: t("compare.row.marketRegions"),
+          values: comparedRods.map((rod) => translateLabelList(locale, rod.marketRegions)),
+        },
       ],
     },
     {
       title: t("compare.group.dimensions"),
       rows: [
-        { label: t("compare.row.totalLength"), values: comparedRods.map((rod) => formatLengthM(rod.lengthCm)) },
-        { label: t("compare.row.closedLength"), values: comparedRods.map((rod) => formatLengthCm(rod.closedLengthCm)) },
-        { label: t("compare.row.rodWeight"), values: comparedRods.map((rod) => formatWeightG(rod.weightG)) },
-        { label: t("compare.row.sections"), values: comparedRods.map((rod) => valueOrUnknown(rod.sections)) },
-        { label: t("compare.row.construction"), values: comparedRods.map((rod) => valueOrUnknown(rod.construction)) },
+        { label: t("compare.row.totalLength"), values: comparedRods.map((rod) => formatLengthM(rod.lengthCm, notListed)) },
+        { label: t("compare.row.closedLength"), values: comparedRods.map((rod) => formatLengthCm(rod.closedLengthCm, notListed)) },
+        { label: t("compare.row.rodWeight"), values: comparedRods.map((rod) => formatWeightG(rod.weightG, notListed)) },
+        { label: t("compare.row.sections"), values: comparedRods.map((rod) => rod.sections ?? notListed) },
+        {
+          label: t("compare.row.construction"),
+          values: comparedRods.map((rod) =>
+            translateDataLabel(locale, valueOrUnknown(rod.construction, notListed))
+          ),
+        },
       ],
     },
     {
       title: t("compare.group.casting"),
       rows: [
-        { label: t("compare.row.rodType"), values: comparedRods.map((rod) => valueOrUnknown(rod.rodType)) },
-        { label: t("compare.row.reelType"), values: comparedRods.map((rod) => valueOrUnknown(rod.reelType)) },
-        { label: t("compare.row.lureWeight"), values: comparedRods.map((rod) => formatLureRange(rod)) },
-        { label: t("compare.row.peRating"), values: comparedRods.map((rod) => formatPeRange(rod)) },
-        { label: t("compare.row.power"), values: comparedRods.map((rod) => valueOrUnknown(rod.power)) },
-        { label: t("compare.row.action"), values: comparedRods.map((rod) => valueOrUnknown(rod.action)) },
-        { label: t("compare.row.tipType"), values: comparedRods.map((rod) => valueOrUnknown(rod.tipType)) },
+        {
+          label: t("compare.row.rodType"),
+          values: comparedRods.map((rod) =>
+            translateDataLabel(locale, valueOrUnknown(rod.rodType, notListed))
+          ),
+        },
+        {
+          label: t("compare.row.reelType"),
+          values: comparedRods.map((rod) =>
+            translateDataLabel(locale, valueOrUnknown(rod.reelType, notListed))
+          ),
+        },
+        { label: t("compare.row.lureWeight"), values: comparedRods.map((rod) => formatLureRange(rod, notListed)) },
+        { label: t("compare.row.peRating"), values: comparedRods.map((rod) => formatPeRange(rod, notListed)) },
+        {
+          label: t("compare.row.power"),
+          values: comparedRods.map((rod) =>
+            translateDataLabel(locale, valueOrUnknown(rod.power, notListed))
+          ),
+        },
+        {
+          label: t("compare.row.action"),
+          values: comparedRods.map((rod) =>
+            translateDataLabel(locale, valueOrUnknown(rod.action, notListed))
+          ),
+        },
+        {
+          label: t("compare.row.tipType"),
+          values: comparedRods.map((rod) =>
+            translateDataLabel(locale, valueOrUnknown(rod.tipType, notListed))
+          ),
+        },
       ],
     },
     {
       title: t("compare.group.usePrice"),
       rows: [
-        { label: t("compare.row.useCases"), values: comparedRods.map((rod) => (rod.useCases || []).join(" / ") || valueOrUnknown("")) },
-        { label: t("compare.row.typicalPrice"), values: comparedRods.map((rod) => formatPriceHkd(rod)) },
-        { label: t("compare.row.rating"), values: comparedRods.map((rod) => rod.rating ? `${rod.rating}/5` : valueOrUnknown("")) },
+        {
+          label: t("compare.row.useCases"),
+          values: comparedRods.map((rod) => translateLabelList(locale, rod.useCases)),
+        },
+        { label: t("compare.row.typicalPrice"), values: comparedRods.map((rod) => formatPriceHkd(rod, notListed)) },
+        { label: t("compare.row.rating"), values: comparedRods.map((rod) => rod.rating ? `${rod.rating}/5` : notListed) },
       ],
     },
   ];
@@ -74,7 +122,7 @@ export default function ComparePage() {
     clearCompareIds,
   } = useCompare();
 
-  const { t } = useLocale();
+  const { locale, t } = useLocale();
   const [showDifferencesOnly, setShowDifferencesOnly] = useState(false);
 
   const comparedRods = useMemo(() => {
@@ -84,8 +132,8 @@ export default function ComparePage() {
   }, [compareIds]);
 
   const allGroups = useMemo(() => {
-    return createComparisonGroups(comparedRods, t);
-  }, [comparedRods, t]);
+    return createComparisonGroups(comparedRods, t, locale);
+  }, [comparedRods, t, locale]);
 
   const groups = useMemo(() => {
     if (!showDifferencesOnly || comparedRods.length < 2) {
@@ -184,9 +232,9 @@ export default function ComparePage() {
                       <p>{rod.series}</p>
 
                       <div className="compareMiniSpecs">
-                        <span>{formatLengthM(rod.lengthCm)}</span>
-                        <span>{formatLengthCm(rod.closedLengthCm)} {t("rodCard.closed")}</span>
-                        <span>{formatWeightG(rod.weightG)}</span>
+                        <span>{formatLengthM(rod.lengthCm, t("common.notListed"))}</span>
+                        <span>{formatLengthCm(rod.closedLengthCm, t("common.notListed"))} {t("rodCard.closed")}</span>
+                        <span>{formatWeightG(rod.weightG, t("common.notListed"))}</span>
                       </div>
                     </div>
                   </Link>
@@ -291,4 +339,3 @@ export default function ComparePage() {
     </main>
   );
 }
-
